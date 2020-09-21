@@ -1,0 +1,582 @@
+* {
+    margin: 0;
+    padding: 0;
+    
+    box-sizing: border-box;
+}
+
+body {
+    font: normal normal 14px "Roboto", sans-serif;
+}
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 1600px;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    height: 94px;
+    align-items: center;
+    background-color: black;
+}
+
+
+
+.navigation-items {
+    display: flex;
+    align-items: center;
+    padding-left: 502px;
+    padding-right: 516px;
+    flex-grow: 1;
+
+
+    list-style: none;
+
+}
+
+.navigation-items>li>a {
+
+    color: white;
+    text-decoration: none;
+
+}
+
+.active-el:hover{
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
+
+.navigation-items>li:first-child {
+
+    font-weight: bold;
+    border-bottom: 2px solid white;
+
+}
+
+.navigation-items>li:nth-child(3) {
+    padding: 5px 101px 0px 100px;
+}
+
+.navigation-items>li:nth-child(2) {
+    padding-left: 85px;
+}
+
+.navigation-items>li:nth-child(4) {
+    padding-right: 85px;
+}
+
+.your-life {
+    height: 649px;
+    background-image: url('assets/bg-image.png');
+    background-position: bottom;
+}
+
+.navigation-items>li {
+
+    font: normal normal 14px/140% "Roboto", sans-serif;
+}
+
+.your-life__inner {
+    display: flex;
+    justify-content: center;
+}
+
+.your-life-items {
+    margin-top: 128px;
+    list-style: none;
+}
+
+.your-life-items>li:first-child {
+    margin-top: 8px;
+    font: normal bold 64px/75px "Roboto", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4.5px;
+
+    color: white;
+}
+
+.your-life-items>li:nth-child(2) {
+    margin-top: 21px;
+
+    font: normal normal 18px/140% "Roboto", sans-serif;
+    text-align: center;
+    color: white;
+}
+
+
+.btn-main {
+
+    padding: 15px 47px;
+
+    font: normal bold 14px/16px "Roboto", sans-serif;
+    background-color: #00AFDB;
+    text-transform: uppercase;
+    color: white;
+    border: none;
+    transition: .8s;
+}
+
+.btn-main:hover {
+    cursor: pointer;
+    background-color: #076d86;
+}
+
+.your-life-items>li:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
+    font: normal bold 14px/16px "Roboto", sans-serif;
+    color: white;
+}
+
+.your-life-social-items__inner {
+    display: flex;
+    justify-content: center;
+}
+
+.your-life-social-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 183px;
+    margin-bottom: 89px;
+
+
+    list-style: none;
+}
+
+.your-life-social-items>li:not(:first-child) {
+    padding-left: 30px;
+}
+
+.email:hover {
+   transform: scale(1.8);
+}
+
+.facebook:hover {
+    transform: scale(1.8);
+}
+
+.telega:hover {
+    transform: scale(1.8);
+}
+
+.insta:hover {
+    transform: scale(1.8);
+}
+.represent {
+    height: 842px;
+}
+.represent-items {
+    display: flex;
+
+    align-items: center;
+}
+
+.represent-items__inner {
+    display: flex;
+    flex-direction: column;
+    margin-top: 297px;
+    margin-left: 267px;
+    margin-bottom: 314px;
+
+    list-style: none;
+
+}
+
+.represent-items__inner>li:first-child {
+    margin-bottom: 22px;
+    font: normal bold 24px/28px "Roboto", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+
+.represent-items__inner>li:nth-child(2) {
+    font: normal normal 14px/150% "Roboto", serif;
+    padding-bottom: 23px;
+}
+
+.represent-items__inner>li:nth-child(3) {
+    margin-top: 3px;
+}
+
+.represent-items>img {
+    padding-left: 253px;
+    padding-right: 270px;
+    padding-bottom: 17px;
+}
+
+.our-community {
+    display: flex;
+    align-items: center;
+    height: 504px;
+}
+
+.our-community-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.our-community-items__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 147px;
+    margin-left: 272px;
+    margin-bottom: 175px;
+
+    list-style: none;
+}
+
+.our-community-items__inner>li:first-child {
+    padding-top: 8px;
+    margin-bottom: 20px;
+
+}
+
+.our-community-items__inner>li:nth-child(2) {
+    margin-bottom: 10px;
+
+    letter-spacing: 2.4px;
+
+    font: normal 500 16px/20px "Roboto", sans-serif;
+    text-transform: uppercase;
+}
+
+.our-community-items__inner>li:nth-child(3) {
+    text-align: center;
+    font: normal normal 14px/146% "Roboto", sans-serif;
+}
+
+.our-community-items-gallery__inner {
+    display: flex;
+    align-items: center;
+    margin-left: 141px;
+    margin-bottom: 60px;
+
+    list-style: none;
+}
+
+.our-community-items-gallery__inner>li:not(:first-child) {
+    padding-left: 30px;
+}
+
+.control {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 13px;
+    padding-right: 263px;
+    list-style: none;
+    font: normal normal 18px/140% "Roboto", sans-serif;
+}
+
+.control li:not(:first-child):not(:last-child) {
+    padding-left: 5px;
+    font: normal normal 18px/140% "Roboto", sans-serif;
+}
+
+.control>li:first-child {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+
+
+}
+
+.control>li:last-child {
+    padding-top: 5px;
+
+    margin-left: 10px;
+    padding-right: 5px;
+
+}
+
+.control>li:first-child:hover {
+    cursor: pointer;
+    box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);
+}
+
+.control>li:last-child:hover {
+
+    cursor: pointer;
+    box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);
+}
+
+.our-community>div:nth-child(2) {
+
+    justify-content: flex-end;
+}
+
+.community__slider {
+
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.implement {
+    display: flex;
+    align-items: center;
+    height: 842px;
+}
+
+.implement-items {
+    display: flex;
+
+    align-items: center;
+}
+
+.implement-items__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 140px;
+    margin-bottom: 20px;
+
+    list-style: none;
+
+}
+
+.implement-items__inner>li:first-child {
+    margin-bottom: 18px;
+    font: normal bold 24px/28px "Roboto", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+
+.implement-items__inner>li:nth-child(2) {
+    margin-bottom: 30px;
+
+    font: normal normal 14px/150% "Roboto", serif;
+
+}
+
+.implement-items>img {
+    margin-top: 119px;
+    margin-bottom: 140px;
+    margin-left: 269px;
+}
+
+.subscribe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 524px;
+}
+
+.subscribe__inner {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+   
+    margin-bottom: 19px;
+}
+
+.subscribe-info {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    padding-left: 593px;
+    padding-right: 595px;
+    background-image: url('assets/bg-subscribe.png');
+    background-size: cover;
+    background-position: bottom;
+}
+
+.subscribe-items {
+    display: flex;
+    align-items: center;
+    list-style: none;
+
+}
+
+.text-item {
+    margin-bottom: 30px;
+    margin-left: 15px;
+}
+
+.sign-up-text {
+
+    font: normal bold 24px/28px "Roboto", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+
+}
+
+.email-input {
+    border: none;
+    width: 340px;
+    height: 46px;
+}
+
+.btn-submit {
+
+    padding: 15px 24px;
+
+    font: normal bold 14px/16px "Roboto", sans-serif;
+    background-color: #00AFDB;
+    text-transform: uppercase;
+    color: white;
+    border: none;
+    transition: .8s;
+
+}
+
+.btn-submit:hover {
+    cursor: pointer;
+    background-color: #076d86;
+}
+
+
+.section-download {
+    height: 464px;
+    background-color: #F5F6F7;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.section-download-inner {
+    display: flex;
+    flex-direction: column;
+    padding-top: 116px
+}
+
+.section-download-inner .header {
+    margin-top: 5px;
+    margin-bottom: 3px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 1px;
+    color: #373737
+}
+
+.section-download-inner .text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #4E4E4E;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    width: 470px
+}
+
+.section-download-inner .link-collection {
+    display: flex;
+}
+
+.section-download-inner .link-collection .app-link {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    display: flex
+}
+
+.link-collection {}
+
+.section-download-inner .link-collection .app-link:first-of-type {
+    margin-left: 32px
+}
+
+.section-download-inner .link-collection .app-link-text {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    background-color: #00AFDB;
+    letter-spacing: 0.1px
+}
+
+.section-download-inner .link-collection .app-link-text-ios {
+    padding: 18px 18px 16px 19px
+}
+
+.section-download-inner .link-collection .app-link-text-android {
+    padding: 18px 16px 16px 17px
+}
+
+.section-download-inner .link-collection .app-link-icon {
+    background-color: #009CC2;
+    height: 50px;
+    width: 60px;
+    background-position: center;
+    background-repeat: no-repeat
+}
+
+.section-download-inner .link-collection .app-link:hover span {
+    background-color: #076d86;
+    transition: .8s;
+}
+
+.section-download-inner .link-collection .app-link-icon-ios {
+    background-image: url("assets/ios.svg")
+}
+
+.section-download-inner .link-collection .app-link-icon-android {
+    background-image: url("assets/android.svg")
+}
+
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 185px;
+    background-color: black;
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font: normal normal 14px/140% "Roboto", sans-serif;
+    color: white;
+    list-style: none;
+}
+
+.footer-items>li:nth-child(2) {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.footer-items>li:nth-child(4) {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.footer-items>li>a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-items>li>a:hover {
+    color: #585858;
+    border-bottom: 1px solid white;
+    transition: .8s;
+}
+
+.footer-logo {
+    margin-left: 382px;
+    margin-right: 448px;
+}
+
+.footer-wrapper {
+    padding-bottom: 15px;
+}
+
+.author {
+    font: normal normal 14px/140% "Roboto", sans-serif;
+    color: #818181;
+}
