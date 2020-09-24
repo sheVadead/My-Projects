@@ -43,10 +43,7 @@ header {
 
 }
 
-.active-el:hover{
-    font-weight: bold;
-    border-bottom: 2px solid white;
-}
+
 
 .navigation-items>li:first-child {
 
@@ -66,7 +63,14 @@ header {
 .navigation-items>li:nth-child(4) {
     padding-right: 85px;
 }
-
+.active-el {
+    opacity: .8;
+}
+.active-el:hover{
+    font-weight: bold;
+    border-bottom: 2px solid white;
+    opacity: 1;
+}
 .your-life {
     height: 649px;
     background-image: url('assets/bg-image.png');
