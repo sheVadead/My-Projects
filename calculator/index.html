@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <pre class="instructions">
+        Для доступа к дополнительным операциям нажмите на стрелку справа.
+
+    1.Действия с корнем:
+
+    -Введите нужное число;
+    -Нажмите на кнопку корня;
+    -Введите степень корня: 2 - квадратный корень, 3 - кубический и т.д;
+    -Нажмите кнопку =;
+    
+    2. Возведение в степень:
+
+    -Введите нужное число
+    -Нажмите кнопку x^y;
+    -Введите степень, в которую нужно возвести число
+    -Нажмите =
+
+    3. Действия с отрицательными числами:
+
+    - Введите число
+    - Нажмите на кнопку ±
+    - Нажатие на кнопку ± меняет число на противоположное
+    </pre>
+    <div class="calculator-grid">
+        <div class="calculator-wrapper">
+            <div class="output">
+                <div data-previous-operand class="previous-operand"></div>
+                <div data-current-operand class="current-operand"></div>
+            </div>
+            <button data-all-clear class="span-two">AC</button>
+            <button data-delete>DEL</button>
+            <button class="negative-positive" data-number>+/-</button>
+            <button data-operation>÷</button>
+            <button data-number>1</button>
+            <button data-number>2</button>
+            <button data-number>3</button>
+            <button data-operation>*</button>
+            <button data-number>4</button>
+            <button data-number>5</button>
+            <button data-number>6</button>
+            <button data-operation>+</button>
+            <button data-number>7</button>
+            <button data-number>8</button>
+            <button data-number>9</button>
+            <button data-operation>-</button>
+            <button data-number class="zero bottom-line">0</button>
+            <button data-number class="bottom-line">.</button>
+            <button data-equals class="span-two bottom-line">=</button>
+        </div>
+        <div class="more-computions">
+            <button data-operation>√</button>
+            <button data-operation>x^y</button>
+        </div>
+        
+    </div>
+    <img src="assets/left.svg"  class="right hide" width="60" height="60" alt="arrow">
+    <img src="assets/right.svg"  class="left" width="60" height="60" alt="arrow">
+</body>
+</html>
