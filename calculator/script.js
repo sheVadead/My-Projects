@@ -69,7 +69,6 @@ class Calculator {
           computation = +(Math.pow(prev, current)).toFixed(5);
           break
       case '√':
-        if(prev < 0) alert('Error: irrational number');
         computation = +(Math.pow(prev, (1 / current))).toFixed(5);
         break
       default:
@@ -104,6 +103,12 @@ class Calculator {
   }
 
   updateDisplay() {
+    if (isNaN(this.currentOperand)) {
+      this.clear();
+      this.currentOperandTextElement.innerText = "Error";
+      this.previousOperandTextElement.innerText = "";
+      return;
+  }
     this.currentOperandTextElement.innerText =
       this.getDisplayNumber(this.currentOperand)
     if (this.operation != null) {
