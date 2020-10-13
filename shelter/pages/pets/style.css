@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'Arial Regular';
-  src: local("Arial"), url("/shelter/assets/fonts/ARIAL.TTF") format("ttf"), url("/shelter/assets/fonts/ARIAL.TTF") format("ttf");
+  src: local("Arial"), url("../../assets/fonts/ARIAL.TTF") format("ttf"), url("../../assets/fonts/ARIAL.TTF") format("ttf");
 }
 
 @font-face {
   font-family: 'Arial Bold';
-  src: local("Arial"), url("/shelter/assets/fonts/ARIALBD.TTF") format("ttf"), url("/shelter/assets/fonts/ARIALBD.TTF") format("ttf");
+  src: local("Arial"), url("../../assets/fonts/ARIALBD.TTF") format("ttf"), url("../../assets/fonts/ARIALBD.TTF") format("ttf");
 }
 
 @font-face {
   font-family: 'Georgia Regular';
-  src: local("Arial"), url("/shelter/assets/fonts/GeorgiaRegularfont.ttf") format("ttf"), url("/shelter/assets/fonts/GeorgiaRegularfont.ttf") format("ttf");
+  src: local("Arial"), url("../../assets/fonts/GeorgiaRegularfont.ttf") format("ttf"), url("../../assets/fonts/GeorgiaRegularfont.ttf") format("ttf");
 }
 
 * {
@@ -356,7 +356,7 @@
   width: 128rem;
   margin: 0 auto;
   height: 35rem;
-  background: url(/shelter/assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  background: url(../../assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
 .footer__content {
