@@ -246,8 +246,7 @@
 
 .pets__slider {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin-bottom: 9.1rem;
 
@@ -323,14 +322,14 @@
 
 .arrow-left {
     position: absolute;
-    top: 393px;
-    right: 302px;
+    top: 398px;
+    right: 548px;
 }
 
 .arrow-right {
     position: absolute;
-    margin-left: 10px;
-    margin-right: 29px;
+    top: 398px;
+    left: 548px;
 }
 
 .arrow-left:hover {
