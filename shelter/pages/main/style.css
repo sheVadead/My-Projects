@@ -11,14 +11,14 @@
 @font-face {
     font-family: Georgia;
     /* Имя шрифта */
-    src: url(/shelter/assets/fonts/Georgia.ttf);
+    src: url(../../assets/fonts/Georgia.ttf);
     /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: "Georgia-400";
     /* Имя шрифта */
-    src: url(/shelter/assets/fonts/GeorgiaRegularfont.ttf);
+    src: url(../../assets/fonts/GeorgiaRegularfont.ttf);
     /* Путь к файлу со шрифтом */
 }
 
