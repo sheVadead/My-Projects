@@ -66,7 +66,9 @@
     margin-right: -0.4rem;
     margin-bottom: 0.4rem;
 }
-
+.burger {
+    display:none;
+}
 .main-navigation-items {
     display: flex;
     justify-content: center;
@@ -183,7 +185,7 @@
 
 }
 
-.about-us__item__img>img {
+.about__img {
     padding-left: 5rem;
     min-width: 100%;
 }
@@ -865,20 +867,34 @@
 }
 
 @media screen and (max-width: 766px) and (min-width: 320px) {
+    .header {
+        top: 3.1rem;
+    }
+    .main-navigation {
+        display: none;
+    }
+    .burger {
+        display: block;
+        height: 22px;
+        margin-right: 4.4rem;
+        margin-top: 2rem;
+    }
     .main {
-        width: 320px;
+        width: 32rem;
     }
-
     .wrapper {
-        width: 300px;
+        width: 30rem;
     }
 
+    .hero__image__inner {
+        margin-left: 3.5rem;
+    }
 
     .start-screen {
-        height: 823px;
-        padding-top: 150px;
+        height: 82.3rem;
+        padding-top: 15.2rem;
     }
-
+    
     .hero__image__inner {
         width: 260px;
         height: 271px;
@@ -898,7 +914,11 @@
         text-align: center;
         letter-spacing: 0.06em;
     }
-
+    .about-us__subtitle__first,
+    .about-us__subtitle__second {
+        width: 27rem;
+        text-align: justify;
+    }
     .hero_subtitle {
         width: 30rem;
         text-align: center;
@@ -916,36 +936,45 @@
     }
 
     .about__img {
-        width: 260px;
-        height: 353.6px;
+        width: 26rem;
+        height: 35.36rem;
+        padding-left: 0;
+        padding-top: 1rem;
     }
 
     .about-us__title {
         font: normal normal 25px/32.5px "Georgia-400", sans-serif;
         text-align: center;
+        margin-bottom: 0.2rem;
 
     }
 
     .about-us__item__text {
         margin: 0;
         align-items: center;
+        margin-top: 0.8rem;
     }
 
     .about-us__subtitle__first {
         text-align: justify;
     }
     .pets {
-        height: 791px;
+        height: 79.1rem;
     }
     .pets__slider {
-        flex-direction: column-reverse;
+        flex-direction: column;
+        margin-bottom: 14.4rem;
     }
     .pets-title {
-        
+        margin-top: 4.3rem;
+        margin-bottom: 4rem;
         width: 300px;
         font: normal normal 25px/32.5px "Georgia-400", sans-serif;
     }
     .fourth {
+        display: none;
+    }
+    .pets__slider__item:nth-child(2) {
         display: none;
     }
     .pets__slider__item:nth-child(3) {
@@ -954,15 +983,61 @@
     .pets__slider__item {
         order: 1;
     }
-
+    .arrow-left {
+       top: 57.59rem;
+        right: 4rem;
+    }
+    .arrow-right {
+        top: 57.59rem;
+        left: 4rem;
+    }
     .help {
-        height: 745px;
+        height: 74.5rem;
+    }
+    .help__content {
+        margin-top: 4.1rem;
+    }
+    .help-title {
+        margin-bottom: 4.2rem;
+        font: normal normal 2.5rem/130% "Georgia-400", sans-serif;
+    }
+    .help__item {
+        width: 13rem;
+        align-items: center;
+    
+    }
+    .help__items__first {
+        justify-content: space-between;
+    }
+    .help__item:nth-of-type(2n) {
+        margin: 0;
+        margin-right: 0.4rem;
+    }
+    .help__item:nth-of-type(2) {
+        margin-right: 5rem;
+    }
+    .help__item:nth-of-type(n) {
+        margin: 0;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .help__item > span {
+    margin-top: 2.1rem;
+        font: normal normal 1.5rem/110% "Georgia-400", sans-serif;
+    }
+    .help__item > img {
+        width: 5rem;
+        height: 5rem;
     }
     .donation {
         height: 542.2px;
     }
     .donation__content {
         flex-direction: column-reverse;
+        margin-top: 3.9rem;
+        align-items: center;
     }
     .donation__items {
         width: 300px;
@@ -971,20 +1046,30 @@
         width: 300px;
         font: normal normal 25px/32.5px "Georgia-400", sans-serif;
         text-align: center;
+        margin-bottom: 2.5rem;
     }
     
     
     .card-number {
         width: 28.1rem;
+       
         padding: 1rem 1.5rem;
         margin-bottom: 2rem;
         display: flex;
+        margin: 0 auto;
+        
     
     }
     .donation__items>li:nth-child(2) {
         margin: 0;
+        margin-bottom: 2.5rem;
         font: normal normal 1.4rem/110% "Georgia-400", sans-serif;
         text-align: center;
+        letter-spacing: 0.04em;
+        
+    }
+    .donation__items>li:nth-child(3) {
+        margin-bottom: 2rem;
     }
     .number>h4 {
         margin-left: 1.5rem;
@@ -994,27 +1079,49 @@
     }
     
     .donation__items>li:nth-child(4) {
-        font: italic normal 1.3rem/1.8rem Arial, sans-serif;
+        width: 28rem;
+        font: italic normal 1.2rem/1.8rem Arial, sans-serif;
         color: #B2B2B2;
         text-align: justify;
+        margin: 0 auto;
+        margin-bottom: 4rem;
     }
     .donation-dog {
         width: 260px;
         height: 135.2px;
+        margin: 0;
     }
     .footer {
         width: 320px;
         height: 899px
     }
     .footer__content {
+        margin-top: 1;
+        width: 30rem;
         flex-direction: column;
         align-items: center;
     }
+    .questions__item {
+        margin-top: 3.3rem;
+    }
+    .suggest__item {
+        margin-top: 4rem;
+    }
     .questions__item > li:first-child {
+        text-align: center;
+    }
+    .suggest__item > li:first-child {
+        margin-left: 1.8rem;
         text-align: center;
     }
     .footer-puppey {
         width: 260px;
         height: 269px;
+        margin-top: 8.9rem;
+        overflow: hidden;
     }
+}
+
+@media screen and (max-width: 767px) {
+    
 }
