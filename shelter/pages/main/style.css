@@ -21,7 +21,12 @@
     src: url(../../assets/fonts/GeorgiaRegularfont.ttf);
     /* Путь к файлу со шрифтом */
 }
-
+@font-face {
+    font-family: "Georgia-bold";
+    /* Имя шрифта */
+    src: url(../../assets/fonts/georgiabold.ttf);
+    /* Путь к файлу со шрифтом */
+}
 .wrapper {
     display: flex;
     margin: 0 auto;
@@ -82,7 +87,7 @@
 }
 
 .main-navigation-items>li>a:hover {
-    opacity: .8;
+    
 }
 
 .main-navigation-items>li:not(:first-child) {
@@ -100,6 +105,9 @@
 
 .link-disabled {
     color: #CDCDCD;
+}
+.link-disabled:hover {
+    opacity: .8;
 }
 
 .main {
@@ -324,12 +332,15 @@
 
 .arrow-left {
     position: absolute;
+    z-index: 0;
     top: 398px;
     right: 548px;
 }
 
 .arrow-right {
+
     position: absolute;
+    z-index: 0;
     top: 398px;
     left: 548px;
 }
@@ -1122,6 +1133,78 @@
     }
 }
 
-@media screen and (max-width: 767px) {
-    
+#modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 900px;
+    height: 500px;
+    z-index: 10;
+
+    background-color: #FFFFFF;
+}
+#modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal__inner > img {
+    width: 500px;
+    height: 500px;
+}
+.modal-name {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font: normal normal 35px/130% "Georgia-400", sans-serif;
+}
+.type-breed {
+    font: normal normal 20px/115% "Georgia-400", sans-serif;
+    margin-bottom: 4rem;
+}
+.modal__description {
+    margin-bottom: 4rem;
+    width: 350px;
+    font: normal normal 15px/110% "Georgia-400", sans-serif;
+    letter-spacing: 0.06em;
+}
+.modal-list > li {
+    color: #F1CDB3;;
+}
+
+.modal-list > li > h5,
+.modal-list > li > span {
+    color: black;
+}
+.pet-age,
+.pet-inoculations,
+.pet-diseases,
+.pet-parasites {
+    display: inline;
+    font: normal bold 15px/110% "Georgia-bold", sans-serif;
+}
+
+.age-info,
+.age-inoculations,
+.age-diseases,
+.age-parasites {
+    font: normal normal 15px/110% "Georgia-400", sans-serif;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background: rgba(41, 41, 41, 0.6);
+    pointer-events: none;
+}
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }

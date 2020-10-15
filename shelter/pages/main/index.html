@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
     <link rel="stylesheet" href="style.css">
-
+<script src="script.js" defer></script>
 </head>
 <body>
     <h1 hidden>Shelter</h1>
@@ -20,7 +20,7 @@
             </div>
             <nav class="main-navigation" >
                 <ul class="main-navigation-items">
-                    <li><a class="navigation-link link-active" href="#">About the shelter</a></li>
+                    <li><a class="navigation-link link-active" href="#" disabled>About the shelter</a></li>
                     <li><a class="navigation-link link-disabled" href="../pets/index.html">Our pets</a></li>
                     <li><a class="navigation-link link-disabled" href="#">Help the shelter</a></li>
                     <li><a class="navigation-link link-disabled" href="#">Contacts</a></li>
@@ -30,7 +30,24 @@
             <img src="../../assets/images/Burger.png" class="burger" alt="burger">
         </div>
     </header>
-
+<div class="active" id="modal">
+    <div class="modal__inner">
+        <img src="../../assets/images/pets-katrine.png" alt="">
+        <div class="modal__info">
+            <h3 class="modal-name">Katrine</h3>
+            <h4 class="type-breed">Dog - Labrador</h4>
+            <p class="modal__description">Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.</p>
+            <ul class="modal-list">
+                <li><h5 class="pet-age">Age: </h5><span class="age-info">2 month</span></li>
+                <li><h5 class="pet-inoculations">Inoculations</h5><span class="inoculations-info"></span></li>
+                <li><h5 class="pet-diseases">Diseases</h5><span class="diseases-info"></span></li>
+                <li><h5 class="pet-parasites">parasites</h5><span class="parasites-info"></span></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+<div  id="overlay"></div>
     <main class="main ">
         <section class="start-screen">
             <div class="wrapper">

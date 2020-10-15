@@ -86,7 +86,16 @@ sans-serif;
     letter-spacing: 0.06rem;
 
 }
-
+@mixin h3-mobile {
+    font: {
+        family: "Georgia-400";
+        style: normal;
+        weight: normal;
+        size: 2.5rem;
+    }
+        line-height: 130%;
+        letter-spacing: 0.06em;
+}
 @mixin logo_subtitle {
     font: {
         family: Arial;
@@ -202,12 +211,17 @@ sans-serif;
     font-size: 10px;
 }
 
+.burger {
+    display: none;
+}
 
 .link-active {
     color: #FAFAFA;
     border-bottom: solid 0.3rem #F1CDB3;
 }
-
+.link-disabled:hover {
+    opacity: .8;
+}
 .link-disabled {
     color: #CDCDCD;
 }
@@ -282,10 +296,6 @@ sans-serif;
         li {
             a {
                 text-decoration: none;
-            }
-
-            a:hover {
-                opacity: .8;
             }
         }
 
@@ -576,7 +586,7 @@ sans-serif;
     border: 0.2rem solid $color-dark-s;
 }
 
-@media all and (max-width: 1279px) and (min-width: 768px) {
+@media screen and (max-width: 1279px) and (min-width: 768px) {
     .main {
         width: 768px;
         height: 1852px;
@@ -675,6 +685,51 @@ sans-serif;
             .footer-puppey {
                 margin-top: 6.5rem;
                 margin-left: 20.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) and (min-width: 320px) {
+    .wrapper {
+        width: 30rem;
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main {
+        width: 32rem;
+    }
+    .header {
+        width: auto;
+        left: 9rem;
+    }
+    .main-navigation {
+        display: none;
+    }
+    .burger {
+        display: block;
+        height: 22px;
+        margin-right: 4.4rem;
+        margin-top: 2rem;
+    }
+
+    .pets-content {
+        &__title {
+            @include h3-mobile()
+        }
+        &__slider {
+            .first-line {
+                flex-direction: column;
+                &__item:nth-of-type(4) {
+                    display: none;
+                }
+            }
+            .second-line {
+                display: none;
             }
         }
     }
