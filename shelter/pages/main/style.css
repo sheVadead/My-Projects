@@ -1190,9 +1190,9 @@
 }
 
 .age-info,
-.age-inoculations,
-.age-diseases,
-.age-parasites {
+.inoculations-info,
+.diseases-info,
+.parasites-info {
     font: normal normal 15px/110% "Georgia-400", sans-serif;
 }
 
