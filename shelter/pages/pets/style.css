@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'Arial Regular';
-  src: local("Arial"), url("../../assets/fonts/ARIAL.TTF") format("ttf"), url("../../assets/fonts/ARIAL.TTF") format("ttf");
+  src: local("Arial"), url("/shelter/assets/fonts/ARIAL.TTF") format("ttf"), url("/shelter/assets/fonts/ARIAL.TTF") format("ttf");
 }
 
 @font-face {
   font-family: 'Arial Bold';
-  src: local("Arial"), url("../../assets/fonts/ARIALBD.TTF") format("ttf"), url("../../assets/fonts/ARIALBD.TTF") format("ttf");
+  src: local("Arial"), url("/shelter/assets/fonts/ARIALBD.TTF") format("ttf"), url("/shelter/assets/fonts/ARIALBD.TTF") format("ttf");
 }
 
 @font-face {
   font-family: 'Georgia Regular';
-  src: local("Arial"), url("../../assets/fonts/GeorgiaRegularfont.ttf") format("ttf"), url("../../assets/fonts/GeorgiaRegularfont.ttf") format("ttf");
+  src: local("Arial"), url("/shelter/assets/fonts/GeorgiaRegularfont.ttf") format("ttf"), url("/shelter/assets/fonts/GeorgiaRegularfont.ttf") format("ttf");
 }
 
 * {
@@ -24,9 +24,17 @@
   font-size: 10px;
 }
 
+.burger {
+  display: none;
+}
+
 .link-active {
   color: #FAFAFA;
   border-bottom: solid 0.3rem #F1CDB3;
+}
+
+.link-disabled:hover {
+  opacity: .8;
 }
 
 .link-disabled {
@@ -134,10 +142,6 @@
 
 .main-navigation__items li a {
   text-decoration: none;
-}
-
-.main-navigation__items li a:hover {
-  opacity: .8;
 }
 
 .main-navigation__items .link-active {
@@ -356,7 +360,7 @@
   width: 128rem;
   margin: 0 auto;
   height: 35rem;
-  background: url(../../assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  background: url(/shelter/assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
 .footer__content {
@@ -591,7 +595,7 @@
   border: 0.2rem solid #cdcdcd;
 }
 
-@media all and (max-width: 1279px) and (min-width: 768px) {
+@media screen and (max-width: 1279px) and (min-width: 768px) {
   .main {
     width: 768px;
     height: 1852px;
@@ -690,6 +694,63 @@
   .footer__content .footer-puppey {
     margin-top: 6.5rem;
     margin-left: 20.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 320px) {
+  .wrapper {
+    width: 30rem;
+  }
+  body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .main {
+    width: 32rem;
+  }
+  .header {
+    width: auto;
+    left: 9rem;
+  }
+  .main-navigation {
+    display: none;
+  }
+  .burger {
+    display: block;
+    height: 22px;
+    margin-right: 4.4rem;
+    margin-top: 2rem;
+  }
+  .pets-content__title {
+    font-family: "Georgia-400";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2.5rem;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+  }
+  .pets-content__slider .first-line {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .pets-content__slider .first-line__item:nth-of-type(4) {
+    display: none;
+  }
+  .pets-content__slider .second-line {
+    display: none;
   }
 }
 /*# sourceMappingURL=style.css.map */

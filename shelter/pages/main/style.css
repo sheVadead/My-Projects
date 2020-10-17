@@ -21,7 +21,12 @@
     src: url(../../assets/fonts/GeorgiaRegularfont.ttf);
     /* Путь к файлу со шрифтом */
 }
-
+@font-face {
+    font-family: "Georgia-bold";
+    /* Имя шрифта */
+    src: url(../../assets/fonts/georgiabold.ttf);
+    /* Путь к файлу со шрифтом */
+}
 .wrapper {
     display: flex;
     margin: 0 auto;
@@ -82,7 +87,7 @@
 }
 
 .main-navigation-items>li>a:hover {
-    opacity: .8;
+    
 }
 
 .main-navigation-items>li:not(:first-child) {
@@ -100,6 +105,9 @@
 
 .link-disabled {
     color: #CDCDCD;
+}
+.link-disabled:hover {
+    opacity: .8;
 }
 
 .main {
@@ -242,15 +250,18 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-
+    
+    overflow: hidden;
 
 }
 
 .pets__slider {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
+    width: 128rem;
     margin-bottom: 9.1rem;
+
 
 }
 
@@ -269,6 +280,9 @@
     background-color: #FFFFFF;
     box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 
+}
+.pets__slider__item:nth-child(1) {
+    margin-left: 15rem;
 }
 
 
@@ -319,17 +333,21 @@
     border: 0.2rem solid #F1CDB3;
     border-radius: 10rem;
     background-color: white;
+    z-index: 1;
 
 }
 
 .arrow-left {
     position: absolute;
+    z-index: 0;
     top: 398px;
     right: 548px;
 }
 
 .arrow-right {
+
     position: absolute;
+    z-index: 0;
     top: 398px;
     left: 548px;
 }
@@ -736,9 +754,7 @@
         height: 877px;
     }
 
-    .fourth {
-        display: none;
-    }
+
 .pets__slider {
     
     margin-left: 4rem;
@@ -962,7 +978,7 @@
         height: 79.1rem;
     }
     .pets__slider {
-        flex-direction: column;
+        flex-direction: row;
         margin-bottom: 14.4rem;
     }
     .pets-title {
@@ -971,9 +987,7 @@
         width: 300px;
         font: normal normal 25px/32.5px "Georgia-400", sans-serif;
     }
-    .fourth {
-        display: none;
-    }
+ 
     .pets__slider__item:nth-child(2) {
         display: none;
     }
@@ -983,6 +997,10 @@
     .pets__slider__item {
         order: 1;
     }
+    .pets__slider__item:nth-child(6) {
+        margin-right: 19rem;
+    }
+    
     .arrow-left {
        top: 57.59rem;
         right: 4rem;
@@ -1122,6 +1140,93 @@
     }
 }
 
-@media screen and (max-width: 767px) {
-    
+#modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 900px;
+    height: 500px;
+    z-index: 10;
+
+    background-color: #FFFFFF;
+}
+#modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal__inner > img {
+    width: 500px;
+    height: 500px;
+}
+.modal-name {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font: normal normal 35px/130% "Georgia-400", sans-serif;
+}
+.type-breed {
+    font: normal normal 20px/115% "Georgia-400", sans-serif;
+    margin-bottom: 4rem;
+}
+.modal__description {
+    margin-bottom: 4rem;
+    width: 350px;
+    font: normal normal 15px/110% "Georgia-400", sans-serif;
+    letter-spacing: 0.06em;
+}
+.modal-list > li {
+    color: #F1CDB3;;
+}
+
+.modal-list > li > h5,
+.modal-list > li > span {
+    color: black;
+}
+.pet-age,
+.pet-inoculations,
+.pet-diseases,
+.pet-parasites {
+    display: inline;
+    font: normal bold 15px/110% "Georgia-bold", sans-serif;
+}
+
+.age-info,
+.inoculations-info,
+.diseases-info,
+.parasites-info {
+    font: normal normal 15px/110% "Georgia-400", sans-serif;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background: rgba(41, 41, 41, 0.6);
+    pointer-events: none;
+    z-index: 5;
+}
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.close-button {
+    position: relative;
+    bottom: 553px;
+    left: 905px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    background:transparent;
+    border: 2px solid #F1CDB3;
+    outline: none;
 }
