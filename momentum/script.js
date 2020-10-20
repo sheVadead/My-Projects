@@ -76,7 +76,7 @@ let momentumObject = {
             momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgba(163, 135, 73, 0.6), rgba(255, 163, 43, 0.76))"
             momentumObject.classes.textQuote.style.color = 'black';
             momentumObject.classes.qotd.style.color = 'chocolate';
-        } else if (18 < hours || hours == 0) {
+        } else if (18 < hours) {
             momentumObject.classes.greeting.textContent = 'Good evening, ';
             document.body.style.backgroundImage = 'url("assets/images/evening.png")'
             momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgb(179 41 19 / 60%), rgb(214 126 126 / 43%))"
@@ -85,9 +85,17 @@ let momentumObject = {
             momentumObject.classes.author.style.color = 'white'
             momentumObject.classes.searchBox.style.backgroundColor = 'rgb(161 44 11)'
 
-        } else {
+        } else  if(hours < 6 && 0 <= hours) {
             momentumObject.classes.greeting.textContent = 'Good night, '
-            document.body.style = 'url("assets/images/night.jpg")'
+            document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
+            momentumObject.classes.qotd.style.color = 'white';
+            momentumObject.classes.author.style.color = 'white';
+            momentumObject.classes.textQuote.style.color = 'white';
+            momentumObject.classes.focusQuestion.style.color = '#cad7e4';
+            momentumObject.classes.name.style.color = 'bisque';
+            momentumObject.classes.greeting.style.color = 'white';
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+            momentumObject.classes.month.style.color = 'white';
         }
     },
     getWeatherData(city) {
