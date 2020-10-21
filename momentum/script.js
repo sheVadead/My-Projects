@@ -25,7 +25,10 @@ let momentumObject = {
         focusQuestion: document.querySelector('.focus-question'),
         searchBox: document.querySelector('.search-box'),
         headerWeather: document.querySelector('header'),
-        errorText: document.querySelector('.error-text')
+        errorText: document.querySelector('.error-text'),
+        imgArray: ['02.jpg','afternoon.jpg', 'evening.png', 'night.jpg'],
+        i: 0,
+        bodyImg: document.body.style.backgroundImage
     },
     addZero(n) {
         return (parseInt(n, 10) < 10 ? '0' : '') + n
@@ -98,6 +101,7 @@ let momentumObject = {
             momentumObject.classes.searchBox.style.backgroundColor = 'grey'
             momentumObject.classes.month.style.color = 'white';
         }
+
     },
     getWeatherData(city) {
         let promise = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=ru&appid=0e4043b05d572b6ae940f8ae8e46eac8&units=metric`);
@@ -105,6 +109,7 @@ let momentumObject = {
             this.configureWeather(weatherData)
             this.setWeather(weatherData);
             this.focusHandler();
+
         }).catch(() => {
             momentumObject.classes.errorText.textContent = 'Такого города не существует!';
             momentumObject.classes.errorText.classList.add('error');
@@ -125,6 +130,7 @@ let momentumObject = {
         momentumObject.classes.searchTown.addEventListener('blur', () => {
             momentumObject.classes.searchTown.placeholder = 'Search for a city...';
         })
+       
     },
     configureWeather(weatherData) {
         console.log(weatherData)
@@ -145,9 +151,22 @@ let momentumObject = {
         fetch(url).then(response => response.json()).then(quoteData => {
             momentumObject.classes.textQuote.textContent = ` \"${quoteData.quote.body}\"`;
             momentumObject.classes.author.textContent = quoteData.quote.author;
-
         })
         momentumObject.classes.qotd.addEventListener('click', this.getQuote);
+    },
+    reloadBackground () {
+        momentumObject.classes.reloadBtn.addEventListener('click', ()=> {
+            const index = momentumObject.classes.i % momentumObject.classes.imgArray.length;
+            const imageSrc = `url("assets/images/${momentumObject.classes.imgArray[index]}`
+            document.body.style.backgroundImage = imageSrc
+            momentumObject.classes.i++;
+            momentumObject.classes.reloadBtn.disabled = true;
+            setTimeout(()=>{ 
+                console.log('12')
+                momentumObject.classes.reloadBtn.disabled = false 
+            }, 1000);
+
+        })
     },
     getName(e) {
         if (localStorage.getItem('name') === null) {
@@ -251,7 +270,9 @@ let momentumObject = {
         this.setAll();
         this.getLocalWeather();
         this.focusHandler();
+        this.reloadBackground();
     }
 }
 
 momentumObject.init()
+
