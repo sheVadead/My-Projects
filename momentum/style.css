@@ -348,7 +348,7 @@ main {
   height: 1.6rem;
 
 }
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1079px) {
   :root {
     font-size: 9px;
   }
@@ -393,7 +393,7 @@ main {
     font-size: 2rem;
   }
   #time {
-    font-size: 10rem;
+    font-size: 9rem;
   }
   .quote {
 
