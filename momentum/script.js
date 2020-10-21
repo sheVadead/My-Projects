@@ -24,7 +24,8 @@ let momentumObject = {
         qotd: document.querySelector('.quote-of-the-day'),
         focusQuestion: document.querySelector('.focus-question'),
         searchBox: document.querySelector('.search-box'),
-        headerWeather: document.querySelector('header')
+        headerWeather: document.querySelector('header'),
+        errorText: document.querySelector('.error-text')
     },
     addZero(n) {
         return (parseInt(n, 10) < 10 ? '0' : '') + n
@@ -76,7 +77,7 @@ let momentumObject = {
             momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgba(163, 135, 73, 0.6), rgba(255, 163, 43, 0.76))"
             momentumObject.classes.textQuote.style.color = 'black';
             momentumObject.classes.qotd.style.color = 'chocolate';
-        } else if (18 < hours || hours == 0) {
+        } else if (18 < hours) {
             momentumObject.classes.greeting.textContent = 'Good evening, ';
             document.body.style.backgroundImage = 'url("assets/images/evening.png")'
             momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgb(179 41 19 / 60%), rgb(214 126 126 / 43%))"
@@ -85,9 +86,17 @@ let momentumObject = {
             momentumObject.classes.author.style.color = 'white'
             momentumObject.classes.searchBox.style.backgroundColor = 'rgb(161 44 11)'
 
-        } else {
+        } else  if(hours < 6 && 0 <= hours) {
             momentumObject.classes.greeting.textContent = 'Good night, '
-            document.body.style = 'url("assets/images/night.jpg")'
+            document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
+            momentumObject.classes.qotd.style.color = 'white';
+            momentumObject.classes.author.style.color = 'white';
+            momentumObject.classes.textQuote.style.color = 'white';
+            momentumObject.classes.focusQuestion.style.color = '#cad7e4';
+            momentumObject.classes.name.style.color = 'bisque';
+            momentumObject.classes.greeting.style.color = 'white';
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+            momentumObject.classes.month.style.color = 'white';
         }
     },
     getWeatherData(city) {
@@ -97,13 +106,10 @@ let momentumObject = {
             this.setWeather(weatherData);
             this.focusHandler();
         }).catch(() => {
-            let error = document.createElement('span');
-            error.classList.add('error');
+            momentumObject.classes.errorText.textContent = 'Такого города не существует!';
+            momentumObject.classes.errorText.classList.add('error');
             momentumObject.classes.searchBox.classList.add('tremor');
             momentumObject.classes.searchBox.style.borderColor = 'red';
-            error.textContent = 'Такого города не существует!';
-
-            momentumObject.classes.headerWeather.appendChild(error);
             this.hideError();
         })
     },
@@ -227,9 +233,10 @@ let momentumObject = {
     hideError() {
         setTimeout(() => {
             setTimeout(() => {
-                document.querySelector('.error').remove();
                 momentumObject.classes.searchBox.classList.remove('tremor');
+                momentumObject.classes.errorText.classList.remove('error');
                 momentumObject.classes.searchBox.style.borderColor = '';
+                momentumObject.classes.errorText.textContent = '';
             }, 2000)
         })
     },
