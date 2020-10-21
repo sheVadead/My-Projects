@@ -162,7 +162,7 @@ let momentumObject = {
             momentumObject.classes.i++;
             momentumObject.classes.reloadBtn.disabled = true;
             setTimeout(()=>{ 
-                console.log('12')
+
                 momentumObject.classes.reloadBtn.disabled = false 
             }, 1000);
 
