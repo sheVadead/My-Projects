@@ -24,7 +24,8 @@ let momentumObject = {
         qotd: document.querySelector('.quote-of-the-day'),
         focusQuestion: document.querySelector('.focus-question'),
         searchBox: document.querySelector('.search-box'),
-        headerWeather: document.querySelector('header')
+        headerWeather: document.querySelector('header'),
+        errorText: document.querySelector('.error-text')
     },
     addZero(n) {
         return (parseInt(n, 10) < 10 ? '0' : '') + n
@@ -105,13 +106,10 @@ let momentumObject = {
             this.setWeather(weatherData);
             this.focusHandler();
         }).catch(() => {
-            let error = document.createElement('span');
-            error.classList.add('error');
+            momentumObject.classes.errorText.textContent = 'Такого города не существует!';
+            momentumObject.classes.errorText.classList.add('error');
             momentumObject.classes.searchBox.classList.add('tremor');
             momentumObject.classes.searchBox.style.borderColor = 'red';
-            error.textContent = 'Такого города не существует!';
-
-            momentumObject.classes.headerWeather.appendChild(error);
             this.hideError();
         })
     },
@@ -235,9 +233,10 @@ let momentumObject = {
     hideError() {
         setTimeout(() => {
             setTimeout(() => {
-                document.querySelector('.error').remove();
                 momentumObject.classes.searchBox.classList.remove('tremor');
+                momentumObject.classes.errorText.classList.remove('error');
                 momentumObject.classes.searchBox.style.borderColor = '';
+                momentumObject.classes.errorText.textContent = '';
             }, 2000)
         })
     },
