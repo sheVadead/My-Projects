@@ -97,6 +97,10 @@ let momentumObject = {
         }
 
     },
+    getGeolocation() {
+
+    }
+    ,
     getWeatherData(city) {
         let promise = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=ru&appid=0e4043b05d572b6ae940f8ae8e46eac8&units=metric`);
         promise.then(response => response.json()).then(weatherData => {
@@ -105,10 +109,18 @@ let momentumObject = {
             this.focusHandler();
 
         }).catch(() => {
-            momentumObject.classes.errorText.textContent = 'Такого города не существует!';
-            momentumObject.classes.errorText.classList.add('error');
-            momentumObject.classes.searchBox.classList.add('tremor');
-            momentumObject.classes.searchBox.style.borderColor = 'red';
+            if(momentumObject.classes.searchBox.value == '') {
+                momentumObject.classes.errorText.textContent = 'Вы не ввели название города!';
+                momentumObject.classes.errorText.classList.add('error');
+                momentumObject.classes.searchBox.classList.add('tremor');
+                momentumObject.classes.searchBox.style.borderColor = 'red';
+            } else {
+                momentumObject.classes.errorText.textContent = 'Такого города не существует!';
+                momentumObject.classes.errorText.classList.add('error');
+                momentumObject.classes.searchBox.classList.add('tremor');
+                momentumObject.classes.searchBox.style.borderColor = 'red';
+            }
+            
             this.hideError();
         })
     },
@@ -151,12 +163,15 @@ let momentumObject = {
     reloadBackground () {
         let iter = new Date().getHours();
         momentumObject.classes.reloadBtn.addEventListener('click', ()=> {
-           iter = iter + 1
+            ++iter;
             if(23 < iter) {
                 iter =0
             }
+            let src = momentumObject.classes.listOfImages.flat()[iter];
+            const img = document.createElement('img');
+            img.src = src;
+            console.log(img)
             document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[iter]})`
-            ++iter;
             momentumObject.classes.reloadBtn.disabled = true;
             setTimeout(()=>{ 
                 momentumObject.classes.reloadBtn.disabled = false 
@@ -275,6 +290,7 @@ let momentumObject = {
     },
     setRandomBackground() {
         let hour = new Date().getHours();
+        console.log(momentumObject.classes.listOfImages.flat())
          document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[hour]}`
     },
     intervalHandler() {
