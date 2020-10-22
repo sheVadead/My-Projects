@@ -41,8 +41,11 @@ body {
   font-family: Commissioner, sans-serif;
 }
 
-h1 {
+.welcome {
+  display: flex;
+  align-items: center;
   margin-bottom: 3rem;
+
 }
 
 #time {
@@ -68,10 +71,11 @@ h1 {
 
 .name {
   text-align: center;
-  font: bold normal 3rem/130% Commissioner, sans-serif;
+  font: bold normal 2.5rem/130% Commissioner, sans-serif;
   color: #f9e7e7;
   text-shadow: 2px 2px 2px #000;
-  width: 26rem;
+  width: auto;
+
 }
 
 #focus {
@@ -137,7 +141,7 @@ header input {
   padding: 10px 15px;
   border: none;
   outline: none;
-  background-color: rgba(201, 43, 43, 0.3);
+  background-color: rgb(232 216 216 / 30%);
   border-radius: 16px 0px 16px 0px;
   border-bottom: 3px solid #DF8E00;
 
@@ -277,6 +281,7 @@ main {
   position: relative;
   top: 10px;
   font: bold normal 1.5rem/110% Roboto, sans-serif;
+  color: red;
 }
 .tremor {
   -webkit-animation: 0.1s tremor ease-out 0.1s;  
