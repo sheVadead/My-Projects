@@ -12,7 +12,7 @@ body {
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-  transition: background-image 0.5s ease-in-out;
+  transition: background-image 0.7s ease-in-out;
 }
 
 .wrapper {
@@ -261,18 +261,20 @@ main {
   justify-content: space-around;
   align-items: center;
   margin-bottom: 1rem;
-  background-color: rgb(173, 204, 224);
+  background-color: rgb(101, 101, 101, 0.7);
   width: 28rem;
   border-radius: 40px;
   font: bold normal 2.3rem/120% Commissioner, sans-serif;
   color: #fcf3f3;
   text-shadow: 2px 2px 2px #000;
-  filter: brightness(88%);
-  opacity: .7;
+  filter: brightness(78%);
 
+  transition: background-color 0.3s ease-in-out;
 }
 .quote-of-the-day:hover {
+  background-color: rgb(101, 101, 101, 1);
   cursor: pointer;
+  filter: brightness(99%);
 }
 .author {
   font: normal italic 1.5rem/120% Commissioner, sans-serif;
@@ -284,9 +286,16 @@ main {
   width: 50rem;
   color: #f9e7e7;
   text-shadow: 2px 2px 2px #000;
+  transition: linear 0.3s ease-in-out;
+}
+.search-box{
+  background-color: #84787863;
+  color: white;
+  filter: brightness(77%)
 }
 .search-box:focus {
-  filter: brightness(85%)
+  background-color: gray;
+  filter: brightness(99%)
 }
 .error {
   position: relative;

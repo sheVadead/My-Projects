@@ -86,7 +86,7 @@ let momentumObject = {
             momentumObject.classes.greeting.textContent = 'Good evening, ';
             
             
-            momentumObject.classes.searchBox.style.backgroundColor = 'rgb(161 44 11)'
+            momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
 
         } else  if(hours < 6 && 0 <= hours) {
             momentumObject.classes.timePeriod = 'Night'
@@ -156,11 +156,11 @@ let momentumObject = {
                 iter =0
             }
             document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[iter]})`
-            ++iter1;
+            ++iter;
             momentumObject.classes.reloadBtn.disabled = true;
             setTimeout(()=>{ 
                 momentumObject.classes.reloadBtn.disabled = false 
-            }, 2000);
+            }, 2500);
 
         })
     },
