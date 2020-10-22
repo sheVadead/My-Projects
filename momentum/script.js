@@ -26,9 +26,17 @@ let momentumObject = {
         searchBox: document.querySelector('.search-box'),
         headerWeather: document.querySelector('header'),
         errorText: document.querySelector('.error-text'),
-        imgArray: ['02.jpg','afternoon.jpg', 'evening.png', 'night.jpg'],
+        hiddenHour: document.querySelector('.hidden-time'),
+        imgArray:  ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'],
         i: 0,
-        bodyImg: document.body.style.backgroundImage
+        bodyImg: document.body.style.backgroundImage,
+        timePeriod: '',
+        index: 0,
+        listOfImages: [],
+        hourForBack: new Date().getSeconds(),
+        tenMinutes: 60000,
+        oneMinute: 1000,
+
     },
     addZero(n) {
         return (parseInt(n, 10) < 10 ? '0' : '') + n
@@ -38,6 +46,7 @@ let momentumObject = {
         let hours = data.getHours();
         let minutes = data.getMinutes();
         let sec = data.getSeconds();
+
         momentumObject.classes.time.innerHTML = `${hours}<span>:</span>${momentumObject.addZero(minutes)}<span>:</span>${momentumObject.addZero(sec)}`;
     },
     startDay() {
@@ -60,46 +69,31 @@ let momentumObject = {
         let data = new Date();
         let hours = data.getHours();
         if (6 <= hours && hours <= 12) {
+            momentumObject.classes.timePeriod = 'morning'
             momentumObject.classes.greeting.textContent = 'Good morning, ';
-            momentumObject.classes.greeting.style.color = '#cad7e4';
-            momentumObject.classes.focusQuestion.style.color = '#cad7e4';
-            momentumObject.classes.name.style.color = 'bisque';
-            momentumObject.classes.qotd.style.color = 'rgb(216 225 234)';
             document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
-            momentumObject.classes.time.style.color = 'rgb(8, 7, 5)'
             momentumObject.classes.searchBox.style.backgroundColor = 'rgb(29 111 149)';
-            momentumObject.classes.focus.style.color = 'bisque';
-            momentumObject.classes.textQuote.style.color = 'rgb(216 225 234)';
-            momentumObject.classes.author.style.color = 'rgb(216 225 234)';
             momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgb(15 109 155), rgb(48 66 11))";
         } else if (12 < hours && hours <= 18) {
+            momentumObject.classes.timePeriod = 'day'
             momentumObject.classes.greeting.textContent = 'Good afternoon, ';
             document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
-            momentumObject.classes.time.style.color = '#b6681e';
-            momentumObject.classes.focus.style.color = '#b6681e';
-            momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgba(163, 135, 73, 0.6), rgba(255, 163, 43, 0.76))"
-            momentumObject.classes.textQuote.style.color = 'black';
-            momentumObject.classes.qotd.style.color = 'chocolate';
+
+            momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgba(163, 135, 73, 0.6), rgb(107 94 77 / 76%))"
+
         } else if (18 < hours) {
+            momentumObject.classes.timePeriod = 'evening'
             momentumObject.classes.greeting.textContent = 'Good evening, ';
-            document.body.style.backgroundImage = 'url("assets/images/evening.png")'
+            
             momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgb(179 41 19 / 60%), rgb(214 126 126 / 43%))"
-            momentumObject.classes.textQuote.style.color = 'white';
-            momentumObject.classes.qotd.style.color = 'white'
-            momentumObject.classes.author.style.color = 'white'
             momentumObject.classes.searchBox.style.backgroundColor = 'rgb(161 44 11)'
 
         } else  if(hours < 6 && 0 <= hours) {
+            momentumObject.classes.timePeriod = 'Night'
             momentumObject.classes.greeting.textContent = 'Good night, '
             document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
-            momentumObject.classes.qotd.style.color = 'white';
-            momentumObject.classes.author.style.color = 'white';
-            momentumObject.classes.textQuote.style.color = 'white';
-            momentumObject.classes.focusQuestion.style.color = '#cad7e4';
-            momentumObject.classes.name.style.color = 'bisque';
-            momentumObject.classes.greeting.style.color = 'white';
             momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-            momentumObject.classes.month.style.color = 'white';
+
         }
 
     },
@@ -155,14 +149,15 @@ let momentumObject = {
         momentumObject.classes.qotd.addEventListener('click', this.getQuote);
     },
     reloadBackground () {
+        let iter = new Date().getHours();
         momentumObject.classes.reloadBtn.addEventListener('click', ()=> {
-            const index = momentumObject.classes.i % momentumObject.classes.imgArray.length;
-            const imageSrc = `url("assets/images/${momentumObject.classes.imgArray[index]}`
-            document.body.style.backgroundImage = imageSrc
-            momentumObject.classes.i++;
+           iter = iter + 1
+            console.log(momentumObject.classes.listOfImages.flat()[iter])
+            document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[iter]})`
+            ++iter1;
+            console.log(iter)
             momentumObject.classes.reloadBtn.disabled = true;
             setTimeout(()=>{ 
-
                 momentumObject.classes.reloadBtn.disabled = false 
             }, 1000);
 
@@ -170,9 +165,9 @@ let momentumObject = {
     },
     getName(e) {
         if (localStorage.getItem('name') === null) {
-            momentumObject.classes.name.textContent = '[Enter Name]';
+            momentumObject.classes.name.textContent = '[Enter your name]';
         } else {
-            momentumObject.classes.name.textContent = localStorage.getItem('name');
+            momentumObject.classes.name.textContent = localStorage.getItem('focus');
         }
     },
     getFocus(e) {
@@ -183,27 +178,30 @@ let momentumObject = {
         }
     },
     setName(e) {
-        if (e.type === 'keypress') {
-            // Make sure enter is pressed
-            if (e.which == 13 || e.keyCode == 13) {
-                localStorage.setItem('name', e.target.innerText);
+        if (e.which == 13 || e.keyCode == 13 ) {
+
+            if (momentumObject.classes.name.innerText == '' || momentumObject.classes.name.innerText == ' ' ) {
+                momentumObject.classes.name.innerText = localStorage.getItem('name') || '[Enter your name]';
+                momentumObject.classes.name.blur();
+                
+            } else {
+                localStorage.setItem('name', momentumObject.classes.name.innerText);
+                momentumObject.classes.name.innerText = localStorage.getItem('name');
                 momentumObject.classes.name.blur();
             }
-        } else {
-            localStorage.setItem('name', e.target.innerText);
         }
 
     },
     setFocus(e) {
-
-        if (e.type === 'keypress') {
-            // Make sure enter is pressed
-            if (e.which == 13 || e.keyCode == 13) {
-                localStorage.setItem('focus', e.target.innerText);
+        if (e.which == 13 || e.keyCode == 13 ) {
+            if (momentumObject.classes.focus.innerText == '' || momentumObject.classes.focus.innerText == ' ' ) {
+                momentumObject.classes.focus.innerText = localStorage.getItem('focus') || '[What is in focus today?]';
+                momentumObject.classes.focus.blur();
+            } else {
+                localStorage.setItem('focus', momentumObject.classes.focus.innerText);
+                momentumObject.classes.focus.innerText = localStorage.getItem('focus');
                 momentumObject.classes.focus.blur();
             }
-        } else {
-            localStorage.setItem('focus', e.target.innerText);
         }
     },
     setWeather(weatherData) {
@@ -230,18 +228,18 @@ let momentumObject = {
     setAll() {
         momentumObject.classes.name.addEventListener('keypress', this.setName);
         momentumObject.classes.name.addEventListener('blur', () => {
-            momentumObject.classes.name.textContent = localStorage.getItem('name');
+            momentumObject.classes.name.textContent = localStorage.getItem('name') || '[Enter your name]' ;
         });
         momentumObject.classes.focus.addEventListener('keypress', this.setFocus);
         momentumObject.classes.focus.addEventListener('blur', () => {
-            momentumObject.classes.focus.textContent = localStorage.getItem('focus');
+            momentumObject.classes.focus.textContent = localStorage.getItem('focus') || '[What is in focus today?]';
         });;
 
     },
     focusHandler() {
         momentumObject.classes.name.addEventListener('click', () => {
-
-            momentumObject.classes.name.textContent = '';
+            momentumObject.classes.name.innerHTML = '';
+            
         })
         momentumObject.classes.focus.addEventListener('click', () => {
 
@@ -259,20 +257,52 @@ let momentumObject = {
             }, 2000)
         })
     },
+    getRandomInt () {
+        return Math.floor(Math.random() * momentumObject.classes.imgArray.length)
+    },
+    getRandomNumbers() {
+        let period = ['night', 'morning', 'day', 'evening']
+        let  set = new Set();
+        period.map(function(item){
+            while (set.size < 6) {
+                let random = momentumObject.getRandomInt ();
+                set.add(`assets/images/${item}/${momentumObject.classes.imgArray[random]}`)
+            } 
+            momentumObject.classes.listOfImages.push(Array.from(set))
+            set.clear()
+        })
+    },
+    setRandomBackground() {
+        let hour = new Date().getHours();
+         document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[hour]}`
+    },
+    intervalHandler() {
+        var d = new Date(),
+            h = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + 1, 0, 0, 0),
+            e = h - d;
+        if (e > 100) { // some arbitrary time period
+            setTimeout(this.setRandomBackground, e);
+        }
+        // your code
+    },
     init() {
         let timerId = setInterval(this.startTime, 1000);
         this.startDay();
         this.changeBackground();
         this.findCity();
         this.getQuote();
-        this.getName();
         this.getFocus();
+        this.getName()
         this.setAll();
         this.getLocalWeather();
         this.focusHandler();
-        this.reloadBackground();
+        this.getRandomNumbers() ;
+        this.setRandomBackground();
+        this. reloadBackground ();
+        this.intervalHandler()
+        setInterval(momentumObject.intervalHandler, 3600000)
+
     }
 }
 
 momentumObject.init()
-
