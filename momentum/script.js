@@ -73,19 +73,19 @@ let momentumObject = {
             momentumObject.classes.greeting.textContent = 'Good morning, ';
             document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
             momentumObject.classes.searchBox.style.backgroundColor = 'rgb(29 111 149)';
-            momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgb(15 109 155), rgb(48 66 11))";
+           
         } else if (12 < hours && hours <= 18) {
             momentumObject.classes.timePeriod = 'day'
             momentumObject.classes.greeting.textContent = 'Good afternoon, ';
             document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
 
-            momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgba(163, 135, 73, 0.6), rgb(107 94 77 / 76%))"
+           
 
         } else if (18 < hours) {
             momentumObject.classes.timePeriod = 'evening'
             momentumObject.classes.greeting.textContent = 'Good evening, ';
             
-            momentumObject.classes.weatherPop.style.backgroundImage = "linear-gradient(to bottom, rgb(179 41 19 / 60%), rgb(214 126 126 / 43%))"
+            
             momentumObject.classes.searchBox.style.backgroundColor = 'rgb(161 44 11)'
 
         } else  if(hours < 6 && 0 <= hours) {
@@ -152,14 +152,15 @@ let momentumObject = {
         let iter = new Date().getHours();
         momentumObject.classes.reloadBtn.addEventListener('click', ()=> {
            iter = iter + 1
-            console.log(momentumObject.classes.listOfImages.flat()[iter])
+            if(23 < iter) {
+                iter =0
+            }
             document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[iter]})`
             ++iter1;
-            console.log(iter)
             momentumObject.classes.reloadBtn.disabled = true;
             setTimeout(()=>{ 
                 momentumObject.classes.reloadBtn.disabled = false 
-            }, 1000);
+            }, 2000);
 
         })
     },
@@ -167,7 +168,7 @@ let momentumObject = {
         if (localStorage.getItem('name') === null) {
             momentumObject.classes.name.textContent = '[Enter your name]';
         } else {
-            momentumObject.classes.name.textContent = localStorage.getItem('focus');
+            momentumObject.classes.name.textContent = localStorage.getItem('name');
         }
     },
     getFocus(e) {
