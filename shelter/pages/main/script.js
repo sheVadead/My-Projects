@@ -51,6 +51,7 @@ let shelterObject = {
         this.classes.petsSlider.addEventListener('click', function (e) {
             let petsBlock = e.target.closest('.pets__slider__item');
             let popupName = petsBlock.childNodes[3].innerText
+            console.log(petsBlock.childNodes)
             petsData.map((item) => {
                 if (item.name == popupName) {
                     popupItem = item;
@@ -94,6 +95,7 @@ let shelterObject = {
             let randomInt = Math.floor( Math.random() * (petsData.length  ));
             set.add(randomInt)
         }
+       console.log(petsData)
         setArray = Array.from(set)
         for (let i = 0; i < shelterObject.classes.sliderItemImg.length; i++) {
             shelterObject.classes.sliderItemImg[i].attributes.src.textContent = petsData[setArray[[i]]].img

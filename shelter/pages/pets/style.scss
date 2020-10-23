@@ -237,10 +237,11 @@ sans-serif;
 
 .header {
     position: fixed;
-    top: 3rem;
+    padding: 3rem 0;
     z-index: 1;
     flex: 1;
     width: 100%;
+    background-color: white;
 }
 
 .wrapper__inner {
@@ -314,7 +315,7 @@ sans-serif;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    width: 128rem;
+    width: auto;
 
     background-color: #F6F6F6;
 
@@ -337,6 +338,7 @@ sans-serif;
 
     &__slider {
         display: flex;
+
         max-width: 120rem;
         margin-bottom: 0.3rem;
         flex-wrap: wrap;
@@ -346,19 +348,23 @@ sans-serif;
         width: 100%;
 
         .first-line {
+            flex-wrap: wrap;
             margin-bottom: 6rem;
             display: flex;
             justify-content: center;
-
+            &__item:nth-of-type(-n + 4){
+                margin-bottom: 4rem;
+            }
             &__item {
                 display: flex;
-                max-width: 30rem;
+                max-width: 27rem;
                 flex-direction: column;
-                margin: 0 2rem;
+                margin: 0 1.5rem;
+                padding-bottom: 2rem;
                 align-items: center;
                 background: #FAFAFA;
                 border-radius: 0.9rem;
-
+                    
                 .item-name {
                     margin-top: 3rem;
                     margin-bottom: 3rem;
@@ -418,7 +424,7 @@ sans-serif;
 }
 
 .footer {
-    width: 128rem;
+    width: auto;
     margin: 0 auto;
     height: 35rem;
     background: url(/shelter/assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
@@ -587,8 +593,11 @@ sans-serif;
 }
 
 @media screen and (max-width: 1279px) and (min-width: 768px) {
+    .header {
+        width:100%
+    }
     .main {
-        width: 768px;
+        width: 100%;
         height: 1852px;
     }
 
@@ -597,7 +606,7 @@ sans-serif;
     }
 
     .footer {
-        width: 768px;
+        width: 100%;
     }
 
     body {
@@ -608,8 +617,8 @@ sans-serif;
     }
 
     .header {
-        width: 768px;
-        top: 30px;
+        
+        top: 0;
     }
 
     .pets-content__title {
@@ -637,15 +646,15 @@ sans-serif;
             margin-bottom: 6rem;
             flex-wrap: wrap;
 
-            .first-line__item:nth-of-type(1) {
+            .first-line__item:nth-of-type(n) {
+
+                margin-bottom: 4rem;
+            }
+            .first-line__item:nth-of-type(2n) {
 
                 margin-bottom: 4rem;
             }
 
-            .first-line__item:nth-of-type(2) {
-
-                margin-bottom: 6rem;
-            }
         }
 
         .second-line {
@@ -733,4 +742,95 @@ sans-serif;
             }
         }
     }
+}
+#modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 900px;
+    height: 500px;
+    z-index: 10;
+
+    background-color: #FFFFFF;
+}
+#modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal__inner > img {
+    width: 500px;
+    height: 500px;
+}
+.modal-name {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font: normal normal 35px/130% "Georgia-400", sans-serif;
+}
+.type-breed {
+    font: normal normal 20px/115% "Georgia-400", sans-serif;
+    margin-bottom: 4rem;
+}
+.modal__description {
+    margin-bottom: 4rem;
+    width: 350px;
+    font: normal normal 15px/110% "Georgia-400", sans-serif;
+    letter-spacing: 0.06em;
+}
+.modal-list > li {
+    color: #F1CDB3;
+    margin-bottom: 0.5rem;
+}
+
+.modal-list > li > h5,
+.modal-list > li > span {
+    color: black;
+}
+.pet-age,
+.pet-inoculations,
+.pet-diseases,
+.pet-parasites {
+    display: inline;
+    font: normal bold 15px/110% "Georgia-bold", sans-serif;
+}
+
+.age-info,
+.inoculations-info,
+.diseases-info,
+.parasites-info {
+    font: normal normal 15px/110% "Georgia-400", sans-serif;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background: rgba(41, 41, 41, 0.6);
+    pointer-events: none;
+    z-index: 5;
+}
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.close-button {
+    position: relative;
+    bottom: 553px;
+    left: 905px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    background:transparent;
+    border: 2px solid #F1CDB3;
+    outline: none;
 }
