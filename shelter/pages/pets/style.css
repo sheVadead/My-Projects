@@ -163,7 +163,7 @@
       -ms-flex-direction: column;
           flex-direction: column;
   margin: 0 auto;
-  width: auto;
+  width: 100%;
   background-color: #F6F6F6;
 }
 
@@ -365,7 +365,7 @@
 }
 
 .footer {
-  width: auto;
+  width: 100%;
   margin: 0 auto;
   height: 35rem;
   background: url(/shelter/assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
@@ -709,29 +709,14 @@
 
 @media screen and (max-width: 767px) and (min-width: 320px) {
   .wrapper {
-    width: 30rem;
-  }
-  body {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    max-width: 30rem;
   }
   .main {
-    width: 32rem;
+    width: 100%;
   }
   .header {
-    width: auto;
-    left: 9rem;
+    width: 100%;
+    top: 0;
   }
   .main-navigation {
     display: none;
@@ -756,11 +741,39 @@
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .pets-content__slider .first-line__item:nth-of-type(4) {
-    display: none;
+  .footer {
+    height: 80.9rem;
   }
-  .pets-content__slider .second-line {
-    display: none;
+  .footer__content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .footer__content .questions__item {
+    margin-top: 3rem;
+  }
+  .footer__content .questions__item li:first-child {
+    font-family: "Georgia-400";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2.5rem;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .footer__content .suggest li:first-child {
+    font-family: "Georgia-400";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2.5rem;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .footer__content .footer-puppey {
+    width: 260px;
+    height: 269px;
   }
 }
 

@@ -56,6 +56,7 @@ let petsObject = {
         }
         } else if (320<=screen.width && screen.width < 768) {
             petsObject.allPages = 16;
+            for (let i =0; i<16; i++) {
             while (set2.size < 3) {
                 let randomInt = Math.floor( Math.random() * (paginationArrayFlat.length));
                 set2.add(paginationArrayFlat[randomInt])
@@ -63,11 +64,12 @@ let petsObject = {
             petsObject.blocksArray.push(Array.from(set2));
                 set2.clear()
         }
+    }
         // petsObject.pages = petsObject.blocksArray.length
     },
     renderBlocks() {
         petsObject.classes.pageNumber.textContent = petsObject.pages
-        console.log()
+        console.log(petsObject.blocksArray[petsObject.pages])
         petsObject.blocksArray[petsObject.pages  - 1].map(item=>{
             let appendItem = document.createElement('div')
             appendItem.classList.add('first-line__item');
