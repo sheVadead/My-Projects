@@ -7,7 +7,9 @@
 :root {
   font-size: 10px;
 }
-
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
 body {
   background-position: center center;
   background-attachment: fixed;
@@ -284,11 +286,11 @@ main {
   text-shadow: 2px 2px 2px #000;
 }
 .text {
-  font: bold italic 1.1rem/120% Commissioner, sans-serif;
+  font: bold italic 1.5rem/120% Commissioner, sans-serif;
   width: 50rem;
   color: #f9e7e7;
   text-shadow: 2px 2px 2px #000;
-  transition: linear 0.3s ease-in-out;
+  transition:0.3s ;
 }
 .search-box{
   background-color: #84787863;
@@ -420,6 +422,9 @@ border-radius: 100%;
   .clock {
     width: 100%;
   }
+  .text {
+    font-size: 1.8rem;
+  }
   .search-box {
     font-size: 2rem;
   }
@@ -427,7 +432,7 @@ border-radius: 100%;
 
 @media only screen and (max-width: 545px) {
   :root {
-    font-size: 6px;
+    font-size: 8px;
   }
     .wrapper {
       height: 100% ;
@@ -448,13 +453,23 @@ border-radius: 100%;
     font-size: 2rem;
   }
   #time {
-    font-size: 9rem;
+    font-size: 10rem;
   }
   .quote {
 
     height: 0;
   
 
+  }
+  .text {
+    width: 40rem;
+    font-size: 1.8rem;
+  }
+  .month {
+    font-size: 2.7rem;
+  }
+  .author {
+    font-size: 2rem;
   }
 }
 
@@ -467,11 +482,13 @@ border-radius: 100%;
   transform: scale(1.04);
 }
 .name:hover {
+  cursor: pointer;
   transform: scale(1.2);
   transition: all 0.5s ease;
 }
 #focus:hover {
-  transform: scale(1.2);
+  cursor: pointer;
+  transform: scale(1.1);
   transition: all 0.5s ease;
 }
 main {
