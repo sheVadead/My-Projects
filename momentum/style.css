@@ -286,7 +286,7 @@ main {
   text-shadow: 2px 2px 2px #000;
 }
 .text {
-  font: bold italic 1.5rem/120% Commissioner, sans-serif;
+  font: bold italic 1.9rem/120% Commissioner, sans-serif;
   width: 50rem;
   color: #f9e7e7;
   text-shadow: 2px 2px 2px #000;
@@ -494,4 +494,13 @@ border-radius: 100%;
 main {
   transition: 1s;
   transform: scale(0);
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  background-image: url('../momentum/assets/images/overlay.png');
 }
