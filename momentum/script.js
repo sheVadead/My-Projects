@@ -72,7 +72,7 @@ let momentumObject = {
             momentumObject.classes.timePeriod = 'morning'
             momentumObject.classes.greeting.textContent = 'Good morning, ';
             document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
-            momentumObject.classes.searchBox.style.backgroundColor = 'rgb(29 111 149)';
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
            
         } else if (12 < hours && hours <= 18) {
             momentumObject.classes.timePeriod = 'day'
@@ -80,7 +80,7 @@ let momentumObject = {
             document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
 
            
-
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
         } else if (18 < hours) {
             momentumObject.classes.timePeriod = 'evening'
             momentumObject.classes.greeting.textContent = 'Good evening, ';
