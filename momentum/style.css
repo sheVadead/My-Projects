@@ -271,7 +271,7 @@ main {
   text-shadow: 2px 2px 2px #000;
   filter: brightness(78%);
 
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .quote-of-the-day:hover {
   background-color: rgb(101, 101, 101, 1);
@@ -467,10 +467,12 @@ border-radius: 100%;
   transform: scale(1.04);
 }
 .name:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
+  transition: all 0.5s ease;
 }
 #focus:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
+  transition: all 0.5s ease;
 }
 main {
   transition: 1s;
