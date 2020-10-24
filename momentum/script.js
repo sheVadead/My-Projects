@@ -68,7 +68,7 @@ let momentumObject = {
     },
     changeBackground() {
         let data = new Date();
-        let hours = 6;
+        let hours = data.getHours();
         if (6 <= hours && hours <= 12) {
             momentumObject.classes.timePeriod = 'morning'
             momentumObject.classes.greeting.textContent = 'Good morning,   ';
@@ -77,7 +77,7 @@ let momentumObject = {
 
         } else if (12 < hours && hours <= 18) {
             momentumObject.classes.timePeriod = 'day'
-            momentumObject.classes.greeting.textContent = 'Good afternoon, ';
+            momentumObject.classes.greeting.innerText = 'Good afternoon, ';
             document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
 
 
@@ -290,7 +290,7 @@ let momentumObject = {
     },
     setRandomBackground() {
         let hour = new Date().getHours();
-        console.log(momentumObject.classes.listOfImages.flat())
+        
         document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[hour]}`
     },
     intervalHandler() {
@@ -324,3 +324,7 @@ let momentumObject = {
 }
 
 momentumObject.init()
+
+console.log(`Массив изображений для бека. При нажатии на кнопку следующего изображения, они меняются по этому массиву`)
+
+console.log(momentumObject.classes.listOfImages.flat())
