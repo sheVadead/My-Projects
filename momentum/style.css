@@ -413,6 +413,9 @@ main {
     flex-wrap: nowrap;
 
   }
+  .clock {
+    width: 100%;
+  }
   .search-box {
     font-size: 2rem;
   }
@@ -430,7 +433,9 @@ main {
     .weather-container {
     margin: 0;
   }
-
+.clock {
+  width: 100%;
+}
   .wrapper__inner {
     justify-content: space-evenly;
     width: 87%;
