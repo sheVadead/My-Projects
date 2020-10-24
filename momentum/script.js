@@ -27,7 +27,7 @@ let momentumObject = {
         headerWeather: document.querySelector('header'),
         errorText: document.querySelector('.error-text'),
         hiddenHour: document.querySelector('.hidden-time'),
-        imgArray:  ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'],
+        imgArray: ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'],
         i: 0,
         bodyImg: document.body.style.backgroundImage,
         timePeriod: '',
@@ -36,6 +36,7 @@ let momentumObject = {
         hourForBack: new Date().getSeconds(),
         tenMinutes: 60000,
         oneMinute: 1000,
+        mainCont: document.querySelector('main')
 
     },
     addZero(n) {
@@ -67,28 +68,26 @@ let momentumObject = {
     },
     changeBackground() {
         let data = new Date();
-        let hours = data.getHours();
+        let hours = 6;
         if (6 <= hours && hours <= 12) {
             momentumObject.classes.timePeriod = 'morning'
-            momentumObject.classes.greeting.textContent = 'Good morning, ';
+            momentumObject.classes.greeting.textContent = 'Good morning,   ';
             document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
-            momentumObject.classes.searchBox.style.backgroundColor = 'rgb(29 111 149)';
-           
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+
         } else if (12 < hours && hours <= 18) {
             momentumObject.classes.timePeriod = 'day'
             momentumObject.classes.greeting.textContent = 'Good afternoon, ';
             document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
 
-           
 
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
         } else if (18 < hours) {
             momentumObject.classes.timePeriod = 'evening'
             momentumObject.classes.greeting.textContent = 'Good evening, ';
-            
-            
             momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
 
-        } else  if(hours < 6 && 0 <= hours) {
+        } else if (hours < 6 && 0 <= hours) {
             momentumObject.classes.timePeriod = 'Night'
             momentumObject.classes.greeting.textContent = 'Good night, '
             document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
@@ -99,17 +98,17 @@ let momentumObject = {
     },
     getGeolocation() {
 
-    }
-    ,
+    },
     getWeatherData(city) {
         let promise = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=ru&appid=0e4043b05d572b6ae940f8ae8e46eac8&units=metric`);
         promise.then(response => response.json()).then(weatherData => {
             this.configureWeather(weatherData)
             this.setWeather(weatherData);
             this.focusHandler();
+          
 
         }).catch(() => {
-            if(momentumObject.classes.searchBox.value == '') {
+            if (momentumObject.classes.searchBox.value == '') {
                 momentumObject.classes.errorText.textContent = 'Вы не ввели название города!';
                 momentumObject.classes.errorText.classList.add('error');
                 momentumObject.classes.searchBox.classList.add('tremor');
@@ -120,13 +119,14 @@ let momentumObject = {
                 momentumObject.classes.searchBox.classList.add('tremor');
                 momentumObject.classes.searchBox.style.borderColor = 'red';
             }
-            
+
             this.hideError();
         })
     },
     findCity() {
         momentumObject.classes.searchTown.addEventListener('keypress', (e) => {
             if (e.keyCode == 13) {
+                momentumObject.classes.mainCont.style.transform = 'scale(1)'
                 this.getWeatherData(momentumObject.classes.searchTown.value);
             }
         })
@@ -136,7 +136,7 @@ let momentumObject = {
         momentumObject.classes.searchTown.addEventListener('blur', () => {
             momentumObject.classes.searchTown.placeholder = 'Search for a city...';
         })
-       
+
     },
     configureWeather(weatherData) {
         console.log(weatherData)
@@ -160,12 +160,12 @@ let momentumObject = {
         })
         momentumObject.classes.qotd.addEventListener('click', this.getQuote);
     },
-    reloadBackground () {
+    reloadBackground() {
         let iter = new Date().getHours();
-        momentumObject.classes.reloadBtn.addEventListener('click', ()=> {
+        momentumObject.classes.reloadBtn.addEventListener('click', () => {
             ++iter;
-            if(23 < iter) {
-                iter =0
+            if (23 < iter) {
+                iter = 0
             }
             let src = momentumObject.classes.listOfImages.flat()[iter];
             const img = document.createElement('img');
@@ -173,8 +173,8 @@ let momentumObject = {
             console.log(img)
             document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[iter]})`
             momentumObject.classes.reloadBtn.disabled = true;
-            setTimeout(()=>{ 
-                momentumObject.classes.reloadBtn.disabled = false 
+            setTimeout(() => {
+                momentumObject.classes.reloadBtn.disabled = false
             }, 2500);
 
         })
@@ -194,12 +194,12 @@ let momentumObject = {
         }
     },
     setName(e) {
-        if (e.which == 13 || e.keyCode == 13 ) {
+        if (e.which == 13 || e.keyCode == 13) {
 
-            if (momentumObject.classes.name.innerText == '' || momentumObject.classes.name.innerText == ' ' ) {
+            if (momentumObject.classes.name.innerText == '' || momentumObject.classes.name.innerText.trim() == '') {
                 momentumObject.classes.name.innerText = localStorage.getItem('name') || '[Enter your name]';
                 momentumObject.classes.name.blur();
-                
+
             } else {
                 localStorage.setItem('name', momentumObject.classes.name.innerText);
                 momentumObject.classes.name.innerText = localStorage.getItem('name');
@@ -209,8 +209,8 @@ let momentumObject = {
 
     },
     setFocus(e) {
-        if (e.which == 13 || e.keyCode == 13 ) {
-            if (momentumObject.classes.focus.innerText == '' || momentumObject.classes.focus.innerText == ' ' ) {
+        if (e.which == 13 || e.keyCode == 13) {
+            if (momentumObject.classes.focus.innerText == '' || momentumObject.classes.focus.innerText.trim() == '') {
                 momentumObject.classes.focus.innerText = localStorage.getItem('focus') || '[What is in focus today?]';
                 momentumObject.classes.focus.blur();
             } else {
@@ -244,7 +244,7 @@ let momentumObject = {
     setAll() {
         momentumObject.classes.name.addEventListener('keypress', this.setName);
         momentumObject.classes.name.addEventListener('blur', () => {
-            momentumObject.classes.name.textContent = localStorage.getItem('name') || '[Enter your name]' ;
+            momentumObject.classes.name.textContent = localStorage.getItem('name') || '[Enter your name]';
         });
         momentumObject.classes.focus.addEventListener('keypress', this.setFocus);
         momentumObject.classes.focus.addEventListener('blur', () => {
@@ -255,7 +255,7 @@ let momentumObject = {
     focusHandler() {
         momentumObject.classes.name.addEventListener('click', () => {
             momentumObject.classes.name.innerHTML = '';
-            
+
         })
         momentumObject.classes.focus.addEventListener('click', () => {
 
@@ -273,17 +273,17 @@ let momentumObject = {
             }, 2000)
         })
     },
-    getRandomInt () {
+    getRandomInt() {
         return Math.floor(Math.random() * momentumObject.classes.imgArray.length)
     },
     getRandomNumbers() {
         let period = ['night', 'morning', 'day', 'evening']
-        let  set = new Set();
-        period.map(function(item){
+        let set = new Set();
+        period.map(function (item) {
             while (set.size < 6) {
-                let random = momentumObject.getRandomInt ();
+                let random = momentumObject.getRandomInt();
                 set.add(`assets/images/${item}/${momentumObject.classes.imgArray[random]}`)
-            } 
+            }
             momentumObject.classes.listOfImages.push(Array.from(set))
             set.clear()
         })
@@ -291,7 +291,7 @@ let momentumObject = {
     setRandomBackground() {
         let hour = new Date().getHours();
         console.log(momentumObject.classes.listOfImages.flat())
-         document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[hour]}`
+        document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[hour]}`
     },
     intervalHandler() {
         var d = new Date(),
@@ -313,11 +313,12 @@ let momentumObject = {
         this.setAll();
         this.getLocalWeather();
         this.focusHandler();
-        this.getRandomNumbers() ;
+        this.getRandomNumbers();
         this.setRandomBackground();
-        this. reloadBackground ();
+        this.reloadBackground();
         this.intervalHandler()
         setInterval(momentumObject.intervalHandler, 3600000)
+       
 
     }
 }
