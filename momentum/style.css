@@ -12,7 +12,8 @@ body {
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-  transition: background-image 0.7s ease-in-out;
+
+  transition: background-image 2s cubic-bezier(0.89, -0.14, 0.89, 1.01);
 }
 
 .wrapper {
