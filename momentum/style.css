@@ -14,7 +14,7 @@ body {
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-
+  filter: grayscale(10%);
   transition: background-image 2s cubic-bezier(0.89, -0.14, 0.89, 1.01);
 }
 
@@ -497,13 +497,4 @@ border-radius: 100%;
 main {
   transition: 1s;
   transform: scale(0);
-}
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 1;
-  background-image: url('../momentum/assets/images/overlay.png');
 }
