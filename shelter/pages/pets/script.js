@@ -24,7 +24,7 @@ let petsObject = {
             this.initPetsBlocks(petsData)
             this.renderBlocks();
             this.initModal(petsData);
-            this.initPopup(petsData)
+            this.initModalContent(petsData)
         })
     },
     initPetsBlocks(petsData) {
@@ -169,11 +169,13 @@ let petsObject = {
             if (petsBlock) {
                 petsObject.classes.modalWindow.classList.add('active')
                 petsObject.classes.overlay.classList.add('active')
+                document.body.style.overflow = 'hidden';
             }
             petsObject.classes.overlay.addEventListener('click', function (e) {
                 if (petsObject.classes.overlay.classList.contains('active')) {
                     petsObject.classes.overlay.classList.remove('active')
                     petsObject.classes.modalWindow.classList.remove('active')
+                    document.body.style.overflow = '';
                 }
             })
             petsObject.classes.closePopupButton.addEventListener('click', function (e) {
@@ -183,7 +185,7 @@ let petsObject = {
 
         });
     },
-    initPopup(petsData) {
+    initModalContent(petsData) {
         let popupItem;
         petsObject.classes.firstLine.addEventListener('click', function (e) {
             let petsBlock = e.target.closest('.first-line__item');
