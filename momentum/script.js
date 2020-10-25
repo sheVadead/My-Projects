@@ -8,7 +8,6 @@ let momentumObject = {
         day: document.querySelector('.day'),
         month: document.querySelector('.month'),
         wrapper: document.querySelector('.wrapper'),
-        date: document.querySelector('.date'),
         searchTown: document.querySelector('.search-box'),
         city: document.querySelector('.city'),
         temp: document.querySelector('.temp'),
@@ -58,44 +57,36 @@ let momentumObject = {
             month: 'long',
             day: 'numeric'
         });
-        momentumObject.classes.date.innerHTML = data.toLocaleDateString("ru-RU", {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-
     },
-    changeBackground() {
-        let data = new Date();
-        let hours = data.getHours();
-        if (6 <= hours && hours <= 12) {
-            momentumObject.classes.timePeriod = 'morning'
-            momentumObject.classes.greeting.textContent = 'Good morning,   ';
-            document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
-            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+    // changeBackground() {
 
-        } else if (12 < hours && hours <= 18) {
-            momentumObject.classes.timePeriod = 'day'
-            momentumObject.classes.greeting.innerText = 'Good afternoon, ';
-            document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
+    //     if (6 <= hours && hours <= 12) {
+    //         momentumObject.classes.timePeriod = 'morning'
+    //         momentumObject.classes.greeting.textContent = 'Good morning,   ';
+    //         document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
+    //         momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+
+    //     } else if (12 < hours && hours <= 18) {
+    //         momentumObject.classes.timePeriod = 'day'
+    //         momentumObject.classes.greeting.innerText = 'Good afternoon, ';
+    //         document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
 
 
-            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-        } else if (18 < hours) {
-            momentumObject.classes.timePeriod = 'evening'
-            momentumObject.classes.greeting.textContent = 'Good evening, ';
-            momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
+    //         momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+    //     } else if (18 < hours) {
+    //         momentumObject.classes.timePeriod = 'evening'
+    //         momentumObject.classes.greeting.textContent = 'Good evening, ';
+    //         momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
 
-        } else if (hours < 6 && 0 <= hours) {
-            momentumObject.classes.timePeriod = 'Night'
-            momentumObject.classes.greeting.textContent = 'Good night, '
-            document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
-            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+    //     } else if (hours < 6 && 0 <= hours) {
+    //         momentumObject.classes.timePeriod = 'Night'
+    //         momentumObject.classes.greeting.textContent = 'Good night, '
+    //         document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
+    //         momentumObject.classes.searchBox.style.backgroundColor = 'grey'
 
-        }
+    //     }
 
-    },
+    // },
     getGeolocation() {
 
     },
@@ -139,14 +130,12 @@ let momentumObject = {
 
     },
     configureWeather(weatherData) {
-        console.log(weatherData)
 
         localStorage.setItem('city', `${weatherData.name}, ${weatherData.sys.country}`);
         localStorage.setItem('temp', `${weatherData.main.temp.toFixed(0)}<span>°c</span>`);
         localStorage.setItem('weather', weatherData.weather[0].description);
         localStorage.setItem('wind', weatherData.wind.speed + 'м/c');
         localStorage.setItem('humidityInfo', weatherData.main.humidity + '%');
-        localStorage.setItem('date', momentumObject.classes.date.innerText);
         localStorage.setItem('icon', `owf-${weatherData.weather[0].id}`);
 
 
@@ -221,13 +210,15 @@ let momentumObject = {
         }
     },
     setWeather(weatherData) {
+        console.log(weatherData)
         momentumObject.classes.weatherIcon.className = 'weather-icon owf';
-        momentumObject.classes.city.textContent = `${weatherData.name}, ${weatherData.sys.country}`;
         momentumObject.classes.temp.innerHTML = `${weatherData.main.temp.toFixed(0)}<span>°c</span>`
         momentumObject.classes.weatherIcon.classList.add(`owf-${weatherData.weather[0].id}`);
         momentumObject.classes.weatherDesc.textContent = weatherData.weather[0].description;
         momentumObject.classes.wind.textContent = weatherData.wind.speed + 'м/c';
         momentumObject.classes.humidityInfo.textContent = weatherData.main.humidity + '%';
+        momentumObject.classes.city.textContent = `${weatherData.name}, ${weatherData.sys.country}`
+        console.log(momentumObject.classes.weatherIcon)
     },
 
     getLocalWeather() {
@@ -294,18 +285,39 @@ let momentumObject = {
         document.body.style.backgroundImage = `url(${momentumObject.classes.listOfImages.flat()[hour]}`
     },
     intervalHandler() {
-        var d = new Date(),
+        let d = new Date(),
             h = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + 1, 0, 0, 0),
             e = h - d;
+        let hours = d.getHours();
         if (e > 100) { // some arbitrary time period
             setTimeout(this.setRandomBackground, e);
         }
+        if (6 <= hours && hours <= 12) {
+            momentumObject.classes.timePeriod = 'morning'
+            momentumObject.classes.greeting.textContent = 'Good morning,   ';
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+
+        } else if (12 < hours && hours <= 18) {
+            momentumObject.classes.timePeriod = 'day'
+            momentumObject.classes.greeting.innerText = 'Good afternoon, ';
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+        } else if (18 < hours) {
+            momentumObject.classes.timePeriod = 'evening'
+            momentumObject.classes.greeting.textContent = 'Good evening, ';
+            momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
+
+        } else if (hours < 6 && 0 <= hours) {
+            momentumObject.classes.timePeriod = 'Night'
+            momentumObject.classes.greeting.textContent = 'Good night, '
+            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+
+        }
+
         // your code
     },
     init() {
         let timerId = setInterval(this.startTime, 1000);
         this.startDay();
-        this.changeBackground();
         this.findCity();
         this.getQuote();
         this.getFocus();

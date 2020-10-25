@@ -11,11 +11,36 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+  <button class="btn"></button>
   <h1 hidden>Momentum</h1>
-  
-<button class="btn"></button>
     <div class="wrapper">
+
       <div class="wrapper__inner">
+        <div class="weather-container">
+          <div class="app-wrap">
+            <header>
+              
+              <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city..." />
+              <div class="error-text"></div>
+            </header>
+            <main>
+              
+              <section class="location">
+                <div class="city"></div>
+                <div class="additional">
+                  <div class="additional-wind">Ветер: <span class="wind-speed"></span></div>
+                  <div class="additional-humidity">Влажность: <span class="humidity-info"></span></div>
+                </div>
+              </section>           
+              <div class="current">
+                <div class="temp"></div>
+                <div class="weather"></div>  
+                <i class="weather-icon owf"></i>            
+              </div>
+             
+            </main>
+          </div>
+        </div>
         <div class="clock">
           <div class="day-data">
               <span class="day"> </span>
@@ -29,40 +54,7 @@
           <h2 class="focus-question">What in Focus: </h2>
           <h2 id="focus" contenteditable="true"></h2>
       </div>
-      <div class="weather-container">
-        <div class="app-wrap">
-          <header>
-            
-            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city..." />
-            <div class="error-text"></div>
-          </header>
-          <main>
-            
-            <section class="location">
-              <div class="city"></div>
-              <div class="date"></div>
-            </section>
-            <div class="current">
-              <div class="temp"></div>
-              <div class="weather"></div>
-              <i class="weather-icon owf"></i>
-              <div class="hi-low"></div>
-            </div>
-            <div class="additional-weather">
-              <div class="wind">
-                <i class="weather-icon owf owf-905"></i>
-                <span class="wind-speed"></span>
-              </div>
-              <div class="humidity">
-                <i class="weather-icon owf owf-731"></i>
-                <span class="humidity-info"></span>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-     
-      </div>
+      
       <div class="quote">
         <div class="quote__inner">
           <div class="quote__text">
@@ -75,6 +67,10 @@
           </div>
         </div>
       </div>
+      
+     
+      </div>
+      
 
     </div>
 
