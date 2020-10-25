@@ -313,9 +313,7 @@ main {
     animation: 0.1s tremor ease-out 0.1s;    
 }
 .btn {
-  position: absolute;
-  top: 0;
-  left: 20%;
+
   width: 60px;
   height: 60px;
   border: 0;
@@ -326,6 +324,32 @@ border-radius: 100%;
   background-repeat: no-repeat;
   filter: grayscale(1);
   margin: 10px;
+}
+.reload-wrapper {
+  position: absolute;
+  top: 2%;
+  left:20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.6s;
+  cursor: pointer;
+}
+.reload-wrapper:hover .reload-back{
+  transform: scale(1);
+  filter: grayscale(.8);
+}
+.reload-wrapper:hover .btn {
+  cursor: pointer;
+  transform: rotate(90deg) scale(1.1);
+  transition: 0.2s ease-out;
+}
+.reload-back {
+  display: block;
+  font:bold normal 1.5rem/110% Roboto, sans-serif;
+  color: white;
+  transform: scale(0);
+  transition: 0.6s;
 }
 .btn:hover {
   filter: grayscale(.8);
@@ -423,8 +447,13 @@ border-radius: 100%;
     flex-wrap: nowrap;
 
   }
-  .btn {
-    left: 10%;
+  .reload-wrapper {
+    left:10%;
+    align-items: flex-start;
+  }
+
+  .reload-back {
+    font:bold normal 1.8rem/110% Roboto, sans-serif;
   }
   .clock {
     width: 100%;
@@ -478,11 +507,17 @@ width: 100vw;
   
   }
   .btn {
-    top: auto;
     background-size: 40px 40px;
-    bottom: 0;
-    left: 0;
   }
+ 
+  .reload-wrapper {
+    position: absolute;
+    top: 30%;
+    left:25%;
+    display: flex;
+
+  }
+ 
   .quote__text {
     margin-top: 2rem;
   }
