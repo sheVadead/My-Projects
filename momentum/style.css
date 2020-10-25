@@ -26,7 +26,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 60%;
   background-color: #0606066e;
 }
@@ -248,11 +248,14 @@ main {
   text-shadow: 0px 4px rgba(0, 0, 0, 0.4);
 }
 .quote {
-
-  width: 30rem;
-  height: 15rem;
+  height: 100%;
 
   margin-right: auto;
+
+}
+.quote__inner {
+  
+  height: 15rem;
 
 }
 .quote__text {
@@ -288,7 +291,7 @@ main {
 }
 .text {
   font: bold italic 1.9rem/120% Commissioner, sans-serif;
-  width: 50rem;
+
   color: white;
   text-shadow: 2px 2px 2px #000;
   transition:0.3s ;
@@ -471,7 +474,7 @@ border-radius: 100%;
     font-size: 8px;
   }
     .wrapper {
-      height: 100vh;
+      height: 100%;
       width: 100%;
       align-items: center;
     }
@@ -511,13 +514,17 @@ width: 100vw;
   }
  
   .reload-wrapper {
-    position: absolute;
-    top: 30%;
-    left:25%;
-    display: flex;
 
+    top: 30%;
+    left:15%;
+
+    align-items: center;
   }
- 
+  .quote__inner {
+  
+    height: 21rem;
+  
+  }
   .quote__text {
     margin-top: 2rem;
   }
