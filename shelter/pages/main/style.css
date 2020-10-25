@@ -843,10 +843,9 @@
 
 .pets__slider {
     
-    margin-left: 4rem;
 }
     .pets__slider__item {
-       margin-right: 2rem;
+    
     }
 
     .pets__slider__item:nth-child(2) {

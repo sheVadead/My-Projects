@@ -575,47 +575,49 @@ sans-serif;
     margin-top: 4.1rem;
     overflow: hidden;
 }
-
-.pages-content {
-    display: flex;
-    justify-content: space-between;
-    width: 34rem;
-    flex: 1;
-
-    &__button {
-        max-width: 5.2rem;
-        max-height: 5.2rem;
-        margin-top: 2.7rem;
-        margin-bottom: 10rem;
+.pages {
+    margin-bottom: 0.1rem;
+    .pages-content {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem 2rem;
-        color: $color-dark-3xl;
-        border: 0.2rem solid #F1CDB3;
-        border-radius: 10rem;
-        background-color: white;
-        outline: none;
-
-
-        .font-class {
-            @include h4();
-
+        justify-content: space-between;
+        width: 34rem;
+        flex: 1;
+    
+        &__button {
+            max-width: 5.2rem;
+            max-height: 5.2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 2rem;
+            color: $color-dark-3xl;
+            border: 0.2rem solid #F1CDB3;
+            border-radius: 10rem;
+            background-color: white;
+            outline: none;
+    
+    
+            .font-class {
+                @include h4();
+    
+            }
+    
         }
-
+    
+        &__button:hover {
+            cursor: pointer;
+            background-color: #FDDCC4;
+            ;
+        }
+    
+        &__button:active {
+            background-color: #F1CDB3;
+        }
+    
     }
-
-    &__button:hover {
-        cursor: pointer;
-        background-color: #FDDCC4;
-        ;
-    }
-
-    &__button:active {
-        background-color: #F1CDB3;
-    }
-
 }
+
 
 .inactive {
     color: $color-dark-s;
@@ -796,7 +798,7 @@ sans-serif;
 
     .pages {
         width: 32rem;
-        /* margin: 0 auto; */
+
         display: flex;
         width: 55%;
     }

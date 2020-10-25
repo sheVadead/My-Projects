@@ -91,46 +91,42 @@ let shelterObject = {
     initPetsBlocks(petsData) {
         let setArray;
         let set = new Set();
-        while (set.size <8) {
-            let randomInt = Math.floor( Math.random() * (petsData.length  ));
-            set.add(randomInt)
+        while (set.size < 8) {
+            let randomInt = Math.floor(Math.random() * (petsData.length));
+            set.add(petsData[randomInt])
         }
-       console.log(petsData)
         setArray = Array.from(set)
-        for (let i = 0; i < shelterObject.classes.sliderItemImg.length; i++) {
-            shelterObject.classes.sliderItemImg[i].attributes.src.textContent = petsData[setArray[[i]]].img
-            shelterObject.classes.sldierItemName[i].textContent = petsData[setArray[[i]]].name
+        let index = 3;
+        if (screen.width < 768) {
+            let iter =0;
+            let div = document.createElement('div');
+            div.classList.add('pets__slider__item')
+            div.innerHTML = `
+        <img src="${setArray[iter].img}"  class="pets-img"  alt="${setArray[iter].type} ${setArray[iter].name}  ">
+        <span class="pets-name">${setArray[iter].name}</span>
+        <button class="about-pet">Learn more</button>`
+        shelterObject.classes.petsSlider.appendChild(div)   
+        } else {
+            for (let i = 0; i < 3; i++) {
+                let div = document.createElement('div');
+                div.classList.add('pets__slider__item')
+                div.innerHTML = `
+            <img src="${setArray[i].img}"  class="pets-img"  alt="${setArray[i].type} ${setArray[i].name}  ">
+            <span class="pets-name">${setArray[i].name}</span>
+            <button class="about-pet">Learn more</button>`
+            shelterObject.classes.petsSlider.appendChild(div)
         }
+
+    shelterObject.classes.petsSlider.appendChild(div)
+        }
+
+
+       
     },
     initSlider() {
-        let counter = 1;
-        let size = this.classes.petsSliderItem[1].clientWidth *2;
-        console.log(size)
-        this.classes.nextArrow.addEventListener('click',()=> {
-            if(counter <= 0) return
-            this.classes.petsSlider.style.transition = "transform 0.2s ease-in-out"
-            counter++;
-            this.classes.petsSlider.style.transform = 'translateX(' + (-size * counter) + 'px)';
-        })
-        this.classes.prevArrow.addEventListener('click',()=> {
-            this.classes.petsSlider.style.transition = "transform 0.2s ease-in-out"
-            counter--;
-            this.classes.petsSlider.style.transform = 'translateX(' + (-size * counter) + 'px)';
-        })
-        this.classes.petsSlider.addEventListener('transitionend', ()=>{
-            if (this.classes.petsSliderItem[counter].id === 'last-clone') {
-                this.classes.petsSlider.style.transform =-100 + 'px';
-                counter = shelterObject.classes.petsSliderItem.length - 7;
-                this.classes.petsSlider.style.transform = 'translateX(' + (-size * counter) + 'px)';
-            }
-            if (this.classes.petsSliderItem[counter].id === 'first-clone') {
-                counter = shelterObject.classes.petsSliderItem.length - counter;
-                this.classes.petsSlider.style.transform = 0;
-                this.classes.petsSlider.style.transform = 'translateX(' + (-size * counter) + 'px)';
-                
-            }
-        })
-          
+
+        
+
     },
     init() {
         this.sendRequest()
