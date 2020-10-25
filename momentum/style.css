@@ -163,6 +163,7 @@ header input:focus {
 }
 
 main {
+  transform: scale(0);
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
