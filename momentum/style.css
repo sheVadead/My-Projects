@@ -26,7 +26,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 60%;
   background-color: #0606066e;
 }
@@ -250,7 +250,7 @@ main {
 .quote {
 
   width: 30rem;
-  height: 15rem;
+  height: 100%;
 
   margin-right: auto;
 
@@ -471,7 +471,7 @@ border-radius: 100%;
     font-size: 8px;
   }
     .wrapper {
-      height: 100vh;
+      height: 100%;
       width: 100%;
       align-items: center;
     }
@@ -511,11 +511,11 @@ width: 100vw;
   }
  
   .reload-wrapper {
-    position: absolute;
-    top: 30%;
-    left:25%;
-    display: flex;
 
+    top: 32%;
+    left:15%;
+
+    align-items: center;
   }
  
   .quote__text {

@@ -96,7 +96,7 @@ let momentumObject = {
             this.configureWeather(weatherData)
             this.setWeather(weatherData);
             this.focusHandler();
-          
+            
 
         }).catch(() => {
             if (momentumObject.classes.searchBox.value == '') {
@@ -219,6 +219,7 @@ let momentumObject = {
         momentumObject.classes.humidityInfo.textContent = weatherData.main.humidity + '%';
         momentumObject.classes.city.textContent = `${weatherData.name}, ${weatherData.sys.country}`
         console.log(momentumObject.classes.weatherIcon)
+        console.log(momentumObject.classes.timePeriod)
     },
 
     getLocalWeather() {
@@ -252,7 +253,7 @@ let momentumObject = {
 
             momentumObject.classes.focus.textContent = '';
         })
-
+        
     },
     hideError() {
         setTimeout(() => {
@@ -287,33 +288,44 @@ let momentumObject = {
     intervalHandler() {
         let d = new Date(),
             h = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + 1, 0, 0, 0),
-            e = h - d;
+            e = (h - d) + 1000;
         let hours = d.getHours();
-        if (e > 100) { // some arbitrary time period
-            setTimeout(this.setRandomBackground, e);
-        }
-        if (6 <= hours && hours <= 12) {
+        if ( hours < 6) {
+            momentumObject.classes.timePeriod = 'night'
+            momentumObject.classes.greeting.textContent = 'Good night,   ';
+        } else if ( hours < 12) {
             momentumObject.classes.timePeriod = 'morning'
-            momentumObject.classes.greeting.textContent = 'Good morning,   ';
-            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-
-        } else if (12 < hours && hours <= 18) {
+            momentumObject.classes.greeting.innerText = 'Good morning, ';
+        } else if (hours < 18) {
             momentumObject.classes.timePeriod = 'day'
-            momentumObject.classes.greeting.innerText = 'Good afternoon, ';
-            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-        } else if (18 < hours) {
+            momentumObject.classes.greeting.textContent = 'Good day, ';
+        } else  {
             momentumObject.classes.timePeriod = 'evening'
-            momentumObject.classes.greeting.textContent = 'Good evening, ';
-            momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
-
-        } else if (hours < 6 && 0 <= hours) {
-            momentumObject.classes.timePeriod = 'Night'
-            momentumObject.classes.greeting.textContent = 'Good night, '
-            momentumObject.classes.searchBox.style.backgroundColor = 'grey'
+            momentumObject.classes.greeting.textContent = 'Good evening, '
 
         }
+        if (e > 100) {
+            setTimeout(()=>{
+                this.setRandomBackground();
+                let hour= new Date().getHours();
+                if ( hour < 6) {
+                    momentumObject.classes.timePeriod = 'night'
+                    momentumObject.classes.greeting.textContent = 'Good night,   ';
+                } else if ( hour < 12) {
+                    momentumObject.classes.timePeriod = 'morning'
+                    momentumObject.classes.greeting.textContent = 'Good morning, ';
+                } else if (hour < 18) {
+                    momentumObject.classes.timePeriod = 'day'
+                    momentumObject.classes.greeting.textContent = 'Good day, ';
+                } else  {
+                    momentumObject.classes.timePeriod = 'evening'
+                    momentumObject.classes.greeting.textContent = 'Good evening, '
+    
+                }
+            }, e);
 
-        // your code
+        }
+           
     },
     init() {
         let timerId = setInterval(this.startTime, 1000);
