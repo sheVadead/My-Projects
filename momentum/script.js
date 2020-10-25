@@ -144,6 +144,7 @@ let momentumObject = {
     getQuote() {
         let url = "https://favqs.com/api/qotd";
         fetch(url).then(response => response.json()).then(quoteData => {
+            
             momentumObject.classes.textQuote.textContent = ` \"${quoteData.quote.body}\"`;
             momentumObject.classes.author.textContent = quoteData.quote.author;
         })
