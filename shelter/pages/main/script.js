@@ -21,6 +21,9 @@ let shelterObject = {
         petsSlider: document.querySelector('.pets__slider'),
         nextArrow: document.querySelector('.arrow-right'),
         prevArrow: document.querySelector('.arrow-left'),
+        burger: document.querySelector('.burger'),
+        navigationBlock: document.querySelector('.main-navigation'),
+        darkBack: document.querySelector('.dark-back')
     },
     iterIndex: 3,
     setArray: [],
@@ -183,11 +186,25 @@ let shelterObject = {
         shelterObject.iterIndex = shelterObject.iterIndex -1
         }
     },
+    initBurgerMenu() {
+        shelterObject.classes.burger.addEventListener('click', this.burgerHandler)
+    },
+    burgerHandler() {
+        shelterObject.classes.burger.classList.toggle('burger__active');
+        shelterObject.classes.navigationBlock.classList.toggle('slide-in');
+        shelterObject.classes.darkBack.classList.toggle('slide-in');
+        if (shelterObject.classes.burger.classList.contains('burger__active')) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+        
+    },
     init() {
         this.sendRequest()
         this.disableInactive()
         this.toThePets()
-
+        this.initBurgerMenu()
     }
 
 }
