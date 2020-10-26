@@ -15,6 +15,9 @@ let petsObject = {
         modalImg: document.querySelector('.modal-img'),
         overlay: document.querySelector('#overlay'),
         closePopupButton: document.querySelector('.close-button'),
+        burger: document.querySelector('.burger'),
+        overflow: document.querySelector('.burger-overflow-hidden'),
+        navigationBlock: document.querySelector('.main-navigation')
     },
     pages: 1,
     allPages: '',
@@ -39,6 +42,7 @@ let petsObject = {
             for (let i =0; i<6; i++) {
                 while (set2.size <8) {
                     let randomInt = Math.floor( Math.random() * (paginationArrayFlat.length));
+                    
                     set2.add(paginationArrayFlat[randomInt])
                 }
                 petsObject.blocksArray.push(Array.from(set2));
@@ -48,10 +52,15 @@ let petsObject = {
             petsObject.allPages = 8;
             for (let i =0; i<8; i++) {
             while (set2.size <6) {
+                
                 let randomInt = Math.floor( Math.random() * (paginationArrayFlat.length));
+                
                 set2.add(paginationArrayFlat[randomInt])
+                
             }
+            
             petsObject.blocksArray.push(Array.from(set2));
+            console.log(Array.from(set2))
                 set2.clear()
         }
         } else if (320<=screen.width && screen.width < 768) {
@@ -69,7 +78,6 @@ let petsObject = {
     },
     renderBlocks() {
         petsObject.classes.pageNumber.textContent = petsObject.pages
-        console.log(petsObject.blocksArray[petsObject.pages])
         petsObject.blocksArray[petsObject.pages  - 1].map(item=>{
             let appendItem = document.createElement('div')
             appendItem.classList.add('first-line__item');
@@ -208,9 +216,32 @@ let petsObject = {
         })
 
     },
+    initBurgerMenu () {
+        petsObject.classes.burger.addEventListener('click', this.burgerHandler)
+        petsObject.classes.overflow.addEventListener('click',()=>{
+            petsObject.classes.burger.classList.remove('burger__active');
+            petsObject.classes.navigationBlock.classList.remove('slide-in');
+            petsObject.classes.overflow.classList.remove('blackout');
+        })
+    },
+    burgerHandler() {
+        console.log(petsObject.classes.overflow)
+        petsObject.classes.burger.classList.toggle('burger__active');
+        petsObject.classes.navigationBlock.classList.toggle('slide-in');
+        petsObject.classes.overflow.classList.toggle('blackout');
+        
+        if (petsObject.classes.burger.classList.contains('burger__active')) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+        
+    },
     init() {
         this.sendRequest();
         this.handlers()
+        this.initBurgerMenu ()
+        
     }
 }
 

@@ -23,7 +23,9 @@ let shelterObject = {
         prevArrow: document.querySelector('.arrow-left'),
         burger: document.querySelector('.burger'),
         navigationBlock: document.querySelector('.main-navigation'),
-        darkBack: document.querySelector('.dark-back')
+        darkBack: document.querySelector('.dark-back'),
+        header: document.querySelector('header'),
+        overFlow: document.querySelector('.burger-overflow-hidden')
     },
     iterIndex: 3,
     setArray: [],
@@ -78,11 +80,13 @@ let shelterObject = {
             if (petsBlock) {
                 shelterObject.classes.modalWindow.classList.add('active')
                 shelterObject.classes.overlay.classList.add('active')
+                document.body.style.overflow = 'hidden';
             }
             shelterObject.classes.overlay.addEventListener('click', function (e) {
                 if (shelterObject.classes.overlay.classList.contains('active')) {
-                    shelterObject.classes.overlay.classList.remove('active')
-                    shelterObject.classes.modalWindow.classList.remove('active')
+                    shelterObject.classes.overlay.classList.remove('active');
+                    shelterObject.classes.modalWindow.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             })
             shelterObject.classes.closePopupButton.addEventListener('click', function (e) {
@@ -162,7 +166,46 @@ let shelterObject = {
         shelterObject.classes.petsSlider.appendChild(div)
         shelterObject.iterIndex = shelterObject.iterIndex + 1
         }
-        
+        if (screen.width < 1280) {
+            if (shelterObject.iterIndex == shelterObject.setArray.length) {
+                shelterObject.iterIndex = 0
+            }
+            shelterObject.classes.petsSlider.innerHTML = ''
+            for (let i =0; i < 2; i++) {
+                if (shelterObject.iterIndex == shelterObject.setArray.length) {
+                    shelterObject.iterIndex = 0
+                }
+                let div = document.createElement('div');
+                div.classList.add('pets__slider__item')
+                div.classList.add('run-animation')
+                div.innerHTML = `
+            <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
+            <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
+            <button class="about-pet">Learn more</button>`
+            shelterObject.classes.petsSlider.appendChild(div)
+            shelterObject.iterIndex = shelterObject.iterIndex + 1
+            }
+        }  
+            if (screen.width < 768) {
+                if (shelterObject.iterIndex == shelterObject.setArray.length) {
+                    shelterObject.iterIndex = 0
+                }
+                shelterObject.classes.petsSlider.innerHTML = ''
+                for (let i =0; i < 1; i++) {
+                    if (shelterObject.iterIndex == shelterObject.setArray.length) {
+                        shelterObject.iterIndex = 0
+                    }
+                    let div = document.createElement('div');
+                    div.classList.add('pets__slider__item')
+                    div.classList.add('run-animation')
+                    div.innerHTML = `
+                <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
+                <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
+                <button class="about-pet">Learn more</button>`
+                shelterObject.classes.petsSlider.appendChild(div)
+                shelterObject.iterIndex = shelterObject.iterIndex + 1
+                }
+        }
             
         console.log(shelterObject.iterIndex)
     },
@@ -188,11 +231,17 @@ let shelterObject = {
     },
     initBurgerMenu() {
         shelterObject.classes.burger.addEventListener('click', this.burgerHandler)
+        shelterObject.classes.overFlow.addEventListener('click',()=>{
+            shelterObject.classes.burger.classList.remove('burger__active');
+            shelterObject.classes.navigationBlock.classList.remove('slide-in');
+            shelterObject.classes.overFlow.classList.remove('blackout');
+        })
     },
     burgerHandler() {
         shelterObject.classes.burger.classList.toggle('burger__active');
         shelterObject.classes.navigationBlock.classList.toggle('slide-in');
-        shelterObject.classes.darkBack.classList.toggle('slide-in');
+        shelterObject.classes.overFlow.classList.toggle('blackout');
+        
         if (shelterObject.classes.burger.classList.contains('burger__active')) {
             document.body.style.overflow = 'hidden'
         } else {
