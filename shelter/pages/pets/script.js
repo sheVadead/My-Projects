@@ -222,6 +222,7 @@ let petsObject = {
             petsObject.classes.burger.classList.remove('burger__active');
             petsObject.classes.navigationBlock.classList.remove('slide-in');
             petsObject.classes.overflow.classList.remove('blackout');
+            document.body.style.overflow = ''
         })
     },
     burgerHandler() {

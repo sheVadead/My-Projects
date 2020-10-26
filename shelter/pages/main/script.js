@@ -235,6 +235,7 @@ let shelterObject = {
             shelterObject.classes.burger.classList.remove('burger__active');
             shelterObject.classes.navigationBlock.classList.remove('slide-in');
             shelterObject.classes.overFlow.classList.remove('blackout');
+            document.body.style.overflow = ''
         })
     },
     burgerHandler() {
