@@ -69,7 +69,6 @@ let petsObject = {
     },
     renderBlocks() {
         petsObject.classes.pageNumber.textContent = petsObject.pages
-        console.log(petsObject.blocksArray[petsObject.pages])
         petsObject.blocksArray[petsObject.pages  - 1].map(item=>{
             let appendItem = document.createElement('div')
             appendItem.classList.add('first-line__item');
