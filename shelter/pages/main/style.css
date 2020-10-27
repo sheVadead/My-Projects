@@ -762,6 +762,11 @@
     background: rgba(41, 41, 41, 0.6);
     pointer-events: none;
     z-index: 5;
+    transition: 0.3s;
+}
+#overlay:hover {
+    cursor: pointer;
+    background-color: rgba(41, 41, 41, 0.7);;
 }
 #overlay.active {
     opacity: 1;
@@ -782,11 +787,18 @@
     background:transparent;
     border: 2px solid #F1CDB3;
     outline: none;
+    transition: 0.3s;
 }
 
 .close-button:hover {
     cursor: pointer;
     background-color: #FDDCC4;
+}
+.close-button:hover img {
+    
+        transform: rotate(90deg) rotate(-45deg);
+        transition: all 0.5s ease;
+  
 }
 #overlay:hover #modal > .close-button  {
     background:#FDDCC4;
