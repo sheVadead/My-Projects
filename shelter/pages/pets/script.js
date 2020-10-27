@@ -189,6 +189,7 @@ let petsObject = {
             petsObject.classes.closePopupButton.addEventListener('click', function (e) {
                 petsObject.classes.overlay.classList.remove('active')
                 petsObject.classes.modalWindow.classList.remove('active')
+                document.body.style.overflow = '';
             })
 
         });
