@@ -301,6 +301,8 @@
           align-items: center;
   background: #FAFAFA;
   border-radius: 0.9rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .pets-content__slider .first-line__item .item-name {
@@ -759,6 +761,13 @@
   background: rgba(41, 41, 41, 0.6);
   pointer-events: none;
   z-index: 5;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#overlay:hover {
+  cursor: pointer;
+  background: rgba(41, 41, 41, 0.7);
 }
 
 #overlay.active {
@@ -793,6 +802,7 @@
   cursor: pointer;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+  background-color: #FDDCC4;
 }
 
 .close-button:hover img {
@@ -827,6 +837,9 @@
   }
   .footer {
     width: 100%;
+  }
+  .modal__info {
+    padding-left: 2rem;
   }
   body {
     display: -webkit-box;
@@ -980,6 +993,10 @@
     font-size: 15px;
     line-height: 110%;
     letter-spacing: 0.06em;
+  }
+  .close-button {
+    bottom: 430px;
+    left: 243px;
   }
   .burger {
     display: block;

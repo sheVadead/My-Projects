@@ -440,7 +440,7 @@ sans-serif;
                 align-items: center;
                 background: #FAFAFA;
                 border-radius: 0.9rem;
-
+                transition: 0.3s;
                 .item-name {
                     margin-top: 3rem;
                     margin-bottom: 3rem;
@@ -762,6 +762,11 @@ sans-serif;
     background: rgba(41, 41, 41, 0.6);
     pointer-events: none;
     z-index: 5;
+    transition: 0.3s;
+    &:hover {
+        cursor: pointer;
+        background: rgba(41, 41, 41, 0.7);
+    }
 }
 
 #overlay.active {
@@ -788,6 +793,7 @@ sans-serif;
 .close-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+    background-color:  #FDDCC4;
 
     img {
         transform: rotate(90deg) rotate(-45deg);
@@ -809,7 +815,7 @@ sans-serif;
             width: 350px;
             height: 350px;
         }
-
+        
         .close-button {
             bottom: 430px;
             left: 670px;
@@ -828,7 +834,9 @@ sans-serif;
     .footer {
         width: 100%;
     }
-
+.modal__info {
+    padding-left: 2rem;
+}
     body {
         display: flex;
         justify-content: center;
@@ -999,7 +1007,10 @@ sans-serif;
         }
     }
 
-
+.close-button {
+    bottom: 430px;
+    left: 243px;
+}
 
 
     .burger {
