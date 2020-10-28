@@ -92,6 +92,7 @@ let shelterObject = {
             shelterObject.classes.closePopupButton.addEventListener('click', function (e) {
                 shelterObject.classes.overlay.classList.remove('active')
                 shelterObject.classes.modalWindow.classList.remove('active')
+                document.body.style.overflow = '';
             })
 
         });
@@ -103,7 +104,7 @@ let shelterObject = {
             set.add(petsData[randomInt])
         }
         shelterObject.setArray = Array.from(set)
-        if (screen.width < 766) {
+        if (screen.width < 768) {
             shelterObject.iterIndex = 1;
             let iter =0;
             let div = document.createElement('div');
@@ -185,7 +186,26 @@ let shelterObject = {
             shelterObject.classes.petsSlider.appendChild(div)
             shelterObject.iterIndex = shelterObject.iterIndex + 1
             }
-        }  
+        }  if (screen.width < 1280 && 768 < screen.width ) {
+            if (shelterObject.iterIndex == shelterObject.setArray.length) {
+                shelterObject.iterIndex = 0
+            }
+            shelterObject.classes.petsSlider.innerHTML = ''
+            for (let i =0; i < 2; i++) {
+                if (shelterObject.iterIndex == shelterObject.setArray.length) {
+                    shelterObject.iterIndex = 0
+                }
+                let div = document.createElement('div');
+                div.classList.add('pets__slider__item')
+                div.classList.add('run-animation')
+                div.innerHTML = `
+            <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
+            <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
+            <button class="about-pet">Learn more</button>`
+            shelterObject.classes.petsSlider.appendChild(div)
+            shelterObject.iterIndex = shelterObject.iterIndex + 1
+            }
+        }            
             if (screen.width < 768) {
                 if (shelterObject.iterIndex == shelterObject.setArray.length) {
                     shelterObject.iterIndex = 0
@@ -214,20 +234,53 @@ let shelterObject = {
             shelterObject.iterIndex = 7
         }
         shelterObject.classes.petsSlider.innerHTML = ''
-        for (let i =0; i < 3; i++) {
-            if (shelterObject.iterIndex == 0) {
-                shelterObject.iterIndex = 7
+        if ( 1280 <= screen.width ) {
+            for (let i =0; i < 3; i++) {
+                if (shelterObject.iterIndex == 0) {
+                    shelterObject.iterIndex = 7
+                }
+                let div = document.createElement('div');
+                div.classList.add('pets__slider__item')
+                div.classList.add('run-animation')
+                div.innerHTML = `
+            <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
+            <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
+            <button class="about-pet">Learn more</button>`
+            shelterObject.classes.petsSlider.appendChild(div)
+            shelterObject.iterIndex = shelterObject.iterIndex -1
             }
-            let div = document.createElement('div');
-            div.classList.add('pets__slider__item')
-            div.classList.add('run-animation')
-            div.innerHTML = `
-        <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
-        <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
-        <button class="about-pet">Learn more</button>`
-        shelterObject.classes.petsSlider.appendChild(div)
-        shelterObject.iterIndex = shelterObject.iterIndex -1
+        } else if ( screen.width <1280 &&  768<= screen.width ) {
+                for (let i =0; i < 2; i++) {
+                    if (shelterObject.iterIndex == 0) {
+                        shelterObject.iterIndex = 7
+                    }
+                    let div = document.createElement('div');
+                    div.classList.add('pets__slider__item')
+                    div.classList.add('run-animation')
+                    div.innerHTML = `
+                <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
+                <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
+                <button class="about-pet">Learn more</button>`
+                shelterObject.classes.petsSlider.appendChild(div)
+                shelterObject.iterIndex = shelterObject.iterIndex -1
+                }
+        } else if (  screen.width < 768) {
+            for (let i =0; i < 1; i++) {
+                if (shelterObject.iterIndex == 0) {
+                    shelterObject.iterIndex = 7
+                }
+                let div = document.createElement('div');
+                div.classList.add('pets__slider__item')
+                div.classList.add('run-animation')
+                div.innerHTML = `
+            <img src="${shelterObject.setArray[shelterObject.iterIndex].img}"  class="pets-img "  alt="${shelterObject.setArray[shelterObject.iterIndex].type} ${shelterObject.setArray[shelterObject.iterIndex].name}  ">
+            <span class="pets-name">${shelterObject.setArray[shelterObject.iterIndex].name}</span>
+            <button class="about-pet">Learn more</button>`
+            shelterObject.classes.petsSlider.appendChild(div)
+            shelterObject.iterIndex = shelterObject.iterIndex -1
+            }
         }
+        
     },
     initBurgerMenu() {
         shelterObject.classes.burger.addEventListener('click', this.burgerHandler)

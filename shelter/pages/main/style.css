@@ -922,13 +922,10 @@
     justify-content: center;
     align-items: center;
 }
-    .pets__slider__item {
-    
-    }
 
-    .pets__slider__item:nth-child(2) {
- 
-    }
+.pets__slider__item {
+    margin: 0 1rem;
+}
 
     .about-pet {
         margin-right: 0.4rem;
@@ -952,12 +949,12 @@
     .arrow-left{
         position: absolute;
         top: 393px;
-        right: 350px;
+        right: 290px;
     }
     .arrow-right {
         position: absolute;
         top: 393px;
-        left: 350px;
+        left: 290px;
     }
     .help {
         height: 779px;
@@ -1059,7 +1056,10 @@
         flex-direction: column;
         height: 100%;
     }
-
+.close-button {
+    bottom: 430px;
+    left: 243px;
+}
     .modal-list {
         margin-left: 7rem;
         width: 24.7rem;
