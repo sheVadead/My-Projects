@@ -48,7 +48,7 @@ let petsObject = {
                 petsObject.blocksArray.push(Array.from(set2));
                 set2.clear()
             }
-        } else if (780 <= screen.width && screen.width < 1280) {
+        } else if (768 <= screen.width && screen.width < 1280) {
             petsObject.allPages = 8;
             for (let i =0; i<8; i++) {
             while (set2.size <6) {
