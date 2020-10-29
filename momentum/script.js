@@ -343,7 +343,6 @@ let momentumObject = {
         this.reloadBackground();
         this.intervalHandler()
         setInterval(momentumObject.intervalHandler, 3600000)
-       window.addEventListener('unload',  this.getWeatherData('Минск'))
 
     }
 }
