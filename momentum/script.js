@@ -117,7 +117,7 @@ let momentumObject = {
     findCity() {
         momentumObject.classes.searchTown.addEventListener('keypress', (e) => {
             if (e.keyCode == 13) {
-                momentumObject.classes.mainCont.style.transform = 'scale(1)'
+               
                 this.getWeatherData(momentumObject.classes.searchTown.value);
             }
         })
@@ -343,7 +343,7 @@ let momentumObject = {
         this.reloadBackground();
         this.intervalHandler()
         setInterval(momentumObject.intervalHandler, 3600000)
-       
+       window.addEventListener('unload',  this.getWeatherData('Минск'))
 
     }
 }
