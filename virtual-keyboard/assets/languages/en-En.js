@@ -53,7 +53,6 @@ const en = {
     Period: ['.', '>'],
     Slash: ['/', '?'],
     ArrowUp: ['⬆', '⬆'],
-    ShiftRight: ['Shift', 'Shift'],
     ControlLeft: ['Ctrl', 'Ctrl'],
     MetaLeft: ['Win', 'Win'],
     AltLeft: ['Alt', 'Alt'],
