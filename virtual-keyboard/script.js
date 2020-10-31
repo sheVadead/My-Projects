@@ -15,7 +15,8 @@ const Keyboard = {
   properties: {
     value: "",
     capsLock: false,
-    shift: false
+    shift: false,
+    voice: false
   },
   keyboardWrap: document.querySelector('.keyboard__keys'),
   case: 0,
@@ -26,6 +27,7 @@ const Keyboard = {
   display: document.querySelector('.use-keyboard-input'),
   currentLang: localStorage.getItem('ru') || 'ru',
   pressedKeys: new Set(),
+  recognition: new webkitSpeechRecognition(),
   init() {
 
     // Create main elements
@@ -126,6 +128,17 @@ const Keyboard = {
           keyElement.addEventListener("click", () => {
             this.properties.value += "\t";
             this._triggerEvent("oninput");
+          });
+
+          break;
+
+          case "voice":
+          keyElement.classList.add("keyboard__key--activatable")
+         
+          keyElement.innerHTML = createIconHTML("settings_voice");
+          keyElement.style.width = 9 + '%'
+          keyElement.addEventListener("click", () => {
+            this.voiceButtonHandler()
           });
 
           break;
@@ -358,7 +371,7 @@ const Keyboard = {
   console.log(key)
   audio.currentTime = 0;
   audio.play()
-    if(key !== 'Shift'  && key !== 'Tab' && key !== 'Del' && key !== 'Ctrl' && key !== 'Alt' && key !== 'Alt Gr' && key !== 'Win' && key !== 'Backspace'&& key !== 'Enter'){
+    if(key !== 'Shift'  && key !== 'Tab' && key !== 'Del' && key !== 'Control' && key !== 'Alt' && key !== 'Alt Gr' && key !== 'Win' && key !== 'Backspace'&& key !== 'Enter'){
       this.properties.value += key
       this.display.focus();
     }
@@ -381,12 +394,46 @@ const Keyboard = {
       this.display.focus();
     }
   
+  },
+
+  speechRecognition() {
+    let recognitionLang = this.currentLang
+    
+    this.recognition.interimResults = true;
+    this.recognition.lang = `${recognitionLang}`;
+    this.recognition.addEventListener('result', (e)=>{
+      console.log(e)
+    })
+    this.recognition.start()
+    this.recognition.addEventListener('result', e => {
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
+      console.log(transcript)
+      this.properties.value += transcript
+    })
+    this.recognition.addEventListener('end', this.recognition.start)
+    
+  },
+  voiceButtonHandler() {
+    let speech = document.querySelector('.Speech')
+    this.properties.voice = !this.properties.voice;
+      if(this.properties.voice) {
+        speech.classList.add('keyboard__key--active')
+        this. speechRecognition()
+      } else {
+        speech.classList.remove('keyboard__key--active');
+        this.recognition.stop()
+       
+      }
   }
   
 };
 
 window.addEventListener("DOMContentLoaded", function () {
   Keyboard.init();
+
 });
 document.addEventListener('keyup', (e) => {
   Keyboard.pressedKeys.clear();
@@ -396,3 +443,4 @@ window.addEventListener('keydown', (e)=>{
 
 })
 // .addEventListener('click', Keyboard.display.focus())
+

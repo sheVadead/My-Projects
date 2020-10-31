@@ -56,6 +56,7 @@ const ru = {
     ControlLeft: ['Ctrl', 'Ctrl'],
     MetaLeft: ['Win', 'Win'],
     AltLeft: ['Alt', 'Alt'],
+    Speech: ['voice', 'voice'],
     Space: [' ', ' '],
     AltRight: ['Alt Gr', 'Alt Gr'],
     ArrowLeft: ['⬅', '⬅'],
