@@ -12,8 +12,8 @@ const en = {
     Digit0: ['0', ')'],
     Minus: ['-', '_'],
     Equal: ['=', '+'],
-    Backspace: ['⟵ Backspace', '⟵ Backspace'],
-    Tab: ['Tab ↹', 'Tab ↹'],
+    Backspace: ['Backspace', 'Backspace'],
+    Tab: ['Tab', 'Tab'],
     KeyQ: ['q', 'Q'],
     KeyW: ['w', 'W'],
     KeyE: ['e', 'E'],
@@ -40,7 +40,7 @@ const en = {
     KeyL: ['l', 'L'],
     Semicolon: [';', ':'],
     Quote: ['\'', '"'],
-    Enter: ['Enter ↲', 'Enter ↲'],
+    Enter: ['Enter', 'Enter'],
     ShiftLeft: ['Shift', 'Shift'],
     KeyZ: ['z', 'Z'],
     KeyX: ['x', 'X'],
@@ -63,6 +63,7 @@ const en = {
     ArrowDown: ['⬇', '⬇'],
     ArrowRight: ['➡', '➡'],
     ControlRight: ['Ctrl', 'Ctrl'],
+    Done: ['done', 'done']
   };
   
   export default en;
