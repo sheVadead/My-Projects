@@ -84,6 +84,26 @@
     background: rgba(255, 255, 255, 0.12);
   }
   .test {
-    transform: skewX(32deg);
     background-color: red;
+    transition: 0.3s;
+  }
+  .test:active::after {
+    background-image: url('./assets/images/left.svg');
+    transform: rotate(70deg);
+  }
+  .test:after { 
+    content: '';
+    width: 40px;
+    height: 40px;
+    background-image: url('./assets/images/left.svg');
+  }
+  .test:before { 
+    content: '';
+    width: 40px;
+    height: 40px;
+    background-image: url('./assets/images/right.svg');
+
+  }
+  .test:active{
+    transform: rotate(30deg);
   }
