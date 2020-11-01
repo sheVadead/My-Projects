@@ -27,7 +27,7 @@ const Keyboard = {
   display: document.querySelector('.use-keyboard-input'),
   currentLang: localStorage.getItem('ru') || 'ru',
   pressedKeys: new Set(),
-  recognition: new webkitSpeechRecognition(),
+  recognition : new webkitSpeechRecognition(),
   init() {
 
     // Create main elements
@@ -139,6 +139,7 @@ const Keyboard = {
           keyElement.style.width = 9 + '%'
           keyElement.addEventListener("click", () => {
             this.voiceButtonHandler()
+            
           });
 
           break;
@@ -368,7 +369,7 @@ const Keyboard = {
     const {code, key, target} = e;
     const audio = document.querySelector('audio');
     const audioSpace = document.querySelector('.space')
-  console.log(key)
+
   audio.currentTime = 0;
   audio.play()
     if(key !== 'Shift'  && key !== 'Tab' && key !== 'Del' && key !== 'Control' && key !== 'Alt' && key !== 'Alt Gr' && key !== 'Win' && key !== 'Backspace'&& key !== 'Enter'){
@@ -393,39 +394,55 @@ const Keyboard = {
       Keyboard.properties.value += '\t';
       this.display.focus();
     }
-  
+    console.log(this.properties.value)
   },
 
-  speechRecognition() {
+  speechRecognitionOn() {
+
     let recognitionLang = this.currentLang
-    
     this.recognition.interimResults = true;
     this.recognition.lang = `${recognitionLang}`;
-    this.recognition.addEventListener('result', (e)=>{
-      console.log(e)
-    })
+    this.recognition.maxAlternatives = 1;
     this.recognition.start()
-    this.recognition.addEventListener('result', e => {
-    const transcript = Array.from(e.results)
-      .map(result => result[0])
-      .map(result => result.transcript)
-      .join('');
-      console.log(transcript)
-      this.properties.value += transcript
-    })
     this.recognition.addEventListener('end', this.recognition.start)
+    this.recognition.addEventListener('result', e => {
+      console.log('asdasd')
+    const transcript = Array.from(e.results)
+          .map(item => item[0])
+          .map(item => item.transcript);
+          console.log(e.results[0][0].confidence)
+      if (e.results[0][0].confidence > 0.88) {
+        console.log('asdasd')
+        this.properties.value +=  transcript
+        this._triggerEvent("oninput");
+      }
+      
+    })
+    
+    // let speech = document.querySelector('.Speech')
+    // recognition.addEventListener('end', recognition.start)
+    // this.recognition.addEventListener('speechend', ()=>{
+    //   speech.classList.remove('keyboard__key--active');
+    //   console.log("Off");
+    //   Keyboard.properties.voice = !Keyboard.properties.voice;
+    //   recognition.abort();
+    // })
+      
+      
+      
     
   },
+ 
   voiceButtonHandler() {
     let speech = document.querySelector('.Speech')
     this.properties.voice = !this.properties.voice;
+    console.log(this.properties.voice)
       if(this.properties.voice) {
         speech.classList.add('keyboard__key--active')
-        this. speechRecognition()
+        this. speechRecognitionOn()
       } else {
         speech.classList.remove('keyboard__key--active');
-        this.recognition.stop()
-       
+        this.recognition.removeEventListener('end', this.recognition.start);
       }
   }
   
