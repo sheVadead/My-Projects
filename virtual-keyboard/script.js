@@ -87,13 +87,15 @@ const Keyboard = {
       keyElement.setAttribute("type", "button");
       keyElement.classList.add("keyboard__key");
       keyElement.classList.add(`${keyClass[index]}`)
-      const insertLineBreak = ["Speech"].indexOf(keyElement.classList[1]) !== -1;
+      const insertLineBreak = ['Backspace', 'Enter', 'Backslash', 'Speech'].indexOf(keyElement.classList[1]) !== -1;
+      console.log(insertLineBreak)
  
       switch (key[0]) {
         
 
 
         case "⬅":
+          keyElement.style.backgroundColor = 'rgb(216, 216, 216)'
         keyElement.addEventListener('click',()=>{
           const { selectionStart: start } = Keyboard.display;
           Keyboard.setPositionCursor(start - 1);
@@ -101,6 +103,7 @@ const Keyboard = {
           
           break;
           case "➡":
+            keyElement.style.backgroundColor = 'rgb(216, 216, 216)'
             keyElement.addEventListener('click',()=>{
               const { selectionStart: start } = Keyboard.display;
               Keyboard.setPositionCursor(start + 1);
@@ -108,6 +111,7 @@ const Keyboard = {
               
               break;
         case "":
+          keyElement.style.backgroundColor = 'rgb(216, 216, 216)'
           keyElement.innerText = `${this.currentLang}`.toUpperCase()
           keyElement.addEventListener('click', () => {
             this._setLang(event)
@@ -281,7 +285,10 @@ const Keyboard = {
       fragment.appendChild(keyElement);
 
       if (insertLineBreak) {
-        fragment.appendChild(document.createElement("br"));
+        let br = document.createElement("div");
+        br.classList.add('break')
+        fragment.appendChild(br);
+        console.log(fragment)
       }
 
     });
@@ -580,7 +587,7 @@ const Keyboard = {
       .map(item => item[0])
       .map(item => item.transcript);
     if (e.results[0][0].confidence > 0.8) {
-      Keyboard.properties.value += transcript
+      Keyboard.properties.value += transcript + ' '
       Keyboard._triggerEvent("oninput");
     }
   },
