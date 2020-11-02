@@ -27,7 +27,6 @@ const ru = {
     BracketLeft: ['х', 'Х'],
     BracketRight: ['ъ', 'Ъ'],
     Backslash: ['\\', '/'],
-    Delete: ['Del', 'Del'],
     CapsLock: ['CapsLock', 'CapsLock'],
     KeyA: ['ф', 'Ф'],
     KeyS: ['ы', 'Ы'],
@@ -52,15 +51,15 @@ const ru = {
     Comma: ['б', 'Б'],
     Period: ['ю', 'Ю'],
     Slash: ['.', ','],
-    ControlLeft: ['Ctrl', 'Ctrl'],
-    MetaLeft: ['Win', 'Win'],
-    AltLeft: ['Alt', 'Alt'],
     Speech: ['voice', 'voice'],
+
+
+    
     Space: [' ', ' '],
-    AltRight: ['Alt Gr', 'Alt Gr'],
+
     ArrowLeft: ['⬅', '⬅'],
     ArrowRight: ['➡', '➡'],
-    ControlRight: ['Ctrl', 'Ctrl'],
+
     Done: ['done', 'done'],
     Language: ['', '']
   };

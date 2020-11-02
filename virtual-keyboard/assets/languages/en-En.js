@@ -27,7 +27,6 @@ const en = {
     BracketLeft: ['[', '{'],
     BracketRight: [']', '}'],
     Backslash: ['\\', '|'],
-    Delete: ['Del', 'Del'],
     CapsLock: ['CapsLock', 'CapsLock'],
     KeyA: ['a', 'A'],
     KeyS: ['s', 'S'],
@@ -52,15 +51,16 @@ const en = {
     Comma: [',', '<'],
     Period: ['.', '>'],
     Slash: ['/', '?'],
-    ControlLeft: ['Ctrl', 'Ctrl'],
-    MetaLeft: ['Win', 'Win'],
-    AltLeft: ['Alt', 'Alt'],
     Speech: ['voice', 'voice'],
+
+
+
+    
     Space: [' ', ' '],
-    AltRight: ['Alt Gr', 'Alt Gr'],
+
     ArrowLeft: ['⬅', '⬅'],
     ArrowRight: ['➡', '➡'],
-    ControlRight: ['Ctrl', 'Ctrl'],
+
     Done: ['done', 'done'],
     Language: ['', '']
   };
