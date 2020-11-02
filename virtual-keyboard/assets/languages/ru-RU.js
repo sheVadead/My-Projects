@@ -52,7 +52,7 @@ const ru = {
     Period: ['ю', 'Ю'],
     Slash: ['.', ','],
     Speech: ['voice', 'voice'],
-
+    Sound: ['sound', 'sound'],
 
     
     Space: [' ', ' '],

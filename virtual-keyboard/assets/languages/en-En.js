@@ -52,7 +52,7 @@ const en = {
     Period: ['.', '>'],
     Slash: ['/', '?'],
     Speech: ['voice', 'voice'],
-
+    Sound: ['sound', 'sound'],
 
 
     
