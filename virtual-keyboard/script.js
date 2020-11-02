@@ -200,7 +200,11 @@ const Keyboard = {
           // keyElement.textContent = key.toLowerCase();
           keyElement.addEventListener("click", (e) => {
             if (textLength < 2 && keyElement.childNodes[0].innerText!=='⬅' && keyElement.childNodes[0].innerText!=='➡') {
-              this.properties.value += keyElement.childNodes[0].textContent
+              console.log(this.display.selectionStart)
+              let text = this.properties.value;
+              let position =  this.display.selectionStart;
+           let b = text.substring(0, position) + keyElement.childNodes[0].innerText + text.substring(position)
+           Keyboard.properties.value = b
               this._triggerEvent("oninput");
              
             }
@@ -491,6 +495,7 @@ const Keyboard = {
     this.recognition.interimResults = true;
     this.recognition.lang = `${recognitionLang}`;
     this.recognition.maxAlternatives = 1;
+    this.recognition.interimResults = false;
     this.recognition.start()
     this.recognition.addEventListener('end', this.recognition.start)
     this.recognition.addEventListener('result', e => {
@@ -498,7 +503,7 @@ const Keyboard = {
       const transcript = Array.from(e.results)
         .map(item => item[0])
         .map(item => item.transcript);
-      console.log(e.results[0][0].confidence)
+      console.log(e)
       if (e.results[0][0].confidence > 0.7) {
         
         this.properties.value += transcript
