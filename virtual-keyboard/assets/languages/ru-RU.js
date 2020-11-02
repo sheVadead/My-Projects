@@ -52,7 +52,6 @@ const ru = {
     Comma: ['б', 'Б'],
     Period: ['ю', 'Ю'],
     Slash: ['.', ','],
-    ArrowUp: ['⬆', '⬆'],
     ControlLeft: ['Ctrl', 'Ctrl'],
     MetaLeft: ['Win', 'Win'],
     AltLeft: ['Alt', 'Alt'],
@@ -60,10 +59,10 @@ const ru = {
     Space: [' ', ' '],
     AltRight: ['Alt Gr', 'Alt Gr'],
     ArrowLeft: ['⬅', '⬅'],
-    ArrowDown: ['⬇', '⬇'],
     ArrowRight: ['➡', '➡'],
     ControlRight: ['Ctrl', 'Ctrl'],
-    Done: ['done', 'done']
+    Done: ['done', 'done'],
+    Language: ['', '']
   };
   
   export default ru;

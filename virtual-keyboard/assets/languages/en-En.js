@@ -52,17 +52,17 @@ const en = {
     Comma: [',', '<'],
     Period: ['.', '>'],
     Slash: ['/', '?'],
-    ArrowUp: ['⬆', '⬆'],
     ControlLeft: ['Ctrl', 'Ctrl'],
     MetaLeft: ['Win', 'Win'],
     AltLeft: ['Alt', 'Alt'],
+    Speech: ['voice', 'voice'],
     Space: [' ', ' '],
     AltRight: ['Alt Gr', 'Alt Gr'],
     ArrowLeft: ['⬅', '⬅'],
-    ArrowDown: ['⬇', '⬇'],
     ArrowRight: ['➡', '➡'],
     ControlRight: ['Ctrl', 'Ctrl'],
-    Done: ['done', 'done']
+    Done: ['done', 'done'],
+    Language: ['', '']
   };
   
   export default en;
