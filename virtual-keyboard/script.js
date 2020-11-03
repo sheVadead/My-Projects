@@ -88,7 +88,6 @@ const Keyboard = {
       keyElement.classList.add("keyboard__key");
       keyElement.classList.add(`${keyClass[index]}`)
       const insertLineBreak = ['Backspace', 'Enter', 'Backslash', 'Speech'].indexOf(keyElement.classList[1]) !== -1;
-      console.log(insertLineBreak)
  
       switch (key[0]) {
         
@@ -165,8 +164,12 @@ const Keyboard = {
           keyElement.addEventListener("click", () => {
             this.audioHandler("space", Keyboard.currentLang);
             keyElement.classList.toggle(this.properties.shift)
-            keyElement.classList.toggle('keyboard__key--active')
-            this._toggleShift()
+            if(this.properties.shift) {
+              keyElement.classList.add('keyboard__key--active')
+            }
+            
+            this._toggleShift();
+            this.shiftCaps();
           })
           break;
         case "CapsLock":
@@ -178,7 +181,7 @@ const Keyboard = {
           keyElement.addEventListener("click", () => {
             keyElement.classList.toggle('keyboard__key--active')
             this._toggleCapsLock()
-
+            this.shiftCaps()
           });
           keyElement.addEventListener("click", () => {
             this.audioHandler("capslock", Keyboard.currentLang);
@@ -301,7 +304,6 @@ const Keyboard = {
         let br = document.createElement("div");
         br.classList.add('break')
         fragment.appendChild(br);
-        console.log(fragment)
       }
 
     });
@@ -325,7 +327,7 @@ const Keyboard = {
         wrap.removeChild(wrap.firstChild)
       }
       wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
-      this.changeBackShift()
+      // this.changeBackShift()
       this.elements.keys = wrap.childNodes
 
     } else {
@@ -335,9 +337,57 @@ const Keyboard = {
       wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 0))
       this.elements.keys = wrap.childNodes
     }
+    
 
+  },
 
-
+  shiftCaps() {
+   
+    let wrap = document.querySelector('.keyboard__keys');
+    if(this.properties.capsLock && this.properties.shift) {
+      while (wrap.firstChild) {
+        wrap.removeChild(wrap.firstChild)
+      }
+      wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
+      this.elements.keys = wrap.childNodes
+      this.elements.keys.forEach(item => {
+        if (item.textContent.length == 1) {
+         
+          item.textContent = item.textContent.toLowerCase()
+        }
+      })
+    } else if(!this.properties.shift && this.properties.capsLock ) {
+     
+      while (wrap.firstChild) {
+        wrap.removeChild(wrap.firstChild)
+      }
+      wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 0))
+      this.elements.keys = wrap.childNodes
+      this.elements.keys.forEach(item => {
+        if (item.textContent.length == 1) {
+          item.textContent = item.textContent.toUpperCase()
+        }
+      })
+    }else if(this.properties.shift && !this.properties.capsLock ) {
+     
+      while (wrap.firstChild) {
+        wrap.removeChild(wrap.firstChild)
+      }
+      wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
+      this.elements.keys = wrap.childNodes
+   
+    }
+     
+    if(this.properties.capsLock) {
+      console.log('asd')
+     let caps = document.querySelector('.CapsLock')
+     caps.classList.add('keyboard__key--active')
+    }
+    if(this.properties.shift) {
+      console.log('asd')
+     let sh = document.querySelector('.ShiftLeft')
+     sh.classList.add('keyboard__key--active')
+    }
   },
   _toggleCapsLock() {
     let wrap = document.querySelectorAll('.keyboard__keys')
@@ -360,29 +410,29 @@ const Keyboard = {
       })
     }
   },
-  changeBackShift() {
+  // changeBackShift() {
 
-    let wrap = document.querySelector('.keyboard__keys');
+  //   let wrap = document.querySelector('.keyboard__keys');
 
-    let shift = document.querySelector('.ShiftLeft');
-    if (this.properties.capsLock) {
-      this.properties.capsLock = !this.properties.capsLock;
-      this.properties.shift = !this.properties.shift
-      wrap.innerHTML = ''
-      wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 0))
-      this.elements.keys = wrap.childNodes
-    } else if (shift.classList.contains('test')) {
-      wrap.innerHTML = ''
-      wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
-      this.elements.keys = wrap.childNodes
-    } else {
-      wrap.innerHTML = ''
-      wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
-      this.elements.keys = wrap.childNodes
-      let shift = document.querySelector('.ShiftLeft');
-      shift.classList.add('keyboard__key--active')
-    }
-  },
+  //   let shift = document.querySelector('.ShiftLeft');
+  //   if (this.properties.capsLock) {
+  //     this.properties.capsLock = !this.properties.capsLock;
+  //     this.properties.shift = !this.properties.shift
+  //     wrap.innerHTML = ''
+  //     wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 0))
+  //     this.elements.keys = wrap.childNodes
+  //   } else if (shift.classList.contains('test')) {
+  //     wrap.innerHTML = ''
+  //     wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
+  //     this.elements.keys = wrap.childNodes
+  //   } else {
+  //     wrap.innerHTML = ''
+  //     wrap.appendChild(this._createKeys(this.langs[`${this.currentLang}`], 1))
+  //     this.elements.keys = wrap.childNodes
+  //     let shift = document.querySelector('.ShiftLeft');
+  //     shift.classList.add('keyboard__key--active')
+  //   }
+  // },
   changeBackCaps() {
     let cap = document.querySelector('.CapsLock')
     cap.classList.add('keyboard__key--active')
