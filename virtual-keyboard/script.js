@@ -95,25 +95,31 @@ const Keyboard = {
 
 
         case "⬅":
+         
           keyElement.style.backgroundColor = 'rgb(216, 216, 216)'
         keyElement.addEventListener('click',()=>{
+          Keyboard.audioHandler('default',Keyboard.currentLang)
           const { selectionStart: start } = Keyboard.display;
           Keyboard.setPositionCursor(start - 1);
         })
           
           break;
           case "➡":
+           
             keyElement.style.backgroundColor = 'rgb(216, 216, 216)'
             keyElement.addEventListener('click',()=>{
+              Keyboard.audioHandler('default',Keyboard.currentLang)
               const { selectionStart: start } = Keyboard.display;
               Keyboard.setPositionCursor(start + 1);
             })
               
               break;
         case "":
+          
           keyElement.style.backgroundColor = 'rgb(216, 216, 216)'
           keyElement.innerText = `${this.currentLang}`.toUpperCase()
           keyElement.addEventListener('click', () => {
+            this.audioHandler('default',Keyboard.currentLang)
             this._setLang(event)
           })
           break;
@@ -197,6 +203,7 @@ const Keyboard = {
         case "Tab":
           keyElement.classList.add("keyboard__key--wide");
           keyElement.addEventListener("click", () => {
+            this.audioHandler('default',Keyboard.currentLang)
             this.properties.value += "\t";
             this._triggerEvent("oninput");
           });
@@ -204,6 +211,7 @@ const Keyboard = {
           break;
 
         case "voice":
+          
           keyElement.classList.add("keyboard__key--wide");
           keyElement.classList.add("keyboard__key--activatable")
 
@@ -212,7 +220,7 @@ const Keyboard = {
           keyElement.addEventListener("click", () => {
             this.display.focus()
             this.voiceButtonHandler()
-
+            this.audioHandler('default',Keyboard.currentLang)
           });
 
           break;
@@ -221,6 +229,8 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("space_bar");
 
           keyElement.addEventListener("click", () => {
+              this.audioHandler('default', Keyboard.currentLang)
+            
             const {
               value: value,
               selectionStart: start,
@@ -238,6 +248,9 @@ const Keyboard = {
           break;
 
         case "done":
+          keyElement.addEventListener("click", ()=>{
+            this.audioHandler('default', Keyboard.currentLang)
+           })
           keyElement.classList.add("keyboard__key--dark");
           keyElement.innerHTML = createIconHTML("check_circle");
           keyElement.addEventListener("click", () => {
