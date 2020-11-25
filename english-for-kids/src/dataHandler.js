@@ -27,6 +27,33 @@ let dataHandler = {
             div.appendChild(divContainer);
             this.categoryBlocks.push(div);
         })
+        
+    },
+    setHeader() {
+        let headerWrapp = document.createElement('div');
+        let burgerWrap = document.createElement('div');
+        let siteLogoWrap = document.createElement('div');
+        let buttonSliderWrap = document.createElement('div');
+        let spanLogo = document.createElement('span');
+        let input = document.createElement('input');
+        let label = document.createElement('label');
+        input.setAttribute('id','checkbox');
+        input.setAttribute('type', 'checkbox')
+        label.setAttribute('for','checkbox')
+        spanLogo.classList.add('logo-text');
+        spanLogo.textContent = 'English for Kids'
+        siteLogoWrap.classList.add('site-logo')
+        siteLogoWrap.appendChild(spanLogo);
+        buttonSliderWrap.classList.add('slider-button')
+        buttonSliderWrap.appendChild(input);
+        buttonSliderWrap.appendChild(label);
+        burgerWrap.classList.add('burger-menu');
+
+        headerWrapp.classList.add('header__inner');
+        headerWrapp.appendChild(burgerWrap);
+        headerWrapp.appendChild(siteLogoWrap);
+        headerWrapp.appendChild(buttonSliderWrap)
+        return headerWrapp;
     }
 }
 

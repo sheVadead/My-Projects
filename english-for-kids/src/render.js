@@ -15,6 +15,7 @@ const render = {
             this.classes.wrapper.appendChild(item)
         })
         this.classes.main.appendChild(this.classes.wrapper)
+        this.classes.header.appendChild(dataHandler.setHeader())
       document.body.appendChild(this.classes.header)
       document.body.appendChild(this.classes.main)    
     },
