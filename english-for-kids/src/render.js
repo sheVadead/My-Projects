@@ -6,6 +6,12 @@ const render = {
         main: document.createElement('main'),
         wrapper: document.createElement('div')
     },
+    listenersHandler() {
+        this.classes.wrapper.addEventListener('click', (e)=>{
+            dataHandler.categoryCards(e)
+            
+        })
+    },
     render() {
         this.classes.wrapper.classList.add('wrapper');
         this.classes.header.classList.add('header');
@@ -23,6 +29,7 @@ const render = {
     init() {
         dataHandler.setBlocksCategory()
         this.render()
+        this.listenersHandler()
     }
 }
 

@@ -88,7 +88,7 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 120rem;
+        max-width: 130rem;
         flex-wrap: wrap;
         flex: 1;
         .main-card {
@@ -98,12 +98,11 @@ main {
             justify-content: space-around;
             width: 28rem;
             height: 28rem;
-            border: 1px solid black;
-            margin: 1rem;
+            margin: 2rem;
             border-radius: 1rem;
             background: #50c9c3; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #50c9c3, #96deda); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #50c9c3, #96deda); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
+  box-shadow: 7px 11px 15px rgba(0,0,0,0.5); 
             &__inner {
                 display: flex;
                 flex-direction: column;
@@ -111,6 +110,10 @@ main {
                 justify-content: space-around;
                 flex: 1;
                 .img-wrap {
+                    img {
+                        border: 1px solid white;
+                        box-shadow: 0 11px 15px rgba(0,0,0,0.5);
+                    }
                 }
                 &__footer {
                     display: flex;
@@ -122,9 +125,61 @@ main {
                 }
             }
             .category-img {
-                width: 17rem;
-                height: 17rem;
+                width: 20rem;
+                height: 20rem;
                 border-radius: 40%;
+            }
+
+            
+        }
+
+        .train-card {
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            width: 28rem;
+            height: 28rem;
+            margin: 2rem;
+            border-radius: 1rem;
+            background: #50c9c3; /* fallback for old browsers */
+            background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
+  box-shadow: 7px 11px 15px rgba(0,0,0,0.5); 
+            &__front {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                flex: 1;
+                .img-wrap {
+                    img {
+                        border: 1px solid white;
+                        box-shadow: 0 11px 15px rgba(0,0,0,0.5);
+                    }
+                }
+                &__footer {
+                    display: flex;
+
+                    align-items: center;
+                    .word-name {
+                        text-align: center;
+                        font: normal normal 3rem/110% 'Nerko One', sans-serif;
+                        color: white;
+                        text-align: center;
+                    }
+                    .rotate-img {
+                        position: relative;
+                        left: 55px;
+                        width: 4rem;
+                        height: 4rem;
+                    }
+                }
+            }
+            .word-img {
+                width: 26rem;
+                height: 20rem;
+                border-radius: 3rem;
             }
 
             
