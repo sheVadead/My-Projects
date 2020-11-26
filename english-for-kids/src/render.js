@@ -8,8 +8,15 @@ const render = {
     },
     listenersHandler() {
         this.classes.wrapper.addEventListener('click', (e)=>{
+          dataHandler.rotateHandler(e)
             dataHandler.categoryCards(e)
             
+        })
+        this.classes.wrapper.addEventListener('mouseout', (e)=>{
+            let target = e.target.closest('.train-card');
+            if(target) {
+                console.log('OVER')
+            }
         })
     },
     render() {

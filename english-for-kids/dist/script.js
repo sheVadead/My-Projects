@@ -435,6 +435,11 @@ var dataHandler = {
       var span = document.createElement('span');
       var rotateImg = document.createElement('img');
       var additionalblock = document.createElement('div');
+      var divContainerBack = document.createElement('div');
+      var divFooterBack = document.createElement('div');
+      var imgBack = document.createElement('img');
+      var spanBack = document.createElement('span');
+      var imgWrapBack = document.createElement('div');
       additionalblock.style.width = 4 + 'rem';
       imgWrap.classList.add('img-wrap');
       rotateImg.setAttribute('src', './img/rotate.svg');
@@ -453,13 +458,42 @@ var dataHandler = {
       imgWrap.appendChild(img);
       divContainer.appendChild(imgWrap);
       divContainer.appendChild(divFooter);
+      divContainerBack.classList.add('train-card__back');
+      divFooterBack.classList.add('train-card__back__footer');
+      spanBack.classList.add('word-name');
+      spanBack.textContent = item.translation;
+      imgWrapBack.classList.add('img-wrap');
+      imgBack.setAttribute('src', "".concat(item.image));
+      imgBack.setAttribute('alt', "".concat(item.word));
+      imgBack.classList.add('word-img');
+      imgWrapBack.appendChild(imgBack);
+      divFooterBack.appendChild(spanBack);
+      divContainerBack.appendChild(imgWrapBack);
+      divContainerBack.appendChild(divFooterBack);
       div.appendChild(divContainer);
+      div.appendChild(divContainerBack);
 
       _this2.trainCards.push(div);
     });
     this.shuffle(this.trainCards).forEach(function (item) {
       mainWrapper.appendChild(item);
     });
+  },
+  rotateHandler: function rotateHandler(e) {
+    // let wrapper = document.querySelector('.wrapper')
+    // console.log(wrapper.children)
+    var target = e.target.closest('.rotate-img');
+    var trainCard = e.target.closest('.train-card');
+    var clickedBlock = e.target.parentNode.parentNode.parentNode.childNodes;
+    console.log(e.target.parentNode.parentNode.parentNode);
+
+    if (target) {
+      clickedBlock[0].classList.toggle('rotate-front');
+      trainCard.style.transform = 'rotateY(180deg)';
+      clickedBlock[1].style.transform = 'rotateY(0deg)';
+      clickedBlock[1].childNodes[0].children[0].classList.add('rotate-front');
+      clickedBlock[1].childNodes[1].children[0].classList.add('rotate-front');
+    }
   },
   shuffle: function shuffle(a) {
     var j, x, i;
@@ -498,7 +532,15 @@ var render = {
   },
   listenersHandler: function listenersHandler() {
     this.classes.wrapper.addEventListener('click', function (e) {
+      _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.rotateHandler(e);
       _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.categoryCards(e);
+    });
+    this.classes.wrapper.addEventListener('mouseout', function (e) {
+      var target = e.target.closest('.train-card');
+
+      if (target) {
+        console.log('OVER');
+      }
     });
   },
   render: function render() {
