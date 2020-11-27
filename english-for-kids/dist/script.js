@@ -417,12 +417,14 @@ var dataHandler = {
   categoryCards: function categoryCards(e) {
     var _this2 = this;
 
+    console.log('aaasd');
     var target = e.target.closest('[data-index]');
     if (target === null) return;
     var targetIndex = target.dataset.index;
     var mainWrapper = document.querySelector('.wrapper');
 
     while (mainWrapper.firstChild) {
+      console.log('clear');
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
 
@@ -435,6 +437,11 @@ var dataHandler = {
       var span = document.createElement('span');
       var rotateImg = document.createElement('img');
       var additionalblock = document.createElement('div');
+      var divContainerBack = document.createElement('div');
+      var divFooterBack = document.createElement('div');
+      var imgBack = document.createElement('img');
+      var spanBack = document.createElement('span');
+      var imgWrapBack = document.createElement('div');
       additionalblock.style.width = 4 + 'rem';
       imgWrap.classList.add('img-wrap');
       rotateImg.setAttribute('src', './img/rotate.svg');
@@ -453,13 +460,81 @@ var dataHandler = {
       imgWrap.appendChild(img);
       divContainer.appendChild(imgWrap);
       divContainer.appendChild(divFooter);
+      divContainerBack.classList.add('train-card__back');
+      divFooterBack.classList.add('train-card__back__footer');
+      spanBack.classList.add('word-name');
+      spanBack.textContent = item.translation;
+      imgWrapBack.classList.add('img-wrap');
+      imgBack.setAttribute('src', "".concat(item.image));
+      imgBack.setAttribute('alt', "".concat(item.word));
+      imgBack.classList.add('word-img');
+      imgWrapBack.appendChild(imgBack);
+      divFooterBack.appendChild(spanBack);
+      divContainerBack.appendChild(imgWrapBack);
+      divContainerBack.appendChild(divFooterBack);
       div.appendChild(divContainer);
+      div.appendChild(divContainerBack);
+      div.setAttribute('data-word', "".concat(item.word));
+      div.addEventListener('mouseout', _this2.backRotate);
 
       _this2.trainCards.push(div);
     });
     this.shuffle(this.trainCards).forEach(function (item) {
       mainWrapper.appendChild(item);
     });
+    this.trainCards = [];
+  },
+  backRotate: function backRotate(e) {
+    var backTarget = e.target.closest('.train-card');
+
+    if (e.relatedTarget.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
+      backTarget.childNodes[1].style.visibility = 'hidden';
+      backTarget.style.transform = 'rotateY(0deg)';
+      backTarget.style.transform = 'scale(1.01)';
+      backTarget.childNodes[0].classList.remove('rotate-front');
+      backTarget.childNodes[1].style.transform = 'rotateY(180deg)';
+      backTarget.classList.remove('flipped');
+    }
+  },
+  rotateHandler: function rotateHandler(e) {
+    var target = e.target.closest('.rotate-img');
+    var trainCard = e.target.closest('.train-card');
+    var clickedBlock = e.target.parentNode.parentNode.parentNode.childNodes;
+
+    if (target) {
+      trainCard.classList.add('flipped');
+      clickedBlock[0].classList.toggle('rotate-front');
+      trainCard.style.transform = 'rotateY(180deg)';
+      clickedBlock[1].style.transform = 'rotateY(0deg)';
+      clickedBlock[1].style.visibility = '';
+      clickedBlock[1].childNodes[0].children[0].classList.add('rotate-front');
+      clickedBlock[1].childNodes[1].children[0].classList.add('rotate-front');
+    }
+  },
+  audioHandler: function audioHandler(e) {
+    var audio = document.createElement('audio');
+    var card = e.target.closest('.train-card');
+
+    if (!card.classList.contains('flipped')) {
+      audio.setAttribute('src', "./audio/".concat(card.dataset.word, ".mp3"));
+      audio.currentTime = 0;
+      audio.play();
+    }
+  },
+  toMainPage: function toMainPage(e) {
+    var target = e.target.closest('.logo-text');
+
+    if (target) {
+      var mainWrapper = document.querySelector('.wrapper');
+
+      while (mainWrapper.firstChild) {
+        mainWrapper.removeChild(mainWrapper.firstChild);
+      }
+
+      dataHandler.categoryBlocks.forEach(function (item) {
+        mainWrapper.appendChild(item);
+      });
+    }
   },
   shuffle: function shuffle(a) {
     var j, x, i;
@@ -498,8 +573,24 @@ var render = {
   },
   listenersHandler: function listenersHandler() {
     this.classes.wrapper.addEventListener('click', function (e) {
+      _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.rotateHandler(e);
       _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.categoryCards(e);
-    });
+    }); // this.classes.wrapper.addEventListener('mouseout', (e)=>{
+    // let target = e.target.closest('.train-card');
+    // let backTarget = e.target.closest('div .train-card__back')
+    // let clickedBlock = e.target.childNodes;
+    // if(backTarget ) {
+    //     let nodes = backTarget.parentNode.childNodes
+    //     nodes[0].classList.toggle('rotate-front');
+    //     target.style.transform = 'rotateY(0deg)'
+    //     nodes[1].style.transform = 'rotateY(180deg)';
+    //     // nodes[1].childNodes[0].children[0].classList.remove('rotate-front')
+    //     // nodes[1].childNodes[1].children[0].classList.remove('rotate-front')
+    // }
+    // })
+
+    this.classes.wrapper.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.audioHandler);
+    this.classes.header.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.toMainPage);
   },
   render: function render() {
     var _this = this;
