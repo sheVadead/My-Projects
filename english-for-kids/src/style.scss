@@ -1,0 +1,188 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root {
+    font-size: 10px;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 1rem;
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        .site-logo {
+            .logo-text {
+                font: normal normal 5rem/120% 'Nerko One', sans-serif;
+            }
+        }
+        .slider-button {
+            text-align: center;
+            #checkbox {
+                display: none;
+              }
+            label {
+                display: block;
+                left: 0px;
+                top: 0;
+                position: relative;
+                width: 100px;
+                height: 40px;
+                z-index: 10;
+                line-height: 40px;
+                font-weight: bold;
+                background: rgb(70, 218, 255);
+                -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                -o-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                border-radius: 2rem;
+                cursor: pointer;
+                &:after {
+                    content: "TRAIN";
+                    font: normal normal 2rem/120% 'Nerko One', sans-serif;
+                    vertical-align: center;
+                    color: white;
+                    width: 70px;
+                    height: 40px;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    display: block;
+                    background: #6addfa;
+                    -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    -o-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    border-radius: 2rem;
+                    cursor: pointer;
+                }
+              }
+
+              :checked + label {
+                left: 0px;
+                background-color: red;
+              }
+              
+              :checked + label:after {
+                left: 30px;
+                background: #FC6666;
+                content: "PLAY";
+              }
+        }
+    }
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 130rem;
+        flex-wrap: wrap;
+        flex: 1;
+        .main-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            width: 28rem;
+            height: 28rem;
+            margin: 2rem;
+            border-radius: 1rem;
+            background: #50c9c3; /* fallback for old browsers */
+            background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
+  box-shadow: 7px 11px 15px rgba(0,0,0,0.5); 
+            &__inner {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                flex: 1;
+                .img-wrap {
+                    img {
+                        border: 1px solid white;
+                        box-shadow: 0 11px 15px rgba(0,0,0,0.5);
+                    }
+                }
+                &__footer {
+                    display: flex;
+                    justify-content: center;
+                    .category-name {
+                        font: normal normal 3rem/110% 'Nerko One', sans-serif;
+                        text-align: center;
+                    }
+                }
+            }
+            .category-img {
+                width: 20rem;
+                height: 20rem;
+                border-radius: 40%;
+            }
+
+            
+        }
+
+        .train-card {
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            width: 28rem;
+            height: 28rem;
+            margin: 2rem;
+            border-radius: 1rem;
+            background: #50c9c3; /* fallback for old browsers */
+            background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
+  box-shadow: 7px 11px 15px rgba(0,0,0,0.5); 
+            &__front {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                flex: 1;
+                .img-wrap {
+                    img {
+                        border: 1px solid white;
+                        box-shadow: 0 11px 15px rgba(0,0,0,0.5);
+                    }
+                }
+                &__footer {
+                    display: flex;
+
+                    align-items: center;
+                    .word-name {
+                        text-align: center;
+                        font: normal normal 3rem/110% 'Nerko One', sans-serif;
+                        color: white;
+                        text-align: center;
+                    }
+                    .rotate-img {
+                        position: relative;
+                        left: 55px;
+                        width: 4rem;
+                        height: 4rem;
+                    }
+                }
+            }
+            .word-img {
+                width: 26rem;
+                height: 20rem;
+                border-radius: 3rem;
+            }
+
+            
+        }
+    }
+}
