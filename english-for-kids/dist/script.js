@@ -417,12 +417,14 @@ var dataHandler = {
   categoryCards: function categoryCards(e) {
     var _this2 = this;
 
+    console.log('aaasd');
     var target = e.target.closest('[data-index]');
     if (target === null) return;
     var targetIndex = target.dataset.index;
     var mainWrapper = document.querySelector('.wrapper');
 
     while (mainWrapper.firstChild) {
+      console.log('clear');
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
 
@@ -472,27 +474,66 @@ var dataHandler = {
       divContainerBack.appendChild(divFooterBack);
       div.appendChild(divContainer);
       div.appendChild(divContainerBack);
+      div.setAttribute('data-word', "".concat(item.word));
+      div.addEventListener('mouseout', _this2.backRotate);
 
       _this2.trainCards.push(div);
     });
     this.shuffle(this.trainCards).forEach(function (item) {
       mainWrapper.appendChild(item);
     });
+    this.trainCards = [];
+  },
+  backRotate: function backRotate(e) {
+    var backTarget = e.target.closest('.train-card');
+
+    if (e.relatedTarget.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
+      backTarget.childNodes[1].style.visibility = 'hidden';
+      backTarget.style.transform = 'rotateY(0deg)';
+      backTarget.style.transform = 'scale(1.01)';
+      backTarget.childNodes[0].classList.remove('rotate-front');
+      backTarget.childNodes[1].style.transform = 'rotateY(180deg)';
+      backTarget.classList.remove('flipped');
+    }
   },
   rotateHandler: function rotateHandler(e) {
-    // let wrapper = document.querySelector('.wrapper')
-    // console.log(wrapper.children)
     var target = e.target.closest('.rotate-img');
     var trainCard = e.target.closest('.train-card');
     var clickedBlock = e.target.parentNode.parentNode.parentNode.childNodes;
-    console.log(e.target.parentNode.parentNode.parentNode);
 
     if (target) {
+      trainCard.classList.add('flipped');
       clickedBlock[0].classList.toggle('rotate-front');
       trainCard.style.transform = 'rotateY(180deg)';
       clickedBlock[1].style.transform = 'rotateY(0deg)';
+      clickedBlock[1].style.visibility = '';
       clickedBlock[1].childNodes[0].children[0].classList.add('rotate-front');
       clickedBlock[1].childNodes[1].children[0].classList.add('rotate-front');
+    }
+  },
+  audioHandler: function audioHandler(e) {
+    var audio = document.createElement('audio');
+    var card = e.target.closest('.train-card');
+
+    if (!card.classList.contains('flipped')) {
+      audio.setAttribute('src', "./audio/".concat(card.dataset.word, ".mp3"));
+      audio.currentTime = 0;
+      audio.play();
+    }
+  },
+  toMainPage: function toMainPage(e) {
+    var target = e.target.closest('.logo-text');
+
+    if (target) {
+      var mainWrapper = document.querySelector('.wrapper');
+
+      while (mainWrapper.firstChild) {
+        mainWrapper.removeChild(mainWrapper.firstChild);
+      }
+
+      dataHandler.categoryBlocks.forEach(function (item) {
+        mainWrapper.appendChild(item);
+      });
     }
   },
   shuffle: function shuffle(a) {
@@ -534,14 +575,22 @@ var render = {
     this.classes.wrapper.addEventListener('click', function (e) {
       _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.rotateHandler(e);
       _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.categoryCards(e);
-    });
-    this.classes.wrapper.addEventListener('mouseout', function (e) {
-      var target = e.target.closest('.train-card');
+    }); // this.classes.wrapper.addEventListener('mouseout', (e)=>{
+    // let target = e.target.closest('.train-card');
+    // let backTarget = e.target.closest('div .train-card__back')
+    // let clickedBlock = e.target.childNodes;
+    // if(backTarget ) {
+    //     let nodes = backTarget.parentNode.childNodes
+    //     nodes[0].classList.toggle('rotate-front');
+    //     target.style.transform = 'rotateY(0deg)'
+    //     nodes[1].style.transform = 'rotateY(180deg)';
+    //     // nodes[1].childNodes[0].children[0].classList.remove('rotate-front')
+    //     // nodes[1].childNodes[1].children[0].classList.remove('rotate-front')
+    // }
+    // })
 
-      if (target) {
-        console.log('OVER');
-      }
-    });
+    this.classes.wrapper.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.audioHandler);
+    this.classes.header.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.toMainPage);
   },
   render: function render() {
     var _this = this;

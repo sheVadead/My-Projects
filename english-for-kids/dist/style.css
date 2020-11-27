@@ -14,6 +14,7 @@
   justify-content: center;
   width: 100%;
   padding-top: 1rem;
+  transition: 0.5s;
 }
 .header__inner {
   display: flex;
@@ -23,6 +24,9 @@
 }
 .header__inner .site-logo .logo-text {
   font: normal normal 5rem/120% "Nerko One", sans-serif;
+}
+.header__inner .site-logo .logo-text:hover {
+  cursor: pointer;
 }
 .header__inner .slider-button {
   text-align: center;
@@ -147,6 +151,10 @@ main .wrapper .train-card {
   background-image: linear-gradient(to top right, #6573ff, #6e77f4, #777ce9, #8080de, #8984d3, #9289c8, #9a8dbc, #a392b1, #ac96a6, #b59a9b, #be9f90, #c7a385);
   box-shadow: 7px 11px 15px rgba(0, 0, 0, 0.5);
   transition: 1s;
+}
+main .wrapper .train-card:hover {
+  cursor: pointer;
+  transform: scale(1.01);
 }
 main .wrapper .train-card__front {
   position: absolute;

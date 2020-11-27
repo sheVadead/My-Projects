@@ -57,12 +57,14 @@ let dataHandler = {
         return headerWrapp;
     },
     categoryCards(e) {
+        console.log('aaasd')
         const target = e.target.closest('[data-index]');
         if (target === null) return;
         const targetIndex = target.dataset.index
 
         const mainWrapper = document.querySelector('.wrapper');
         while (mainWrapper.firstChild) {
+            console.log('clear')
             mainWrapper.removeChild(mainWrapper.firstChild);
         }
         cards[targetIndex].forEach(item => {
@@ -117,29 +119,65 @@ let dataHandler = {
             divContainerBack.appendChild(imgWrapBack);
             divContainerBack.appendChild(divFooterBack)
             div.appendChild(divContainer);
-            div.appendChild(divContainerBack)
+            div.appendChild(divContainerBack);
+            div.setAttribute('data-word',`${item.word}`)
+            div.addEventListener('mouseout', this.backRotate)
             this.trainCards.push(div)
         })
         this.shuffle(this.trainCards).forEach(item => {
             mainWrapper.appendChild(item)
         })
+        this.trainCards = [];
+    },
+    backRotate(e) {
+        let backTarget = e.target.closest('.train-card');
+        if(e.relatedTarget.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
+            backTarget.childNodes[1].style.visibility = 'hidden'
+            backTarget.style.transform = 'rotateY(0deg)';
+            backTarget.style.transform = 'scale(1.01)';
+            backTarget.childNodes[0].classList.remove('rotate-front');
+            backTarget.childNodes[1].style.transform = 'rotateY(180deg)'
+            backTarget.classList.remove('flipped')
+        }
     },
     rotateHandler(e) {
-        // let wrapper = document.querySelector('.wrapper')
-        // console.log(wrapper.children)
         let target = e.target.closest('.rotate-img');
         let trainCard = e.target.closest('.train-card')
         let clickedBlock = e.target.parentNode.parentNode.parentNode.childNodes
-        console.log(e.target.parentNode.parentNode.parentNode)
         if (target) {
-            
+            trainCard.classList.add('flipped')
             clickedBlock[0].classList.toggle('rotate-front');
             trainCard.style.transform = 'rotateY(180deg)'
             clickedBlock[1].style.transform = 'rotateY(0deg)';
+            clickedBlock[1].style.visibility = '';
             clickedBlock[1].childNodes[0].children[0].classList.add('rotate-front')
             clickedBlock[1].childNodes[1].children[0].classList.add('rotate-front')
         }
     },
+    audioHandler(e) {
+        const audio = document.createElement('audio');
+       const card = e.target.closest('.train-card')
+       if(!card.classList.contains('flipped')) {
+        audio.setAttribute('src', `./audio/${card.dataset.word}.mp3`)
+        audio.currentTime = 0;
+        audio.play();
+       }
+    
+    },
+    toMainPage(e) {
+       const target = e.target.closest('.logo-text');
+       if(target) {
+        const mainWrapper = document.querySelector('.wrapper');
+        while (mainWrapper.firstChild) {
+            mainWrapper.removeChild(mainWrapper.firstChild);
+        }
+        dataHandler.categoryBlocks.forEach(item => {
+            mainWrapper.appendChild(item)
+        })
+       }
+       
+    },
+    
     shuffle(a) {
         var j, x, i;
         for (i = a.length - 1; i > 0; i--) {

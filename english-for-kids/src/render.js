@@ -12,12 +12,22 @@ const render = {
             dataHandler.categoryCards(e)
             
         })
-        this.classes.wrapper.addEventListener('mouseout', (e)=>{
-            let target = e.target.closest('.train-card');
-            if(target) {
-                console.log('OVER')
-            }
-        })
+        // this.classes.wrapper.addEventListener('mouseout', (e)=>{
+            // let target = e.target.closest('.train-card');
+            // let backTarget = e.target.closest('div .train-card__back')
+            // let clickedBlock = e.target.childNodes;
+            // if(backTarget ) {
+            //     let nodes = backTarget.parentNode.childNodes
+               
+            //     nodes[0].classList.toggle('rotate-front');
+            //     target.style.transform = 'rotateY(0deg)'
+            //     nodes[1].style.transform = 'rotateY(180deg)';
+            //     // nodes[1].childNodes[0].children[0].classList.remove('rotate-front')
+            //     // nodes[1].childNodes[1].children[0].classList.remove('rotate-front')
+            // }
+        // })
+        this.classes.wrapper.addEventListener('click', dataHandler.audioHandler);
+        this.classes.header.addEventListener('click',dataHandler.toMainPage)
     },
     render() {
         this.classes.wrapper.classList.add('wrapper');
