@@ -30,6 +30,23 @@ let dataHandler = {
         })
 
     },
+    setNavMenu() {
+        const navigation = document.createElement('nav')
+        const navigationInner = document.createElement('div');
+        const menuList = document.createElement('ul');
+        menuList.classList.add('navigation__inner__list')
+        navigationInner.classList.add('navigation__inner');
+        cards[0].forEach((item, index)=>{
+            const li = document.createElement('li');
+            li.classList.add('navigation__inner__list-item');
+            
+            li.textContent = item;
+            menuList.appendChild(li)
+        })
+        navigationInner.appendChild(navigationInner)
+        navigation.appendChild(navigationInner);
+        return navigation;
+    },
     setHeader() {
         let headerWrapp = document.createElement('div');
         let burgerWrap = document.createElement('div');
@@ -38,6 +55,24 @@ let dataHandler = {
         let spanLogo = document.createElement('span');
         let input = document.createElement('input');
         let label = document.createElement('label');
+        let burger = document.createElement('img');
+        let logoBurgerWrapper = document.createElement('div')
+        const navigation = document.createElement('nav')
+        const navigationInner = document.createElement('div');
+        const menuList = document.createElement('ul');
+        navigation.classList.add('navigation')
+        menuList.classList.add('navigation__inner__list')
+        navigationInner.classList.add('navigation__inner');
+        cards[0].forEach((item,index)=>{
+            const li = document.createElement('li');
+            li.classList.add('navigation__inner__list-item');
+            li.setAttribute('data-index', `${index+1}`)
+            li.textContent = item;
+            menuList.appendChild(li)
+        })
+        navigationInner.appendChild(menuList)
+        navigation.appendChild(navigationInner);
+        logoBurgerWrapper.classList.add('menu-wrapper')
         input.setAttribute('id', 'checkbox');
         input.setAttribute('type', 'checkbox')
         label.setAttribute('for', 'checkbox')
@@ -49,22 +84,25 @@ let dataHandler = {
         buttonSliderWrap.appendChild(input);
         buttonSliderWrap.appendChild(label);
         burgerWrap.classList.add('burger-menu');
-
+        burger.classList.add('burger-img')
+        burger.setAttribute('src','./img/burger.png');
+        burgerWrap.appendChild(burger)
+        // logoBurgerWrapper.appendChild(burgerWrap)
+        // logoBurgerWrapper.appendChild(siteLogoWrap)
         headerWrapp.classList.add('header__inner');
         headerWrapp.appendChild(burgerWrap);
         headerWrapp.appendChild(siteLogoWrap);
         headerWrapp.appendChild(buttonSliderWrap)
+        headerWrapp.appendChild(navigation)
         return headerWrapp;
     },
     categoryCards(e) {
-        console.log('aaasd')
         const target = e.target.closest('[data-index]');
         if (target === null) return;
         const targetIndex = target.dataset.index
 
         const mainWrapper = document.querySelector('.wrapper');
         while (mainWrapper.firstChild) {
-            console.log('clear')
             mainWrapper.removeChild(mainWrapper.firstChild);
         }
         cards[targetIndex].forEach(item => {
@@ -134,7 +172,6 @@ let dataHandler = {
         if(e.relatedTarget.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
             backTarget.childNodes[1].style.visibility = 'hidden'
             backTarget.style.transform = 'rotateY(0deg)';
-            backTarget.style.transform = 'scale(1.01)';
             backTarget.childNodes[0].classList.remove('rotate-front');
             backTarget.childNodes[1].style.transform = 'rotateY(180deg)'
             backTarget.classList.remove('flipped')
@@ -164,6 +201,23 @@ let dataHandler = {
        }
     
     },
+    addActiveToMenu(e) {
+        const linkChild = document.querySelector('.navigation__inner__list').childNodes;
+      
+        let targ = e.target.closest('.main-card')
+        if(targ) {
+            linkChild.forEach(item => {
+                if(item.classList.contains('link-active')) {
+                    item.classList.remove('link-active')
+                }
+                if(item.dataset.index === targ.dataset.index) {
+                    item.classList.add('link-active')
+                }
+            })
+
+        }
+      
+    },
     toMainPage(e) {
        const target = e.target.closest('.logo-text');
        if(target) {
@@ -174,8 +228,14 @@ let dataHandler = {
         dataHandler.categoryBlocks.forEach(item => {
             mainWrapper.appendChild(item)
         })
+        const linkChild = document.querySelector('.navigation__inner__list').childNodes
+        linkChild.forEach(item => {
+         if(item.classList.contains('link-active')) {
+             item.classList.remove('link-active')
+         }
+     })
        }
-       
+
     },
     
     shuffle(a) {

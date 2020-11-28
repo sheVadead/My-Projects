@@ -7,9 +7,11 @@ const render = {
         wrapper: document.createElement('div')
     },
     listenersHandler() {
+        const menu = document.querySelector('.navigation');
         this.classes.wrapper.addEventListener('click', (e)=>{
-          dataHandler.rotateHandler(e)
-            dataHandler.categoryCards(e)
+          dataHandler.rotateHandler(e);
+            dataHandler.categoryCards(e);
+            dataHandler.addActiveToMenu(e);
             
         })
         // this.classes.wrapper.addEventListener('mouseout', (e)=>{
@@ -28,6 +30,32 @@ const render = {
         // })
         this.classes.wrapper.addEventListener('click', dataHandler.audioHandler);
         this.classes.header.addEventListener('click',dataHandler.toMainPage)
+        this.classes.header.addEventListener('click',(e)=>{
+            const burger = e.target.closest('.burger-img');
+            if(burger) {
+                burger.classList.toggle('rotate-burger');
+                document.querySelector('.navigation').classList.toggle('open-menu')
+            }
+        })
+        menu.addEventListener('click',(e)=>{
+            const link = e.target.closest('li');
+            const linkChild = document.querySelector('.navigation__inner__list').childNodes
+            if(link) {
+                dataHandler.categoryCards(e)
+                menu.classList.toggle('open-menu');
+                linkChild.forEach(item => {
+                    if(item.classList.contains('link-active')) {
+                        item.classList.remove('link-active')
+                    }
+                })
+                link.classList.add('link-active')
+                const burger = document.querySelector('.burger-img');
+                burger.classList.toggle('rotate-burger')
+            } else {
+                return
+            }
+        })
+
     },
     render() {
         this.classes.wrapper.classList.add('wrapper');
