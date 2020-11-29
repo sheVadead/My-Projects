@@ -389,6 +389,22 @@ var dataHandler = {
       _this.categoryBlocks.push(div);
     });
   },
+  setNavMenu: function setNavMenu() {
+    var navigation = document.createElement('nav');
+    var navigationInner = document.createElement('div');
+    var menuList = document.createElement('ul');
+    menuList.classList.add('navigation__inner__list');
+    navigationInner.classList.add('navigation__inner');
+    _dataForCards_js__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
+      var li = document.createElement('li');
+      li.classList.add('navigation__inner__list-item');
+      li.textContent = item;
+      menuList.appendChild(li);
+    });
+    navigationInner.appendChild(navigationInner);
+    navigation.appendChild(navigationInner);
+    return navigation;
+  },
   setHeader: function setHeader() {
     var headerWrapp = document.createElement('div');
     var burgerWrap = document.createElement('div');
@@ -397,6 +413,24 @@ var dataHandler = {
     var spanLogo = document.createElement('span');
     var input = document.createElement('input');
     var label = document.createElement('label');
+    var burger = document.createElement('img');
+    var logoBurgerWrapper = document.createElement('div');
+    var navigation = document.createElement('nav');
+    var navigationInner = document.createElement('div');
+    var menuList = document.createElement('ul');
+    navigation.classList.add('navigation');
+    menuList.classList.add('navigation__inner__list');
+    navigationInner.classList.add('navigation__inner');
+    _dataForCards_js__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
+      var li = document.createElement('li');
+      li.classList.add('navigation__inner__list-item');
+      li.setAttribute('data-index', "".concat(index + 1));
+      li.textContent = item;
+      menuList.appendChild(li);
+    });
+    navigationInner.appendChild(menuList);
+    navigation.appendChild(navigationInner);
+    logoBurgerWrapper.classList.add('menu-wrapper');
     input.setAttribute('id', 'checkbox');
     input.setAttribute('type', 'checkbox');
     label.setAttribute('for', 'checkbox');
@@ -408,23 +442,27 @@ var dataHandler = {
     buttonSliderWrap.appendChild(input);
     buttonSliderWrap.appendChild(label);
     burgerWrap.classList.add('burger-menu');
+    burger.classList.add('burger-img');
+    burger.setAttribute('src', './img/burger.png');
+    burgerWrap.appendChild(burger); // logoBurgerWrapper.appendChild(burgerWrap)
+    // logoBurgerWrapper.appendChild(siteLogoWrap)
+
     headerWrapp.classList.add('header__inner');
     headerWrapp.appendChild(burgerWrap);
     headerWrapp.appendChild(siteLogoWrap);
     headerWrapp.appendChild(buttonSliderWrap);
+    headerWrapp.appendChild(navigation);
     return headerWrapp;
   },
   categoryCards: function categoryCards(e) {
     var _this2 = this;
 
-    console.log('aaasd');
     var target = e.target.closest('[data-index]');
     if (target === null) return;
     var targetIndex = target.dataset.index;
     var mainWrapper = document.querySelector('.wrapper');
 
     while (mainWrapper.firstChild) {
-      console.log('clear');
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
 
@@ -479,7 +517,16 @@ var dataHandler = {
 
       _this2.trainCards.push(div);
     });
+
+    if (document.querySelector('#checkbox').checked) {
+      this.trainCards.forEach(function (item) {
+        item.childNodes[0].classList.add('game-mode');
+        item.childNodes[1].classList.add('game-mode');
+      });
+    }
+
     this.shuffle(this.trainCards).forEach(function (item) {
+      console.log(item.childNodes);
       mainWrapper.appendChild(item);
     });
     this.trainCards = [];
@@ -490,7 +537,6 @@ var dataHandler = {
     if (e.relatedTarget.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
       backTarget.childNodes[1].style.visibility = 'hidden';
       backTarget.style.transform = 'rotateY(0deg)';
-      backTarget.style.transform = 'scale(1.01)';
       backTarget.childNodes[0].classList.remove('rotate-front');
       backTarget.childNodes[1].style.transform = 'rotateY(180deg)';
       backTarget.classList.remove('flipped');
@@ -521,6 +567,22 @@ var dataHandler = {
       audio.play();
     }
   },
+  addActiveToMenu: function addActiveToMenu(e) {
+    var linkChild = document.querySelector('.navigation__inner__list').childNodes;
+    var targ = e.target.closest('.main-card');
+
+    if (targ) {
+      linkChild.forEach(function (item) {
+        if (item.classList.contains('link-active')) {
+          item.classList.remove('link-active');
+        }
+
+        if (item.dataset.index === targ.dataset.index) {
+          item.classList.add('link-active');
+        }
+      });
+    }
+  },
   toMainPage: function toMainPage(e) {
     var target = e.target.closest('.logo-text');
 
@@ -534,6 +596,37 @@ var dataHandler = {
       dataHandler.categoryBlocks.forEach(function (item) {
         mainWrapper.appendChild(item);
       });
+      var linkChild = document.querySelector('.navigation__inner__list').childNodes;
+      linkChild.forEach(function (item) {
+        if (item.classList.contains('link-active')) {
+          item.classList.remove('link-active');
+        }
+      });
+    }
+  },
+  gameModeHandler: function gameModeHandler(e) {
+    var tar = document.querySelector('#checkbox');
+
+    if (tar.checked) {
+      document.querySelector('.wrapper').childNodes.forEach(function (item) {
+        if (item.childNodes.length > 1) {
+          item.childNodes[0].classList.add('game-mode');
+          item.childNodes[1].classList.add('game-mode');
+        }
+
+        item.classList.add('game-mode');
+      });
+      document.querySelector('.navigation').classList.add('game-mode');
+    } else {
+      document.querySelector('.wrapper').childNodes.forEach(function (item) {
+        if (item.childNodes.length > 1) {
+          item.childNodes[0].classList.remove('game-mode');
+          item.childNodes[1].classList.remove('game-mode');
+        }
+
+        item.classList.remove('game-mode');
+      });
+      document.querySelector('.navigation').classList.remove('game-mode');
     }
   },
   shuffle: function shuffle(a) {
@@ -572,9 +665,11 @@ var render = {
     wrapper: document.createElement('div')
   },
   listenersHandler: function listenersHandler() {
+    var menu = document.querySelector('.navigation');
     this.classes.wrapper.addEventListener('click', function (e) {
       _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.rotateHandler(e);
       _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.categoryCards(e);
+      _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.addActiveToMenu(e);
     }); // this.classes.wrapper.addEventListener('mouseout', (e)=>{
     // let target = e.target.closest('.train-card');
     // let backTarget = e.target.closest('div .train-card__back')
@@ -591,6 +686,34 @@ var render = {
 
     this.classes.wrapper.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.audioHandler);
     this.classes.header.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.toMainPage);
+    this.classes.header.addEventListener('click', function (e) {
+      var burger = e.target.closest('.burger-img');
+
+      if (burger) {
+        burger.classList.toggle('rotate-burger');
+        document.querySelector('.navigation').classList.toggle('open-menu');
+      }
+    });
+    menu.addEventListener('click', function (e) {
+      var link = e.target.closest('li');
+      var linkChild = document.querySelector('.navigation__inner__list').childNodes;
+
+      if (link) {
+        _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.categoryCards(e);
+        menu.classList.toggle('open-menu');
+        linkChild.forEach(function (item) {
+          if (item.classList.contains('link-active')) {
+            item.classList.remove('link-active');
+          }
+        });
+        link.classList.add('link-active');
+        var burger = document.querySelector('.burger-img');
+        burger.classList.toggle('rotate-burger');
+      } else {
+        return;
+      }
+    });
+    this.classes.header.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.gameModeHandler);
   },
   render: function render() {
     var _this = this;
