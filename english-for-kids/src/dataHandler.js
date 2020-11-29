@@ -162,7 +162,16 @@ let dataHandler = {
             div.addEventListener('mouseout', this.backRotate)
             this.trainCards.push(div)
         })
+        if (document.querySelector('#checkbox').checked) {
+            this.trainCards.forEach(item => {
+                
+                item.childNodes[0].classList.add('game-mode')
+                item.childNodes[1].classList.add('game-mode')
+                
+            })
+        }
         this.shuffle(this.trainCards).forEach(item => {
+            console.log(item.childNodes)
             mainWrapper.appendChild(item)
         })
         this.trainCards = [];
@@ -237,7 +246,30 @@ let dataHandler = {
        }
 
     },
-    
+    gameModeHandler(e) {
+        const tar = document.querySelector('#checkbox')
+        if(tar.checked) {
+            
+            document.querySelector('.wrapper').childNodes.forEach(item => {
+                if(item.childNodes.length > 1) {
+                    item.childNodes[0].classList.add('game-mode');
+                    item.childNodes[1].classList.add('game-mode');
+                }
+                    item.classList.add('game-mode')
+                
+            })
+            document.querySelector('.navigation').classList.add('game-mode')
+        } else {
+            document.querySelector('.wrapper').childNodes.forEach(item => {
+                if(item.childNodes.length > 1) {
+                    item.childNodes[0].classList.remove('game-mode');
+                    item.childNodes[1].classList.remove('game-mode');
+                }
+                item.classList.remove('game-mode')
+            })
+            document.querySelector('.navigation').classList.remove('game-mode')
+        }
+    },
     shuffle(a) {
         var j, x, i;
         for (i = a.length - 1; i > 0; i--) {

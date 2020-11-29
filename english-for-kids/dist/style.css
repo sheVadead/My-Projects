@@ -71,7 +71,7 @@ body {
   z-index: 10;
   line-height: 40px;
   font-weight: bold;
-  background: #46daff;
+  background-color: #ffeeca;
   -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -84,14 +84,14 @@ body {
   content: "TRAIN";
   font: normal normal 2rem/120% "Nerko One", sans-serif;
   vertical-align: center;
-  color: white;
+  color: #2F4858;
   width: 70px;
   height: 40px;
   position: absolute;
   left: 0px;
   top: 0px;
   display: block;
-  background: #6addfa;
+  background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
   -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -102,11 +102,13 @@ body {
 }
 .header__inner .slider-button :checked + label {
   left: 0px;
-  background-color: red;
+  background-color: rgba(63, 94, 251, 0.52);
 }
-.header__inner .slider-button :checked + label:after {
+.header__inner .slider-button :checked + label::after {
   left: 30px;
-  background: #FC6666;
+  background: #3f5efb;
+  background: radial-gradient(circle, #3f5efb 0%, #fc466b 100%);
+  color: white;
   content: "PLAY";
 }
 .header__inner .navigation {
@@ -179,7 +181,6 @@ main .wrapper .main-card {
   border-radius: 1.5rem;
   perspective: 1000px;
   background: #50c9c3;
-  /* fallback for old browsers */
   background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   transition: 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
@@ -225,7 +226,7 @@ main .wrapper .train-card {
   border-radius: 1rem;
   background: #50c9c3;
   /* fallback for old browsers */
-  background-image: linear-gradient(to top right, #6573ff, #6e77f4, #777ce9, #8080de, #8984d3, #9289c8, #9a8dbc, #a392b1, #ac96a6, #b59a9b, #be9f90, #c7a385);
+  background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
   box-shadow: 7px 11px 15px rgba(0, 0, 0, 0.5);
   transition: 1s;
 }
@@ -242,7 +243,7 @@ main .wrapper .train-card__front {
   height: 28rem;
   flex: 1;
   transform-style: preserve-3d;
-  background-image: linear-gradient(to top right, #6573ff, #6e77f4, #777ce9, #8080de, #8984d3, #9289c8, #9a8dbc, #a392b1, #ac96a6, #b59a9b, #be9f90, #c7a385);
+  background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
   backface-visibility: hidden;
   transition: 1s;
 }
@@ -281,7 +282,7 @@ main .wrapper .train-card__back {
   justify-content: space-around;
   flex: 1;
   backface-visibility: hidden;
-  background-image: linear-gradient(to top right, #6573ff, #6e77f4, #777ce9, #8080de, #8984d3, #9289c8, #9a8dbc, #a392b1, #ac96a6, #b59a9b, #be9f90, #c7a385);
+  background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
   transform: rotateY(180deg);
   transition: 1s;
 }
@@ -339,6 +340,11 @@ main .wrapper .train-card .word-img {
 .link-active {
   transform: scale(1.2);
   border-bottom: 2px solid black;
+}
+
+.game-mode {
+  background: #3f5efb !important;
+  background: radial-gradient(circle, #3f5efb 0%, #fc466b 100%) !important;
 }
 
 /*# sourceMappingURL=style.css.map*/

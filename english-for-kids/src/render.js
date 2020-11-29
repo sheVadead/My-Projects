@@ -55,7 +55,7 @@ const render = {
                 return
             }
         })
-
+        this.classes.header.addEventListener('click', dataHandler.gameModeHandler)
     },
     render() {
         this.classes.wrapper.classList.add('wrapper');

@@ -72,7 +72,7 @@ body {
                 z-index: 10;
                 line-height: 40px;
                 font-weight: bold;
-                background: rgb(70, 218, 255);
+                background-color: #ffeeca;
                 -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
                 -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
                 -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -85,14 +85,14 @@ body {
                     content: "TRAIN";
                     font: normal normal 2rem/120% 'Nerko One', sans-serif;
                     vertical-align: center;
-                    color: white;
+                    color: #2F4858;
                     width: 70px;
                     height: 40px;
                     position: absolute;
                     left: 0px;
                     top: 0px;
                     display: block;
-                    background: #6addfa;
+                    background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
                     -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
                     -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
                     -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -105,14 +105,17 @@ body {
 
             :checked+label {
                 left: 0px;
-                background-color: red;
+                background-color: rgba(63, 94, 251, 0.52);
+                &::after{
+                    left: 30px;
+                    background: rgb(63,94,251);
+                    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+                    color: white;
+                    content: "PLAY";
+                }
             }
 
-            :checked+label:after {
-                left: 30px;
-                background: #FC6666;
-                content: "PLAY";
-            }
+            
         }
 
         .navigation {
@@ -190,11 +193,10 @@ main {
             border-radius: 1.5rem;
             perspective: 1000px;
             background: #50c9c3;
-            /* fallback for old browsers */
             background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
-
             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
             transition: 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+ 
             &:hover {
                 cursor: pointer;
                 transform: scale(1.05);
@@ -246,7 +248,7 @@ main {
             border-radius: 1rem;
             background: #50c9c3;
             /* fallback for old browsers */
-            background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
+            background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
             box-shadow: 7px 11px 15px rgba(0, 0, 0, 0.5);
             transition: 1s;
             // &:hover .train-card__front{
@@ -268,8 +270,7 @@ main {
                 height: 28rem;
                 flex: 1;
                 transform-style: preserve-3d;
-                background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
-                backface-visibility: hidden;
+                background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);                backface-visibility: hidden;
                 transition: 1s;
                 
                 .img-wrap {
@@ -314,8 +315,7 @@ main {
                 justify-content: space-around;
                 flex: 1;
                 backface-visibility: hidden;
-                background-image: linear-gradient(to top right, rgb(101, 115, 255), rgb(110, 119, 244), rgb(119, 124, 233), rgb(128, 128, 222), rgb(137, 132, 211), rgb(146, 137, 200), rgb(154, 141, 188), rgb(163, 146, 177), rgb(172, 150, 166), rgb(181, 154, 155), rgb(190, 159, 144), rgb(199, 163, 133));
-                transform: rotateY(180deg);
+                background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);                transform: rotateY(180deg);
                 transition: 1s;
                 
 
@@ -382,4 +382,9 @@ main {
     .link-active {
         transform: scale(1.2);
         border-bottom: 2px solid black;
+    }
+
+    .game-mode {
+        background: rgb(63,94,251) !important;
+        background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%) !important;
     }

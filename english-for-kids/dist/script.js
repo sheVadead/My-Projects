@@ -517,7 +517,16 @@ var dataHandler = {
 
       _this2.trainCards.push(div);
     });
+
+    if (document.querySelector('#checkbox').checked) {
+      this.trainCards.forEach(function (item) {
+        item.childNodes[0].classList.add('game-mode');
+        item.childNodes[1].classList.add('game-mode');
+      });
+    }
+
     this.shuffle(this.trainCards).forEach(function (item) {
+      console.log(item.childNodes);
       mainWrapper.appendChild(item);
     });
     this.trainCards = [];
@@ -593,6 +602,31 @@ var dataHandler = {
           item.classList.remove('link-active');
         }
       });
+    }
+  },
+  gameModeHandler: function gameModeHandler(e) {
+    var tar = document.querySelector('#checkbox');
+
+    if (tar.checked) {
+      document.querySelector('.wrapper').childNodes.forEach(function (item) {
+        if (item.childNodes.length > 1) {
+          item.childNodes[0].classList.add('game-mode');
+          item.childNodes[1].classList.add('game-mode');
+        }
+
+        item.classList.add('game-mode');
+      });
+      document.querySelector('.navigation').classList.add('game-mode');
+    } else {
+      document.querySelector('.wrapper').childNodes.forEach(function (item) {
+        if (item.childNodes.length > 1) {
+          item.childNodes[0].classList.remove('game-mode');
+          item.childNodes[1].classList.remove('game-mode');
+        }
+
+        item.classList.remove('game-mode');
+      });
+      document.querySelector('.navigation').classList.remove('game-mode');
     }
   },
   shuffle: function shuffle(a) {
@@ -679,6 +713,7 @@ var render = {
         return;
       }
     });
+    this.classes.header.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.gameModeHandler);
   },
   render: function render() {
     var _this = this;
