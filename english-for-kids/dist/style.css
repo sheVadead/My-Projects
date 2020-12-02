@@ -19,7 +19,8 @@ body {
   width: 100%;
   padding-top: 1rem;
   transition: 0.5s;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid white;
+  border-radius: 0.5rem;
 }
 .header__inner {
   display: flex;
@@ -47,7 +48,7 @@ body {
   transform: scale(1.05);
 }
 .header__inner .site-logo .logo-text {
-  color: #A76E57;
+  color: #5f5e2c;
   text-shadow: #cad5e2 1px 1px 0, #cad5e2 2px 2px 0, #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, #cad5e2 5px 5px 0;
   font: normal normal 5rem/120% "Nerko One", sans-serif;
 }
@@ -121,7 +122,7 @@ body {
   justify-content: center;
   height: 100vh;
   width: 40rem;
-  background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
+  background-color: #ffeeca;
   transition: 0.6s;
 }
 .header__inner .navigation__inner {
@@ -150,10 +151,9 @@ body {
 }
 .header__inner .navigation__inner__list li:hover {
   cursor: pointer;
-  box-shadow: inset 5px 0 0 0 #9d9d9d80;
+  box-shadow: inset 5px 0 0 0 #2F4858;
   transition: left 2s;
   background-size: 100% 100%;
-  border-radius: 1rem;
 }
 
 main {
@@ -168,6 +168,57 @@ main .wrapper {
   max-width: 130rem;
   flex-wrap: wrap;
   flex: 1;
+}
+main .wrapper .win-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100rem;
+  height: 56rem;
+  background-size: 99% 126%;
+}
+main .wrapper .win-wrapper .win-text {
+  font: normal normal 5rem/120% "Nerko One", sans-serif;
+  color: #5f5e2c;
+}
+main .wrapper .win-wrapper .win-img {
+  width: 50rem;
+}
+main .wrapper .lose-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100rem;
+  height: 56rem;
+  background-size: 99% 126%;
+}
+main .wrapper .lose-wrapper .lose-text {
+  font: normal normal 5rem/120% "Nerko One", sans-serif;
+  color: #5f5e2c;
+}
+main .wrapper .lose-wrapper .lose-img {
+  width: 40rem;
+}
+main .wrapper .answer {
+  width: 100vw;
+  height: 4rem;
+  margin-top: 1rem;
+}
+main .wrapper .start-button {
+  width: 20rem;
+  height: 5rem;
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+  font: normal normal 3rem/120% "Nerko One", sans-serif;
+  color: #5f5e2c;
+}
+main .wrapper .start-button .reload-img {
+  filter: invert(35%);
+}
+main .wrapper .reload-audio {
+  width: 4rem;
+  height: 4rem;
 }
 main .wrapper .main-card {
   position: relative;
@@ -225,7 +276,6 @@ main .wrapper .train-card {
   margin: 2rem;
   border-radius: 1rem;
   background: #50c9c3;
-  /* fallback for old browsers */
   background-image: linear-gradient(to bottom, #f5deb3, #f5d19e, #f6c38a, #f9b379, #fba36a, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf);
   box-shadow: 7px 11px 15px rgba(0, 0, 0, 0.5);
   transition: 1s;
@@ -311,6 +361,11 @@ main .wrapper .train-card__back__footer .rotate-img:hover {
   cursor: pointer;
   filter: invert(35%);
 }
+main .wrapper .train-card .word-img__train {
+  width: 28rem;
+  height: 27.9rem;
+  border-radius: 1rem;
+}
 main .wrapper .train-card .word-img {
   width: 26rem;
   height: 20rem;
@@ -325,8 +380,12 @@ main .wrapper .train-card .word-img {
   transform: rotateY(360deg);
 }
 
-.hidden {
-  opacity: 0;
+.hide {
+  visibility: hidden;
+}
+
+.correct-answer {
+  opacity: 0.4;
 }
 
 .rotate-burger {
