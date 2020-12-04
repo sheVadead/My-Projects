@@ -47,7 +47,7 @@ const gameRules = {
       this.checkGuess(currentAudio, guess, guessItem, e);
     }
   },
-  checkGuess(currentAudio, guess, guessItem, e) {
+  checkGuess(currentAudio, guess, guessItem) {
     const answers = document.querySelector('.answer');
     const localElem = currentAudio.split('/')[1].slice(0, -4);
     const localObject = JSON.parse(localStorage.getItem(`${localElem}`));
