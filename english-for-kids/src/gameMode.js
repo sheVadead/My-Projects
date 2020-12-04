@@ -4,6 +4,7 @@ import cards from './dataForCards';
 const gameRules = {
   isGameBegin: false,
   mistakesCount: 0,
+  answers: [],
   j: 0,
   gameInit() {
     if (document.querySelector('#checkbox').checked) {
@@ -40,34 +41,45 @@ const gameRules = {
     if (!e.target.closest('img') || e.target.closest('.reload-img')) return;
     const currentAudio = arrayAudio[gameRules.j].audioSrc;
     const wrapper = document.querySelector('.wrapper');
-
-    if (wrapper.childNodes[0].classList.contains('game-mode') && this.isGameBegin) {
+    if (wrapper.childNodes[0].classList.contains('game-mode') && !wrapper.childNodes[0].classList.contains('main-card') && this.isGameBegin) {
       const guess = e.target.closest('img');
       const guessItem = guess.getAttribute('alt');
-      this.checkGuess(currentAudio, guess, guessItem);
+      this.checkGuess(currentAudio, guess, guessItem, e);
     }
   },
-  checkGuess(currentAudio, guess, guessItem) {
+  checkGuess(currentAudio, guess, guessItem, e) {
     const answers = document.querySelector('.answer');
+    const localElem = currentAudio.split('/')[1].slice(0, -4);
+    const localObject = JSON.parse(localStorage.getItem(`${localElem}`));
     if (currentAudio.includes(guessItem)) {
       const correctAnswer = document.createElement('img');
+      localObject.play += 1;
       correctAnswer.classList.add('correct-img');
       correctAnswer.setAttribute('src', '../dist/img/success.jpg');
+      correctAnswer.setAttribute('width', 50);
+      correctAnswer.setAttribute('height', 50);
       correctAnswer.style.height = `${5}rem`;
-      answers.appendChild(correctAnswer);
+      gameRules.answers.push(correctAnswer);
       guess.classList.add('correct-answer');
       gameRules.j++;
       this.addCorrectAnswerAudio();
       setTimeout(this.playGameWords, 1000);
     } else {
+      localObject.mistakes += 1;
       const wrongAnswer = document.createElement('img');
       wrongAnswer.classList.add('wrong-img');
       this.mistakesCount++;
       wrongAnswer.setAttribute('src', '../dist/img/failure.jpg');
       wrongAnswer.style.height = `${5}rem`;
+      gameRules.answers.push(wrongAnswer);
       this.addWrongAnswerAudio();
-      answers.appendChild(wrongAnswer);
     }
+    localStorage.setItem(`${localElem}`, JSON.stringify(localObject));
+    this.checkAnswerNumber();
+    answers.innerHTML = '';
+    gameRules.answers.forEach((item) => {
+      answers.appendChild(item);
+    });
     this.winGameHandler();
   },
   addCorrectAnswerAudio() {
@@ -82,6 +94,11 @@ const gameRules = {
     wrong.currentTime = 0;
     wrong.play();
   },
+  checkAnswerNumber() {
+    if (this.answers.length > 24) {
+      this.answers.splice(0, 1);
+    }
+  },
   addLoseWindow() {
     const mainWrapper = document.querySelector('.wrapper');
     const loseWrapper = document.createElement('div');
@@ -94,15 +111,17 @@ const gameRules = {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
     loseGameAudio.setAttribute('src', '../dist/audio/loseGame.mp3');
-    loseGameAudio.currentTime = 0;
-    loseGameAudio.play();
+
     loseWrapper.classList.add('lose-wrapper');
     loseText.classList.add('lose-text');
     loseText.textContent = ` You have ${gameRules.mistakesCount} mistakes.Keep trying. Next time will be better =)`;
     loseWrapper.appendChild(loseImg);
     loseWrapper.appendChild(loseText);
-
     mainWrapper.appendChild(loseWrapper);
+    loseImg.onload = function () {
+      loseGameAudio.currentTime = 0;
+      loseGameAudio.play();
+    };
   },
   addWinWindow() {
     const mainWrapper = document.querySelector('.wrapper');
@@ -124,8 +143,10 @@ const gameRules = {
     winWrapper.appendChild(winImg);
     winWrapper.appendChild(winText);
     mainWrapper.appendChild(winWrapper);
-    winGameAudio.currentTime = 0;
-    winGameAudio.play();
+    winImg.onload = function () {
+      winGameAudio.currentTime = 0;
+      winGameAudio.play();
+    };
   },
   winGameHandler() {
     if (this.j === cards[dataHandler.choosenCategoryIndex].length && this.mistakesCount === 0) {

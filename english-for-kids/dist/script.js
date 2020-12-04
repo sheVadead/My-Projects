@@ -396,15 +396,21 @@ var dataHandler = {
     var navigation = document.createElement('nav');
     var navigationInner = document.createElement('div');
     var menuList = document.createElement('ul');
+    navigation.classList.add('navigation');
     menuList.classList.add('navigation__inner__list');
     navigationInner.classList.add('navigation__inner');
-    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item) {
+    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
       var li = document.createElement('li');
       li.classList.add('navigation__inner__list-item');
+      li.setAttribute('data-index', "".concat(index + 1));
       li.textContent = item;
       menuList.appendChild(li);
     });
-    navigationInner.appendChild(navigationInner);
+    var statistic = document.createElement('li');
+    statistic.classList.add('navigation__inner__list-item');
+    statistic.textContent = 'Statistic';
+    menuList.appendChild(statistic);
+    navigationInner.appendChild(menuList);
     navigation.appendChild(navigationInner);
     return navigation;
   },
@@ -418,21 +424,6 @@ var dataHandler = {
     var label = document.createElement('label');
     var burger = document.createElement('img');
     var logoBurgerWrapper = document.createElement('div');
-    var navigation = document.createElement('nav');
-    var navigationInner = document.createElement('div');
-    var menuList = document.createElement('ul');
-    navigation.classList.add('navigation');
-    menuList.classList.add('navigation__inner__list');
-    navigationInner.classList.add('navigation__inner');
-    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
-      var li = document.createElement('li');
-      li.classList.add('navigation__inner__list-item');
-      li.setAttribute('data-index', "".concat(index + 1));
-      li.textContent = item;
-      menuList.appendChild(li);
-    });
-    navigationInner.appendChild(menuList);
-    navigation.appendChild(navigationInner);
     logoBurgerWrapper.classList.add('menu-wrapper');
     input.setAttribute('id', 'checkbox');
     input.setAttribute('type', 'checkbox');
@@ -454,7 +445,7 @@ var dataHandler = {
     headerWrapp.appendChild(burgerWrap);
     headerWrapp.appendChild(siteLogoWrap);
     headerWrapp.appendChild(buttonSliderWrap);
-    headerWrapp.appendChild(navigation);
+    headerWrapp.appendChild(this.setNavMenu());
     return headerWrapp;
   },
   categoryCards: function categoryCards() {
@@ -466,6 +457,7 @@ var dataHandler = {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
 
+    if (!this.choosenCategoryIndex) return;
     _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[this.choosenCategoryIndex].forEach(function (item) {
       var div = document.createElement('div');
       var divContainer = document.createElement('div');
@@ -544,6 +536,9 @@ var dataHandler = {
       console.log(startGame.classList.contains('reload-audio'));
 
       if (!startGame.classList.contains('reload-audio')) {
+        _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.answers = [];
+        _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.mistakesCount = 0;
+        _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.j = 0;
         startGame.addEventListener('click', function () {
           _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.isGameBegin = true;
         });
@@ -596,9 +591,12 @@ var dataHandler = {
     if (!card) return;
 
     if (!card.classList.contains('flipped') && !card.classList.contains('game-mode')) {
+      var localObject = JSON.parse(localStorage.getItem("".concat(card.dataset.word)));
+      localObject.train++;
       audio.setAttribute('src', "./audio/".concat(card.dataset.word, ".mp3"));
       audio.currentTime = 0;
       audio.play();
+      localStorage.setItem("".concat(card.dataset.word), JSON.stringify(localObject));
     }
   },
   addActiveToMenu: function addActiveToMenu(e) {
@@ -618,6 +616,9 @@ var dataHandler = {
     }
   },
   toMainPage: function toMainPage(e) {
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.answers = [];
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.j = 0;
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.mistakesCount = 0;
     var target = e.target.closest('.logo-text');
 
     if (target) {
@@ -641,8 +642,10 @@ var dataHandler = {
   categoryBlocksGameMode: function categoryBlocksGameMode() {
     var wrapper = document.querySelector('.wrapper');
     var target = document.querySelector('#checkbox');
+    var elem = wrapper.childNodes[0];
+    if (!elem) return;
 
-    if (target.checked && wrapper.childNodes[0].classList.contains('main-card')) {
+    if (target.checked && elem.classList.contains('main-card')) {
       while (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
@@ -652,7 +655,7 @@ var dataHandler = {
         wrapper.appendChild(item);
       });
       document.querySelector('.navigation').classList.add('game-mode');
-    } else if (!target.checked && wrapper.childNodes[0].classList.contains('main-card')) {
+    } else if (!target.checked && elem.classList.contains('main-card')) {
       while (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
@@ -714,6 +717,7 @@ __webpack_require__.r(__webpack_exports__);
 var gameRules = {
   isGameBegin: false,
   mistakesCount: 0,
+  answers: [],
   j: 0,
   gameInit: function gameInit() {
     var _this = this;
@@ -756,35 +760,56 @@ var gameRules = {
     var currentAudio = arrayAudio[gameRules.j].audioSrc;
     var wrapper = document.querySelector('.wrapper');
 
-    if (wrapper.childNodes[0].classList.contains('game-mode') && this.isGameBegin) {
+    if (wrapper.childNodes[0].classList.contains('game-mode') && !wrapper.childNodes[0].classList.contains('main-card') && this.isGameBegin) {
       var guess = e.target.closest('img');
       var guessItem = guess.getAttribute('alt');
-      this.checkGuess(currentAudio, guess, guessItem);
+      this.checkGuess(currentAudio, guess, guessItem, e);
     }
   },
-  checkGuess: function checkGuess(currentAudio, guess, guessItem) {
+  // chooseStatisticVariable(e) {
+  //   const wrapper = document.querySelector('.wrapper');
+  //   if(wrapper.childNodes[0].classList.contains('train-card') && !wrapper.childNodes[0].classList.contains('game-mode')) {
+  //     return e.target.dataset.word;
+  //   } else if(wrapper.childNodes[0].classList.contains('train-card') && wrapper.childNodes[0].classList.contains('game-mode')) {
+  //     return e.target.getAttribute('alt')
+  //   }
+  // },
+  checkGuess: function checkGuess(currentAudio, guess, guessItem, e) {
     var answers = document.querySelector('.answer');
+    var localElem = currentAudio.split('/')[1].slice(0, -4);
+    var localObject = JSON.parse(localStorage.getItem("".concat(localElem)));
+    console.log(localObject);
 
     if (currentAudio.includes(guessItem)) {
       var correctAnswer = document.createElement('img');
+      localObject.play += 1;
       correctAnswer.classList.add('correct-img');
       correctAnswer.setAttribute('src', '../dist/img/success.jpg');
+      correctAnswer.setAttribute('width', 50);
+      correctAnswer.setAttribute('height', 50);
       correctAnswer.style.height = "".concat(5, "rem");
-      answers.appendChild(correctAnswer);
+      gameRules.answers.push(correctAnswer);
       guess.classList.add('correct-answer');
       gameRules.j++;
       this.addCorrectAnswerAudio();
       setTimeout(this.playGameWords, 1000);
     } else {
+      localObject.mistakes += 1;
       var wrongAnswer = document.createElement('img');
       wrongAnswer.classList.add('wrong-img');
       this.mistakesCount++;
       wrongAnswer.setAttribute('src', '../dist/img/failure.jpg');
       wrongAnswer.style.height = "".concat(5, "rem");
+      gameRules.answers.push(wrongAnswer);
       this.addWrongAnswerAudio();
-      answers.appendChild(wrongAnswer);
     }
 
+    localStorage.setItem("".concat(localElem), JSON.stringify(localObject));
+    this.checkAnswerNumber();
+    answers.innerHTML = '';
+    gameRules.answers.forEach(function (item) {
+      answers.appendChild(item);
+    });
     this.winGameHandler();
   },
   addCorrectAnswerAudio: function addCorrectAnswerAudio() {
@@ -798,6 +823,11 @@ var gameRules = {
     wrong.setAttribute('src', '../dist/audio/failure.mp3');
     wrong.currentTime = 0;
     wrong.play();
+  },
+  checkAnswerNumber: function checkAnswerNumber() {
+    if (this.answers.length > 24) {
+      this.answers.splice(0, 1);
+    }
   },
   addLoseWindow: function addLoseWindow() {
     var mainWrapper = document.querySelector('.wrapper');
@@ -813,14 +843,17 @@ var gameRules = {
     }
 
     loseGameAudio.setAttribute('src', '../dist/audio/loseGame.mp3');
-    loseGameAudio.currentTime = 0;
-    loseGameAudio.play();
     loseWrapper.classList.add('lose-wrapper');
     loseText.classList.add('lose-text');
     loseText.textContent = " You have ".concat(gameRules.mistakesCount, " mistakes.Keep trying. Next time will be better =)");
     loseWrapper.appendChild(loseImg);
     loseWrapper.appendChild(loseText);
     mainWrapper.appendChild(loseWrapper);
+
+    loseImg.onload = function () {
+      loseGameAudio.currentTime = 0;
+      loseGameAudio.play();
+    };
   },
   addWinWindow: function addWinWindow() {
     var mainWrapper = document.querySelector('.wrapper');
@@ -844,8 +877,11 @@ var gameRules = {
     winWrapper.appendChild(winImg);
     winWrapper.appendChild(winText);
     mainWrapper.appendChild(winWrapper);
-    winGameAudio.currentTime = 0;
-    winGameAudio.play();
+
+    winImg.onload = function () {
+      winGameAudio.currentTime = 0;
+      winGameAudio.play();
+    };
   },
   winGameHandler: function winGameHandler() {
     if (this.j === _dataForCards__WEBPACK_IMPORTED_MODULE_1__.default[_dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.choosenCategoryIndex].length && this.mistakesCount === 0) {
@@ -973,6 +1009,51 @@ var render = {
 
 /***/ }),
 
+/***/ "./src/statistic.js":
+/*!**************************!*\
+  !*** ./src/statistic.js ***!
+  \**************************/
+/*! namespace exports */
+/*! exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dataForCards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dataForCards */ "./src/dataForCards.js");
+;
+_dataForCards__WEBPACK_IMPORTED_MODULE_0__.default.forEach(function (item, index) {
+  if (index !== 0) {
+    item.forEach(function (item1) {
+      var play;
+      var mistakes;
+      var train;
+
+      if (!JSON.parse(localStorage.getItem("".concat(item1.word)))) {
+        play = 0;
+        mistakes = 0;
+        train = 0;
+      } else {
+        play = JSON.parse(localStorage.getItem("".concat(item1.word))).play;
+        mistakes = JSON.parse(localStorage.getItem("".concat(item1.word))).mistakes;
+        train = JSON.parse(localStorage.getItem("".concat(item1.word))).train;
+      }
+
+      var word = item1.word;
+      var translate = item1.translation;
+      var localWord = {
+        word: word,
+        translate: translate,
+        play: play,
+        mistakes: mistakes,
+        train: train
+      };
+      localStorage.setItem("".concat(item1.word), JSON.stringify(localWord));
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./src/style.scss":
 /*!************************!*\
   !*** ./src/style.scss ***!
@@ -1047,6 +1128,10 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// Load entry module
 /******/ 	__webpack_require__("./src/index.js");
 /******/ 	// This entry module used 'exports' so it can't be inlined
+/******/ 	__webpack_require__("./src/dataHandler.js");
+/******/ 	__webpack_require__("./src/gameMode.js");
+/******/ 	__webpack_require__("./src/render.js");
+/******/ 	__webpack_require__("./src/statistic.js");
 /******/ 	__webpack_require__("./src/style.scss");
 /******/ })()
 ;
