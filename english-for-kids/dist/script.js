@@ -142,10 +142,10 @@ var cards = [['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set
   image: 'img/bird.jpg',
   audioSrc: 'audio/bird.mp3'
 }, {
-  word: 'fish',
-  translation: 'рыба',
-  image: 'img/fish1.jpg',
-  audioSrc: 'audio/fish.mp3'
+  word: 'squirrel',
+  translation: 'белка',
+  image: 'img/squirrel.jpg',
+  audioSrc: 'audio/squirrel.mp3'
 }, {
   word: 'frog',
   translation: 'жаба',
@@ -357,7 +357,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _dataForCards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dataForCards */ "./src/dataForCards.js");
 /* harmony import */ var _gameMode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameMode */ "./src/gameMode.js");
+/* harmony import */ var _statistic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./statistic */ "./src/statistic.js");
 ;
+
 
 var dataHandler = {
   choosenCategoryIndex: 0,
@@ -396,15 +398,23 @@ var dataHandler = {
     var navigation = document.createElement('nav');
     var navigationInner = document.createElement('div');
     var menuList = document.createElement('ul');
+    navigation.classList.add('navigation');
     menuList.classList.add('navigation__inner__list');
     navigationInner.classList.add('navigation__inner');
-    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item) {
+    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
       var li = document.createElement('li');
       li.classList.add('navigation__inner__list-item');
+      li.setAttribute('data-index', "".concat(index + 1));
       li.textContent = item;
       menuList.appendChild(li);
     });
-    navigationInner.appendChild(navigationInner);
+    var statistic = document.createElement('li');
+    statistic.classList.add('navigation__inner__list-item');
+    statistic.textContent = 'Statistic';
+    statistic.setAttribute('data-index', '9');
+    statistic.addEventListener('click', _statistic__WEBPACK_IMPORTED_MODULE_2__.default.addStatisticTable);
+    menuList.appendChild(statistic);
+    navigationInner.appendChild(menuList);
     navigation.appendChild(navigationInner);
     return navigation;
   },
@@ -418,21 +428,6 @@ var dataHandler = {
     var label = document.createElement('label');
     var burger = document.createElement('img');
     var logoBurgerWrapper = document.createElement('div');
-    var navigation = document.createElement('nav');
-    var navigationInner = document.createElement('div');
-    var menuList = document.createElement('ul');
-    navigation.classList.add('navigation');
-    menuList.classList.add('navigation__inner__list');
-    navigationInner.classList.add('navigation__inner');
-    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
-      var li = document.createElement('li');
-      li.classList.add('navigation__inner__list-item');
-      li.setAttribute('data-index', "".concat(index + 1));
-      li.textContent = item;
-      menuList.appendChild(li);
-    });
-    navigationInner.appendChild(menuList);
-    navigation.appendChild(navigationInner);
     logoBurgerWrapper.classList.add('menu-wrapper');
     input.setAttribute('id', 'checkbox');
     input.setAttribute('type', 'checkbox');
@@ -447,14 +442,12 @@ var dataHandler = {
     burgerWrap.classList.add('burger-menu');
     burger.classList.add('burger-img');
     burger.setAttribute('src', './img/burger.png');
-    burgerWrap.appendChild(burger); // logoBurgerWrapper.appendChild(burgerWrap)
-    // logoBurgerWrapper.appendChild(siteLogoWrap)
-
+    burgerWrap.appendChild(burger);
     headerWrapp.classList.add('header__inner');
     headerWrapp.appendChild(burgerWrap);
     headerWrapp.appendChild(siteLogoWrap);
     headerWrapp.appendChild(buttonSliderWrap);
-    headerWrapp.appendChild(navigation);
+    headerWrapp.appendChild(this.setNavMenu());
     return headerWrapp;
   },
   categoryCards: function categoryCards() {
@@ -466,6 +459,7 @@ var dataHandler = {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
 
+    if (!this.choosenCategoryIndex) return;
     _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[this.choosenCategoryIndex].forEach(function (item) {
       var div = document.createElement('div');
       var divContainer = document.createElement('div');
@@ -499,7 +493,7 @@ var dataHandler = {
         rotateImg.classList.add('rotate-img');
         span.classList.add('word-name');
         span.textContent = item.word;
-        img.setAttribute('src', "".concat(item.image));
+        img.setAttribute('src', "./".concat(item.image));
         img.setAttribute('alt', "".concat(item.word));
         img.classList.add('word-img');
         divFooter.classList.add('train-card__front__footer');
@@ -544,6 +538,9 @@ var dataHandler = {
       console.log(startGame.classList.contains('reload-audio'));
 
       if (!startGame.classList.contains('reload-audio')) {
+        _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.answers = [];
+        _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.mistakesCount = 0;
+        _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.j = 0;
         startGame.addEventListener('click', function () {
           _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.isGameBegin = true;
         });
@@ -596,9 +593,12 @@ var dataHandler = {
     if (!card) return;
 
     if (!card.classList.contains('flipped') && !card.classList.contains('game-mode')) {
+      var localObject = JSON.parse(localStorage.getItem("".concat(card.dataset.word)));
+      localObject.trained++;
       audio.setAttribute('src', "./audio/".concat(card.dataset.word, ".mp3"));
       audio.currentTime = 0;
       audio.play();
+      localStorage.setItem("".concat(card.dataset.word), JSON.stringify(localObject));
     }
   },
   addActiveToMenu: function addActiveToMenu(e) {
@@ -618,6 +618,9 @@ var dataHandler = {
     }
   },
   toMainPage: function toMainPage(e) {
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.answers = [];
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.j = 0;
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.mistakesCount = 0;
     var target = e.target.closest('.logo-text');
 
     if (target) {
@@ -641,8 +644,10 @@ var dataHandler = {
   categoryBlocksGameMode: function categoryBlocksGameMode() {
     var wrapper = document.querySelector('.wrapper');
     var target = document.querySelector('#checkbox');
+    var elem = wrapper.childNodes[0];
+    if (!elem) return;
 
-    if (target.checked && wrapper.childNodes[0].classList.contains('main-card')) {
+    if (target.checked && elem.classList.contains('main-card')) {
       while (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
@@ -652,7 +657,7 @@ var dataHandler = {
         wrapper.appendChild(item);
       });
       document.querySelector('.navigation').classList.add('game-mode');
-    } else if (!target.checked && wrapper.childNodes[0].classList.contains('main-card')) {
+    } else if (!target.checked && elem.classList.contains('main-card')) {
       while (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
@@ -714,6 +719,7 @@ __webpack_require__.r(__webpack_exports__);
 var gameRules = {
   isGameBegin: false,
   mistakesCount: 0,
+  answers: [],
   j: 0,
   gameInit: function gameInit() {
     var _this = this;
@@ -756,35 +762,47 @@ var gameRules = {
     var currentAudio = arrayAudio[gameRules.j].audioSrc;
     var wrapper = document.querySelector('.wrapper');
 
-    if (wrapper.childNodes[0].classList.contains('game-mode') && this.isGameBegin) {
+    if (wrapper.childNodes[0].classList.contains('game-mode') && !wrapper.childNodes[0].classList.contains('main-card') && this.isGameBegin) {
       var guess = e.target.closest('img');
       var guessItem = guess.getAttribute('alt');
-      this.checkGuess(currentAudio, guess, guessItem);
+      this.checkGuess(currentAudio, guess, guessItem, e);
     }
   },
   checkGuess: function checkGuess(currentAudio, guess, guessItem) {
     var answers = document.querySelector('.answer');
+    var localElem = currentAudio.split('/')[1].slice(0, -4);
+    var localObject = JSON.parse(localStorage.getItem("".concat(localElem)));
 
     if (currentAudio.includes(guessItem)) {
       var correctAnswer = document.createElement('img');
+      localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
       correctAnswer.setAttribute('src', '../dist/img/success.jpg');
+      correctAnswer.setAttribute('width', 50);
+      correctAnswer.setAttribute('height', 50);
       correctAnswer.style.height = "".concat(5, "rem");
-      answers.appendChild(correctAnswer);
+      gameRules.answers.push(correctAnswer);
       guess.classList.add('correct-answer');
       gameRules.j++;
       this.addCorrectAnswerAudio();
       setTimeout(this.playGameWords, 1000);
     } else {
+      localObject.mistakes += 1;
       var wrongAnswer = document.createElement('img');
       wrongAnswer.classList.add('wrong-img');
       this.mistakesCount++;
       wrongAnswer.setAttribute('src', '../dist/img/failure.jpg');
       wrongAnswer.style.height = "".concat(5, "rem");
+      gameRules.answers.push(wrongAnswer);
       this.addWrongAnswerAudio();
-      answers.appendChild(wrongAnswer);
     }
 
+    localStorage.setItem("".concat(localElem), JSON.stringify(localObject));
+    this.checkAnswerNumber();
+    answers.innerHTML = '';
+    gameRules.answers.forEach(function (item) {
+      answers.appendChild(item);
+    });
     this.winGameHandler();
   },
   addCorrectAnswerAudio: function addCorrectAnswerAudio() {
@@ -798,6 +816,11 @@ var gameRules = {
     wrong.setAttribute('src', '../dist/audio/failure.mp3');
     wrong.currentTime = 0;
     wrong.play();
+  },
+  checkAnswerNumber: function checkAnswerNumber() {
+    if (this.answers.length > 24) {
+      this.answers.splice(0, 1);
+    }
   },
   addLoseWindow: function addLoseWindow() {
     var mainWrapper = document.querySelector('.wrapper');
@@ -813,14 +836,17 @@ var gameRules = {
     }
 
     loseGameAudio.setAttribute('src', '../dist/audio/loseGame.mp3');
-    loseGameAudio.currentTime = 0;
-    loseGameAudio.play();
     loseWrapper.classList.add('lose-wrapper');
     loseText.classList.add('lose-text');
     loseText.textContent = " You have ".concat(gameRules.mistakesCount, " mistakes.Keep trying. Next time will be better =)");
     loseWrapper.appendChild(loseImg);
     loseWrapper.appendChild(loseText);
     mainWrapper.appendChild(loseWrapper);
+
+    loseImg.onload = function () {
+      loseGameAudio.currentTime = 0;
+      loseGameAudio.play();
+    };
   },
   addWinWindow: function addWinWindow() {
     var mainWrapper = document.querySelector('.wrapper');
@@ -844,8 +870,11 @@ var gameRules = {
     winWrapper.appendChild(winImg);
     winWrapper.appendChild(winText);
     mainWrapper.appendChild(winWrapper);
-    winGameAudio.currentTime = 0;
-    winGameAudio.play();
+
+    winImg.onload = function () {
+      winGameAudio.currentTime = 0;
+      winGameAudio.play();
+    };
   },
   winGameHandler: function winGameHandler() {
     if (this.j === _dataForCards__WEBPACK_IMPORTED_MODULE_1__.default[_dataHandler__WEBPACK_IMPORTED_MODULE_0__.default.choosenCategoryIndex].length && this.mistakesCount === 0) {
@@ -923,9 +952,10 @@ var render = {
     });
     menu.addEventListener('click', function (e) {
       var link = e.target.closest('li');
+      if (!link) return;
       var linkChild = document.querySelector('.navigation__inner__list').childNodes;
 
-      if (link) {
+      if (0 < link.dataset.index && link.dataset.index < 9) {
         _dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.choosenCategoryIndex = link.dataset.index;
         _dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.categoryCards(e);
         menu.classList.toggle('open-menu');
@@ -937,6 +967,18 @@ var render = {
         link.classList.add('link-active');
         var burger = document.querySelector('.burger-img');
         burger.classList.toggle('rotate-burger');
+      } else {
+        menu.classList.toggle('open-menu');
+        console.log(linkChild);
+        linkChild.forEach(function (item) {
+          if (item.classList.contains('link-active')) {
+            item.classList.remove('link-active');
+          }
+
+          link.classList.add('link-active');
+          var burger = document.querySelector('.burger-img');
+          burger.classList.toggle('rotate-burger');
+        });
       }
     });
     this.classes.header.addEventListener('click', _dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.categoryBlocksGameMode);
@@ -970,6 +1012,139 @@ var render = {
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (render);
+
+/***/ }),
+
+/***/ "./src/statistic.js":
+/*!**************************!*\
+  !*** ./src/statistic.js ***!
+  \**************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _dataForCards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dataForCards */ "./src/dataForCards.js");
+;
+var statisticObject = {
+  localStorageArray: [],
+  filterVariable: 'category',
+  setLocalStorageItems: function setLocalStorageItems() {
+    _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
+      var category = item;
+      _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[index + 1].forEach(function (item1) {
+        var correct;
+        var mistakes;
+        var trained;
+        var percentOfMistakes;
+
+        if (!JSON.parse(localStorage.getItem("".concat(item1.word)))) {
+          correct = 0;
+          mistakes = 0;
+          trained = 0;
+          percentOfMistakes = 0;
+        } else {
+          correct = JSON.parse(localStorage.getItem("".concat(item1.word))).correct;
+          mistakes = JSON.parse(localStorage.getItem("".concat(item1.word))).mistakes;
+          trained = JSON.parse(localStorage.getItem("".concat(item1.word))).trained;
+          percentOfMistakes = Math.floor(JSON.parse(localStorage.getItem("".concat(item1.word))).correct / (JSON.parse(localStorage.getItem("".concat(item1.word))).correct + JSON.parse(localStorage.getItem("".concat(item1.word))).mistakes) * 100);
+        }
+
+        if (!!!percentOfMistakes) {
+          percentOfMistakes = 0;
+        }
+
+        var word = item1.word;
+        var translate = item1.translation;
+        var localWord = {
+          category: category,
+          word: word,
+          translate: translate,
+          trained: trained,
+          correct: correct,
+          mistakes: mistakes,
+          '%': percentOfMistakes
+        };
+        localStorage.setItem("".concat(item1.word), JSON.stringify(localWord));
+      });
+    });
+  },
+  setLocalArray: function setLocalArray(filterVariable) {
+    var _this = this;
+
+    console.log(filterVariable);
+    var arrayFromLocal = Object.entries(localStorage).sort(function (a, b) {
+      var firstItem = JSON.parse(a[1])["".concat(filterVariable)];
+      var second = JSON.parse(b[1])["".concat(filterVariable)];
+
+      if (firstItem < second) {
+        return -1;
+      }
+    });
+    this.localStorageArray = [];
+    arrayFromLocal.forEach(function (item) {
+      return _this.localStorageArray.push(item);
+    });
+    console.log(this.localStorageArray);
+  },
+  removeChilds: function removeChilds() {
+    var mainWrapper = document.querySelector('.wrapper');
+
+    while (mainWrapper.firstChild) {
+      mainWrapper.removeChild(mainWrapper.firstChild);
+    }
+  },
+  addStatisticTable: function addStatisticTable() {
+    statisticObject.removeChilds();
+    var wrapper = document.querySelector('.wrapper');
+    var table = document.createElement('table');
+    var thead = document.createElement('thead');
+    var trHead = document.createElement('tr');
+    var tBody = document.createElement('tbody');
+    statisticObject.setLocalStorageItems();
+    statisticObject.setLocalArray(statisticObject.filterVariable);
+    var categoryForStatistic = Object.keys(JSON.parse(statisticObject.localStorageArray[1][1]));
+
+    for (var i = 0; i < 7; i++) {
+      var th = document.createElement('th');
+      th.textContent = categoryForStatistic[i].toUpperCase();
+      trHead.appendChild(th);
+    }
+
+    statisticObject.localStorageArray.forEach(function (item) {
+      var wordRow = document.createElement('tr');
+      var valuesArray = Object.values(JSON.parse(item[1]));
+      valuesArray.forEach(function (value) {
+        var td = document.createElement('td');
+        td.textContent = value;
+        wordRow.appendChild(td);
+      });
+      tBody.appendChild(wordRow);
+    });
+    table.classList.add('table');
+    trHead.addEventListener('click', function (e) {
+      statisticObject.filterVariable = e.target.closest('th').textContent.toLowerCase() || 'category';
+      console.log(statisticObject.filterVariable);
+      statisticObject.setLocalArray(statisticObject.filterVariable, order);
+      statisticObject.addStatisticTable();
+    });
+    thead.appendChild(trHead);
+    table.appendChild(thead);
+    table.appendChild(tBody);
+    wrapper.appendChild(table);
+    statisticObject.localStorageArray = [];
+  },
+  init: function init() {
+    this.setLocalStorageItems();
+  }
+};
+statisticObject.init();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (statisticObject);
 
 /***/ }),
 
@@ -1047,6 +1222,10 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// Load entry module
 /******/ 	__webpack_require__("./src/index.js");
 /******/ 	// This entry module used 'exports' so it can't be inlined
+/******/ 	__webpack_require__("./src/dataHandler.js");
+/******/ 	__webpack_require__("./src/gameMode.js");
+/******/ 	__webpack_require__("./src/render.js");
+/******/ 	__webpack_require__("./src/statistic.js");
 /******/ 	__webpack_require__("./src/style.scss");
 /******/ })()
 ;

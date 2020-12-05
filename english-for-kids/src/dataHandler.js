@@ -1,6 +1,6 @@
 import cards from './dataForCards';
 import gameRules from './gameMode';
-
+import statisticObject from './statistic'
 const dataHandler = {
   choosenCategoryIndex: 0,
   categoryBlocks: [],
@@ -36,16 +36,23 @@ const dataHandler = {
     const navigation = document.createElement('nav');
     const navigationInner = document.createElement('div');
     const menuList = document.createElement('ul');
+    navigation.classList.add('navigation');
     menuList.classList.add('navigation__inner__list');
     navigationInner.classList.add('navigation__inner');
-    cards[0].forEach((item) => {
+    cards[0].forEach((item, index) => {
       const li = document.createElement('li');
       li.classList.add('navigation__inner__list-item');
-
+      li.setAttribute('data-index', `${index + 1}`);
       li.textContent = item;
       menuList.appendChild(li);
     });
-    navigationInner.appendChild(navigationInner);
+    const statistic = document.createElement('li');
+    statistic.classList.add('navigation__inner__list-item');
+    statistic.textContent = 'Statistic';
+    statistic.setAttribute('data-index', '9');
+    statistic.addEventListener('click', statisticObject.addStatisticTable)
+    menuList.appendChild(statistic);
+    navigationInner.appendChild(menuList);
     navigation.appendChild(navigationInner);
     return navigation;
   },
@@ -59,21 +66,6 @@ const dataHandler = {
     const label = document.createElement('label');
     const burger = document.createElement('img');
     const logoBurgerWrapper = document.createElement('div');
-    const navigation = document.createElement('nav');
-    const navigationInner = document.createElement('div');
-    const menuList = document.createElement('ul');
-    navigation.classList.add('navigation');
-    menuList.classList.add('navigation__inner__list');
-    navigationInner.classList.add('navigation__inner');
-    cards[0].forEach((item, index) => {
-      const li = document.createElement('li');
-      li.classList.add('navigation__inner__list-item');
-      li.setAttribute('data-index', `${index + 1}`);
-      li.textContent = item;
-      menuList.appendChild(li);
-    });
-    navigationInner.appendChild(menuList);
-    navigation.appendChild(navigationInner);
     logoBurgerWrapper.classList.add('menu-wrapper');
     input.setAttribute('id', 'checkbox');
     input.setAttribute('type', 'checkbox');
@@ -89,13 +81,11 @@ const dataHandler = {
     burger.classList.add('burger-img');
     burger.setAttribute('src', './img/burger.png');
     burgerWrap.appendChild(burger);
-    // logoBurgerWrapper.appendChild(burgerWrap)
-    // logoBurgerWrapper.appendChild(siteLogoWrap)
     headerWrapp.classList.add('header__inner');
     headerWrapp.appendChild(burgerWrap);
     headerWrapp.appendChild(siteLogoWrap);
     headerWrapp.appendChild(buttonSliderWrap);
-    headerWrapp.appendChild(navigation);
+    headerWrapp.appendChild(this.setNavMenu());
     return headerWrapp;
   },
   categoryCards() {
@@ -103,6 +93,7 @@ const dataHandler = {
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
+    if (!this.choosenCategoryIndex) return;
     cards[this.choosenCategoryIndex].forEach((item) => {
       const div = document.createElement('div');
       const divContainer = document.createElement('div');
@@ -135,7 +126,7 @@ const dataHandler = {
         rotateImg.classList.add('rotate-img');
         span.classList.add('word-name');
         span.textContent = item.word;
-        img.setAttribute('src', `${item.image}`);
+        img.setAttribute('src', `./${item.image}`);
         img.setAttribute('alt', `${item.word}`);
         img.classList.add('word-img');
         divFooter.classList.add('train-card__front__footer');
@@ -179,6 +170,9 @@ const dataHandler = {
       startGame.textContent = 'Start Game';
       console.log(startGame.classList.contains('reload-audio'));
       if (!startGame.classList.contains('reload-audio')) {
+        gameRules.answers = [];
+        gameRules.mistakesCount = 0;
+        gameRules.j = 0;
         startGame.addEventListener('click', () => {
           gameRules.isGameBegin = true;
         });
@@ -227,9 +221,12 @@ const dataHandler = {
     const card = e.target.closest('.train-card');
     if (!card) return;
     if (!card.classList.contains('flipped') && !card.classList.contains('game-mode')) {
+      const localObject = JSON.parse(localStorage.getItem(`${card.dataset.word}`));
+      localObject.trained++;
       audio.setAttribute('src', `./audio/${card.dataset.word}.mp3`);
       audio.currentTime = 0;
       audio.play();
+      localStorage.setItem(`${card.dataset.word}`, JSON.stringify(localObject));
     }
   },
   addActiveToMenu(e) {
@@ -247,6 +244,9 @@ const dataHandler = {
     }
   },
   toMainPage(e) {
+    gameRules.answers = [];
+    gameRules.j = 0;
+    gameRules.mistakesCount = 0;
     const target = e.target.closest('.logo-text');
     if (target) {
       const mainWrapper = document.querySelector('.wrapper');
@@ -267,7 +267,9 @@ const dataHandler = {
   categoryBlocksGameMode() {
     const wrapper = document.querySelector('.wrapper');
     const target = document.querySelector('#checkbox');
-    if (target.checked && wrapper.childNodes[0].classList.contains('main-card')) {
+    const elem = wrapper.childNodes[0];
+    if (!elem) return;
+    if (target.checked && elem.classList.contains('main-card')) {
       while (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
@@ -276,7 +278,7 @@ const dataHandler = {
         wrapper.appendChild(item);
       });
       document.querySelector('.navigation').classList.add('game-mode');
-    } else if (!target.checked && wrapper.childNodes[0].classList.contains('main-card')) {
+    } else if (!target.checked && elem.classList.contains('main-card')) {
       while (wrapper.firstChild) {
         wrapper.removeChild(wrapper.firstChild);
       }
