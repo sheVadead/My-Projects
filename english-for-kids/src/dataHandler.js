@@ -119,6 +119,7 @@ const dataHandler = {
         div.appendChild(imgWrap);
 
         this.trainCards.push(div);
+        
       } else {
         additionalblock.style.width = `${4}rem`;
         imgWrap.classList.add('img-wrap');
@@ -153,8 +154,9 @@ const dataHandler = {
         div.appendChild(divContainer);
         div.appendChild(divContainerBack);
         div.setAttribute('data-word', `${item.word}`);
-        div.addEventListener('mouseout', this.backRotate);
+        div.addEventListener('mouseleave', dataHandler.backRotate);
         this.trainCards.push(div);
+        console.log(this.trainCards)
       }
     });
 
@@ -192,8 +194,9 @@ const dataHandler = {
   },
   backRotate(e) {
     const backTarget = e.target.closest('.train-card');
+    console.log(e.target)
     if (!e.relatedTarget) return;
-    if (e.relatedTarget.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
+    if (e.target.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
       backTarget.childNodes[1].style.visibility = 'hidden';
       backTarget.style.transform = 'rotateY(0deg)';
       backTarget.childNodes[0].classList.remove('rotate-front');
