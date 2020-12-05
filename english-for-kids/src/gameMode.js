@@ -20,7 +20,7 @@ const gameRules = {
     const img = document.createElement('img');
     startButton.textContent = '';
     img.classList.add('reload-img');
-    img.setAttribute('src', '../dist/img/repeat.svg');
+    img.setAttribute('src', './img/repeat.svg');
     startButton.appendChild(img);
     startButton.classList.add('reload-audio');
     startButton.addEventListener('click', this.playGameWords);
@@ -55,7 +55,7 @@ const gameRules = {
       const correctAnswer = document.createElement('img');
       localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
-      correctAnswer.setAttribute('src', '../dist/img/success.jpg');
+      correctAnswer.setAttribute('src', './img/success.jpg');
       correctAnswer.setAttribute('width', 50);
       correctAnswer.setAttribute('height', 50);
       correctAnswer.style.height = `${5}rem`;
@@ -69,7 +69,7 @@ const gameRules = {
       const wrongAnswer = document.createElement('img');
       wrongAnswer.classList.add('wrong-img');
       this.mistakesCount++;
-      wrongAnswer.setAttribute('src', '../dist/img/failure.jpg');
+      wrongAnswer.setAttribute('src', './img/failure.jpg');
       wrongAnswer.style.height = `${5}rem`;
       gameRules.answers.push(wrongAnswer);
       this.addWrongAnswerAudio();
@@ -84,13 +84,13 @@ const gameRules = {
   },
   addCorrectAnswerAudio() {
     const correct = document.createElement('audio');
-    correct.setAttribute('src', '../dist/audio/success.mp3');
+    correct.setAttribute('src', './audio/success.mp3');
     correct.currentTime = 0;
     correct.play();
   },
   addWrongAnswerAudio() {
     const wrong = document.createElement('audio');
-    wrong.setAttribute('src', '../dist/audio/failure.mp3');
+    wrong.setAttribute('src', './audio/failure.mp3');
     wrong.currentTime = 0;
     wrong.play();
   },
@@ -105,12 +105,12 @@ const gameRules = {
     const loseGameAudio = document.createElement('audio');
     const loseImg = document.createElement('img');
     loseImg.classList.add('lose-img');
-    loseImg.setAttribute('src', '../dist/img/lose.jpg');
+    loseImg.setAttribute('src', './img/lose.jpg');
     const loseText = document.createElement('span');
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
-    loseGameAudio.setAttribute('src', '../dist/audio/loseGame.mp3');
+    loseGameAudio.setAttribute('src', './audio/loseGame.mp3');
 
     loseWrapper.classList.add('lose-wrapper');
     loseText.classList.add('lose-text');
@@ -119,6 +119,7 @@ const gameRules = {
     loseWrapper.appendChild(loseText);
     mainWrapper.appendChild(loseWrapper);
     loseImg.onload = function () {
+      setTimeout(window.location.reload.bind(window.location), 4500);
       loseGameAudio.currentTime = 0;
       loseGameAudio.play();
     };
@@ -133,8 +134,8 @@ const gameRules = {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
     winImg.classList.add('win-img');
-    winImg.setAttribute('src', '../dist/img/win.png');
-    winGameAudio.setAttribute('src', '../dist/audio/winGame.mp3');
+    winImg.setAttribute('src', './img/win.png');
+    winGameAudio.setAttribute('src', './audio/winGame.mp3');
     winGameAudio.currentTime = 0;
     winGameAudio.play();
     winWrapper.classList.add('win-wrapper');
@@ -146,15 +147,14 @@ const gameRules = {
     winImg.onload = function () {
       winGameAudio.currentTime = 0;
       winGameAudio.play();
+      setTimeout(window.location.reload.bind(window.location), 4500);
     };
   },
   winGameHandler() {
     if (this.j === cards[dataHandler.choosenCategoryIndex].length && this.mistakesCount === 0) {
       setTimeout(gameRules.addWinWindow, 1000);
-      setTimeout(window.location.reload.bind(window.location), 4500);
     } else if (this.j === cards[dataHandler.choosenCategoryIndex].length && this.mistakesCount !== 0) {
       setTimeout(gameRules.addLoseWindow, 1000);
-      setTimeout(window.location.reload.bind(window.location), 4500);
     }
   },
 };

@@ -44,7 +44,6 @@ const statisticObject = {
   },
 
   setLocalArray(filterVariable) {
-    console.log(filterVariable)
     const arrayFromLocal = Object.entries(localStorage).sort((a, b) => {
       const firstItem = JSON.parse(a[1])[`${filterVariable}`];
       const second = JSON.parse(b[1])[`${filterVariable}`];
@@ -54,7 +53,6 @@ const statisticObject = {
     });
     this.localStorageArray = [];
     arrayFromLocal.forEach((item) => this.localStorageArray.push(item));
-    console.log(this.localStorageArray)
   },
 removeChilds() {
   const mainWrapper = document.querySelector('.wrapper');
@@ -89,9 +87,9 @@ removeChilds() {
     })
     table.classList.add('table');
     trHead.addEventListener('click', (e)=>{
-      statisticObject.filterVariable = e.target.closest('th').textContent.toLowerCase() || 'category';
+      statisticObject.filterVariable = e.target.closest('th').textContent.toLowerCase();
       console.log(statisticObject.filterVariable)
-      statisticObject.setLocalArray(statisticObject.filterVariable, order);
+      statisticObject.setLocalArray(statisticObject.filterVariable);
       statisticObject.addStatisticTable()
     })
     thead.appendChild(trHead)
