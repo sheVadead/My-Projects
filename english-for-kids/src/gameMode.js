@@ -53,7 +53,7 @@ const gameRules = {
     const localObject = JSON.parse(localStorage.getItem(`${localElem}`));
     if (currentAudio.includes(guessItem)) {
       const correctAnswer = document.createElement('img');
-      localObject.play += 1;
+      localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
       correctAnswer.setAttribute('src', '../dist/img/success.jpg');
       correctAnswer.setAttribute('width', 50);

@@ -30,8 +30,9 @@ const render = {
     });
     menu.addEventListener('click', (e) => {
       const link = e.target.closest('li');
+      if(!link) return;
       const linkChild = document.querySelector('.navigation__inner__list').childNodes;
-      if (link) {
+      if (0<link.dataset.index && link.dataset.index < 9) {
         dataHandler.choosenCategoryIndex = link.dataset.index;
         dataHandler.categoryCards(e);
         menu.classList.toggle('open-menu');
@@ -43,6 +44,17 @@ const render = {
         link.classList.add('link-active');
         const burger = document.querySelector('.burger-img');
         burger.classList.toggle('rotate-burger');
+      } else {
+        menu.classList.toggle('open-menu');
+        console.log(linkChild)
+        linkChild.forEach((item) => {
+          if (item.classList.contains('link-active')) {
+            item.classList.remove('link-active');
+          }
+          link.classList.add('link-active');
+          const burger = document.querySelector('.burger-img');
+        burger.classList.toggle('rotate-burger');
+        });
       }
     });
     this.classes.header.addEventListener('click', dataHandler.categoryBlocksGameMode);

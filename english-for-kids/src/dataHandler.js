@@ -1,6 +1,6 @@
 import cards from './dataForCards';
 import gameRules from './gameMode';
-
+import statisticObject from './statistic'
 const dataHandler = {
   choosenCategoryIndex: 0,
   categoryBlocks: [],
@@ -49,6 +49,8 @@ const dataHandler = {
     const statistic = document.createElement('li');
     statistic.classList.add('navigation__inner__list-item');
     statistic.textContent = 'Statistic';
+    statistic.setAttribute('data-index', '9');
+    statistic.addEventListener('click', statisticObject.addStatisticTable)
     menuList.appendChild(statistic);
     navigationInner.appendChild(menuList);
     navigation.appendChild(navigationInner);
@@ -124,7 +126,7 @@ const dataHandler = {
         rotateImg.classList.add('rotate-img');
         span.classList.add('word-name');
         span.textContent = item.word;
-        img.setAttribute('src', `${item.image}`);
+        img.setAttribute('src', `./${item.image}`);
         img.setAttribute('alt', `${item.word}`);
         img.classList.add('word-img');
         divFooter.classList.add('train-card__front__footer');
@@ -220,7 +222,7 @@ const dataHandler = {
     if (!card) return;
     if (!card.classList.contains('flipped') && !card.classList.contains('game-mode')) {
       const localObject = JSON.parse(localStorage.getItem(`${card.dataset.word}`));
-      localObject.train++;
+      localObject.trained++;
       audio.setAttribute('src', `./audio/${card.dataset.word}.mp3`);
       audio.currentTime = 0;
       audio.play();

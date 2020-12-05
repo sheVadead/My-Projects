@@ -169,6 +169,27 @@ main .wrapper {
   flex-wrap: wrap;
   flex: 1;
 }
+main .wrapper .table {
+  width: 90%;
+  margin-top: 2rem;
+}
+main .wrapper .table thead {
+  background-color: red;
+  font: normal normal 2rem/120% "Nerko One", sans-serif;
+}
+main .wrapper .table thead tr {
+  height: 4rem;
+}
+main .wrapper .table tbody {
+  text-align: center;
+  font: normal normal 2rem/120% "Nerko One", sans-serif;
+}
+main .wrapper .table tbody tr:hover {
+  background-color: gray;
+}
+main .wrapper .table tbody tr:hover td:hover {
+  background-color: green;
+}
 main .wrapper .win-wrapper {
   display: flex;
   justify-content: center;
@@ -386,6 +407,7 @@ main .wrapper .train-card .word-img {
 
 .correct-answer {
   opacity: 0.4;
+  pointer-events: none;
 }
 
 .rotate-burger {

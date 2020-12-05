@@ -180,6 +180,27 @@ main {
         max-width: 130rem;
         flex-wrap: wrap;
         flex: 1;
+        .table {
+            width: 90%;
+            margin-top: 2rem;
+            thead {
+                background-color: red;
+                font: normal normal 2rem/120% 'Nerko One', sans-serif;
+                tr {
+                    height:4rem;
+                }
+            }
+            tbody {
+                text-align: center;
+                font: normal normal 2rem/120% 'Nerko One', sans-serif;
+                tr:hover{
+                    background-color: gray;
+                    td:hover {
+                        background-color: green;
+                    }
+                }
+            }
+        }
         .win-wrapper{
             display: flex;
             justify-content: center;
@@ -423,6 +444,7 @@ main {
     }
     .correct-answer {
         opacity:.4;
+        pointer-events: none;
     }
     .rotate-burger {
         transform: rotate(90deg);
