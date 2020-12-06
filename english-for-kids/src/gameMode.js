@@ -1,5 +1,6 @@
 import dataHandler from './dataHandler';
 import cards from './dataForCards';
+import statisticObject from './statistic';
 
 const gameRules = {
   isGameBegin: false,
@@ -9,6 +10,7 @@ const gameRules = {
   gameInit() {
     if (document.querySelector('#checkbox').checked) {
       const startButton = document.querySelector('.start-button');
+      if (!startButton) return;
       startButton.addEventListener('click', () => {
         this.playGameWords();
         this.changeGameButton();
@@ -26,7 +28,10 @@ const gameRules = {
     startButton.addEventListener('click', this.playGameWords);
   },
   playGameWords() {
-    const arrayAudio = cards[dataHandler.choosenCategoryIndex];
+    let arrayAudio = cards[dataHandler.choosenCategoryIndex];
+    if (statisticObject.hardWordsArray.length !== 0) {
+      arrayAudio = statisticObject.hardWordsArray;
+    }
     const wordAudio = document.createElement('audio');
     if (!arrayAudio[gameRules.j]) {
       return;
@@ -37,7 +42,10 @@ const gameRules = {
     wordAudio.innerHTML = '';
   },
   mainGame(e) {
-    const arrayAudio = cards[dataHandler.choosenCategoryIndex];
+    let arrayAudio = cards[dataHandler.choosenCategoryIndex];
+    if (statisticObject.hardWordsArray.length !== 0) {
+      arrayAudio = statisticObject.hardWordsArray;
+    }
     if (!e.target.closest('img') || e.target.closest('.reload-img')) return;
     const currentAudio = arrayAudio[gameRules.j].audioSrc;
     const wrapper = document.querySelector('.wrapper');
@@ -104,6 +112,7 @@ const gameRules = {
     const loseWrapper = document.createElement('div');
     const loseGameAudio = document.createElement('audio');
     const loseImg = document.createElement('img');
+    document.body.style.pointerEvents = 'none';
     loseImg.classList.add('lose-img');
     loseImg.setAttribute('src', './img/lose.jpg');
     const loseText = document.createElement('span');
@@ -119,7 +128,10 @@ const gameRules = {
     loseWrapper.appendChild(loseText);
     mainWrapper.appendChild(loseWrapper);
     loseImg.onload = function () {
-      setTimeout(window.location.reload.bind(window.location), 4500);
+      setTimeout(dataHandler.mainPageHandler, 3000);
+      setTimeout(() => {
+        document.body.style.pointerEvents = '';
+      }, 2500);
       loseGameAudio.currentTime = 0;
       loseGameAudio.play();
     };
@@ -130,6 +142,8 @@ const gameRules = {
     const winGameAudio = document.createElement('audio');
     const winText = document.createElement('span');
     const winImg = document.createElement('img');
+    document.body.style.pointerEvents = 'none';
+
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
@@ -147,13 +161,20 @@ const gameRules = {
     winImg.onload = function () {
       winGameAudio.currentTime = 0;
       winGameAudio.play();
-      setTimeout(window.location.reload.bind(window.location), 4500);
+      setTimeout(() => {
+        document.body.style.pointerEvents = '';
+      }, 2500);
+      setTimeout(dataHandler.mainPageHandler, 3000);
     };
   },
   winGameHandler() {
-    if (this.j === cards[dataHandler.choosenCategoryIndex].length && this.mistakesCount === 0) {
+    let cardsArrayLength = cards[dataHandler.choosenCategoryIndex].length;
+    if (statisticObject.hardWordsArray.length > 0) {
+      cardsArrayLength = statisticObject.hardWordsArray.length;
+    }
+    if ((this.j === cardsArrayLength && this.mistakesCount === 0)) {
       setTimeout(gameRules.addWinWindow, 1000);
-    } else if (this.j === cards[dataHandler.choosenCategoryIndex].length && this.mistakesCount !== 0) {
+    } else if ((this.j === cardsArrayLength && this.mistakesCount !== 0)) {
       setTimeout(gameRules.addLoseWindow, 1000);
     }
   },

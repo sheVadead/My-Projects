@@ -10,6 +10,7 @@
 
 body {
     background-color:#ffeeca24;
+    transition: 0.3s;
 }
 .header {
     display: flex;
@@ -27,7 +28,7 @@ body {
         justify-content: space-around;
         width: 100%;
         .burger-menu {
-            z-index: 3;
+            z-index: 12;
             .burger-img {
                 transition: 0.5s;
             }
@@ -50,9 +51,13 @@ body {
                 #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, 
                 #cad5e2 5px 5px 0;
                 font: normal normal 5rem/120% 'Nerko One', sans-serif;
+                
                 &:hover {
                     cursor: pointer;
                     transform: scale(1.1);
+                }
+                .block-events {
+                    pointer-events: none !important;
                 }
             }
         }
@@ -124,7 +129,7 @@ body {
             position: fixed;
             top: 0;
             left: -40rem;
-            z-index: 2;
+            z-index: 11;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -135,6 +140,7 @@ body {
             transition: 0.6s;    
             &__inner {
                 height: 80%;
+               
                 &__list {
                     display: flex;
                     flex-direction: column;
@@ -159,6 +165,7 @@ body {
                             cursor: pointer;
                             box-shadow: inset 5px 0 0 0 #2F4858;
                             transition: left 2s;
+                            transform: scale(1.2);
                             background-size: 100% 100%;
                         }
                     }
@@ -172,7 +179,20 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: none;
+        background-color: grey;
+        opacity: .6;
+    }
+    .show-overlay {
+        display: block;
+    }
     .wrapper {
         display: flex;
         justify-content: center;
@@ -180,27 +200,48 @@ main {
         max-width: 130rem;
         flex-wrap: wrap;
         flex: 1;
-        .table {
-            width: 90%;
-            margin-top: 2rem;
-            thead {
-                background-color: red;
-                font: normal normal 2rem/120% 'Nerko One', sans-serif;
-                tr {
-                    height:4rem;
-                }
+        &__inner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            &__buttons {
+                display: flex;
+                justify-content: space-around;
+                width: 50%;
+                margin-top: 1rem;
             }
-            tbody {
-                text-align: center;
-                font: normal normal 2rem/120% 'Nerko One', sans-serif;
-                tr:hover{
-                    background-color: gray;
-                    td:hover {
-                        background-color: green;
+            .table {
+                width: 90%;
+                margin-top: 2rem;
+                thead {
+                    background-color: red;
+                    font: normal normal 2rem/120% 'Nerko One', sans-serif;
+                    tr {
+                        height:4rem;
+                        th:hover {
+                            cursor: pointer;
+                            transition: 0.4s;
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+                tbody {
+                    text-align: center;
+                    font: normal normal 2rem/120% 'Nerko One', sans-serif;
+                    tr:hover{
+                        cursor: pointer;
+                        background-color: gray;
+                        td:hover {
+                            cursor: pointer;
+                            background-color: green;
+                        }
                     }
                 }
             }
         }
+        
         .win-wrapper{
             display: flex;
             justify-content: center;
@@ -455,9 +496,10 @@ main {
     .link-active {
         transform: scale(1.2);
         border-bottom: 2px solid black;
+        pointer-events: none;
     }
-
     .game-mode {
         background: rgb(63,94,251) !important;
         background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%) !important;
     }
+   

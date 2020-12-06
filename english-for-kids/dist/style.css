@@ -10,6 +10,7 @@
 
 body {
   background-color: #ffeeca24;
+  transition: 0.3s;
 }
 
 .header {
@@ -29,7 +30,7 @@ body {
   width: 100%;
 }
 .header__inner .burger-menu {
-  z-index: 3;
+  z-index: 12;
 }
 .header__inner .burger-menu .burger-img {
   transition: 0.5s;
@@ -55,6 +56,9 @@ body {
 .header__inner .site-logo .logo-text:hover {
   cursor: pointer;
   transform: scale(1.1);
+}
+.header__inner .site-logo .logo-text .block-events {
+  pointer-events: none !important;
 }
 .header__inner .slider-button {
   text-align: center;
@@ -116,7 +120,7 @@ body {
   position: fixed;
   top: 0;
   left: -40rem;
-  z-index: 2;
+  z-index: 11;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -153,6 +157,7 @@ body {
   cursor: pointer;
   box-shadow: inset 5px 0 0 0 #2F4858;
   transition: left 2s;
+  transform: scale(1.2);
   background-size: 100% 100%;
 }
 
@@ -160,6 +165,20 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+main .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: none;
+  background-color: grey;
+  opacity: 0.6;
+}
+main .show-overlay {
+  display: block;
 }
 main .wrapper {
   display: flex;
@@ -169,25 +188,45 @@ main .wrapper {
   flex-wrap: wrap;
   flex: 1;
 }
-main .wrapper .table {
+main .wrapper__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+main .wrapper__inner__buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  margin-top: 1rem;
+}
+main .wrapper__inner .table {
   width: 90%;
   margin-top: 2rem;
 }
-main .wrapper .table thead {
+main .wrapper__inner .table thead {
   background-color: red;
   font: normal normal 2rem/120% "Nerko One", sans-serif;
 }
-main .wrapper .table thead tr {
+main .wrapper__inner .table thead tr {
   height: 4rem;
 }
-main .wrapper .table tbody {
+main .wrapper__inner .table thead tr th:hover {
+  cursor: pointer;
+  transition: 0.4s;
+  transform: scale(1.1);
+}
+main .wrapper__inner .table tbody {
   text-align: center;
   font: normal normal 2rem/120% "Nerko One", sans-serif;
 }
-main .wrapper .table tbody tr:hover {
+main .wrapper__inner .table tbody tr:hover {
+  cursor: pointer;
   background-color: gray;
 }
-main .wrapper .table tbody tr:hover td:hover {
+main .wrapper__inner .table tbody tr:hover td:hover {
+  cursor: pointer;
   background-color: green;
 }
 main .wrapper .win-wrapper {
@@ -421,6 +460,7 @@ main .wrapper .train-card .word-img {
 .link-active {
   transform: scale(1.2);
   border-bottom: 2px solid black;
+  pointer-events: none;
 }
 
 .game-mode {
