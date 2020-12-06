@@ -1,6 +1,7 @@
 import cards from './dataForCards';
 import gameRules from './gameMode';
-import statisticObject from './statistic'
+import statisticObject from './statistic';
+
 const dataHandler = {
   choosenCategoryIndex: 0,
   categoryBlocks: [],
@@ -36,9 +37,15 @@ const dataHandler = {
     const navigation = document.createElement('nav');
     const navigationInner = document.createElement('div');
     const menuList = document.createElement('ul');
+    const mainPage = document.createElement('li');
     navigation.classList.add('navigation');
     menuList.classList.add('navigation__inner__list');
     navigationInner.classList.add('navigation__inner');
+    mainPage.classList.add('navigation__inner__list-item');
+    mainPage.textContent = 'Main';
+    mainPage.setAttribute('data-index', `${10}`);
+    // mainPage.addEventListener('click', dataHandler.toMainPage)
+    menuList.appendChild(mainPage);
     cards[0].forEach((item, index) => {
       const li = document.createElement('li');
       li.classList.add('navigation__inner__list-item');
@@ -50,7 +57,7 @@ const dataHandler = {
     statistic.classList.add('navigation__inner__list-item');
     statistic.textContent = 'Statistic';
     statistic.setAttribute('data-index', '9');
-    statistic.addEventListener('click', statisticObject.addStatisticTable)
+    statistic.addEventListener('click', statisticObject.addStatisticTable);
     menuList.appendChild(statistic);
     navigationInner.appendChild(menuList);
     navigation.appendChild(navigationInner);
@@ -71,8 +78,10 @@ const dataHandler = {
     input.setAttribute('type', 'checkbox');
     label.setAttribute('for', 'checkbox');
     spanLogo.classList.add('logo-text');
+
     spanLogo.textContent = 'English for Kids';
     siteLogoWrap.classList.add('site-logo');
+
     siteLogoWrap.appendChild(spanLogo);
     buttonSliderWrap.classList.add('slider-button');
     buttonSliderWrap.appendChild(input);
@@ -88,13 +97,14 @@ const dataHandler = {
     headerWrapp.appendChild(this.setNavMenu());
     return headerWrapp;
   },
-  categoryCards() {
+  categoryCards(blocks) {
     const mainWrapper = document.querySelector('.wrapper');
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
-    if (!this.choosenCategoryIndex) return;
-    cards[this.choosenCategoryIndex].forEach((item) => {
+
+    // if (!this.choosenCategoryIndex) return;
+    blocks.forEach((item) => {
       const div = document.createElement('div');
       const divContainer = document.createElement('div');
       const divFooter = document.createElement('div');
@@ -117,9 +127,7 @@ const dataHandler = {
         div.classList.add('train-card');
         div.classList.add('game-mode');
         div.appendChild(imgWrap);
-
         this.trainCards.push(div);
-        
       } else {
         additionalblock.style.width = `${4}rem`;
         imgWrap.classList.add('img-wrap');
@@ -156,10 +164,8 @@ const dataHandler = {
         div.setAttribute('data-word', `${item.word}`);
         div.addEventListener('mouseleave', dataHandler.backRotate);
         this.trainCards.push(div);
-        console.log(this.trainCards)
       }
     });
-
     this.shuffle(this.trainCards).forEach((item) => {
       mainWrapper.appendChild(item);
     });
@@ -170,7 +176,6 @@ const dataHandler = {
       answer.classList.add('answer');
       startGame.classList.add('start-button');
       startGame.textContent = 'Start Game';
-      console.log(startGame.classList.contains('reload-audio'));
       if (!startGame.classList.contains('reload-audio')) {
         gameRules.answers = [];
         gameRules.mistakesCount = 0;
@@ -192,9 +197,20 @@ const dataHandler = {
     });
     this.trainCards = [];
   },
+  menuClassHandler(menu, overlay, linkChild, link) {
+    menu.classList.toggle('open-menu');
+    overlay.classList.toggle('show-overlay');
+    linkChild.forEach((item) => {
+      if (item.classList.contains('link-active')) {
+        item.classList.remove('link-active');
+      }
+    });
+    link.classList.add('link-active');
+    const burger = document.querySelector('.burger-img');
+    burger.classList.toggle('rotate-burger');
+  },
   backRotate(e) {
     const backTarget = e.target.closest('.train-card');
-    console.log(e.target)
     if (!e.relatedTarget) return;
     if (e.target.classList.contains('train-card') && backTarget.classList.contains('flipped')) {
       backTarget.childNodes[1].style.visibility = 'hidden';
@@ -251,7 +267,8 @@ const dataHandler = {
     gameRules.j = 0;
     gameRules.mistakesCount = 0;
     const target = e.target.closest('.logo-text');
-    if (target) {
+    const mainPage = e.target.closest("[data-index='10']");
+    if (target || mainPage) {
       const mainWrapper = document.querySelector('.wrapper');
       while (mainWrapper.firstChild) {
         mainWrapper.removeChild(mainWrapper.firstChild);
@@ -292,13 +309,41 @@ const dataHandler = {
       document.querySelector('.navigation').classList.remove('game-mode');
     }
   },
+  mainPageHandler() {
+    gameRules.answers = [];
+    gameRules.j = 0;
+    gameRules.mistakesCount = 0;
+    const mainWrapper = document.querySelector('.wrapper');
+    while (mainWrapper.firstChild) {
+      mainWrapper.removeChild(mainWrapper.firstChild);
+    }
+    if (document.querySelector('#checkbox').checked) {
+      dataHandler.categoryBlocks.forEach((item) => {
+        item.classList.add('game-mode');
+        mainWrapper.appendChild(item);
+      });
+    } else {
+      dataHandler.categoryBlocks.forEach((item) => {
+        mainWrapper.appendChild(item);
+      });
+    }
+
+    const linkChild = document.querySelector('.navigation__inner__list').childNodes;
+    linkChild.forEach((item) => {
+      if (item.classList.contains('link-active')) {
+        item.classList.remove('link-active');
+      }
+    });
+  },
   trainBlocksGameMode() {
     const wrapper = document.querySelector('.wrapper');
     const target = document.querySelector('#checkbox');
-    if (target.checked && wrapper.childNodes[0].classList.contains('train-card')) {
-      dataHandler.categoryCards();
-    } else if (!target.checked && wrapper.childNodes[0].classList.contains('train-card')) {
-      dataHandler.categoryCards();
+    if (target.checked && wrapper.childNodes[0].classList.contains('train-card') && statisticObject.hardWordsArray.length === 0) {
+      dataHandler.categoryCards(cards[this.choosenCategoryIndex]);
+    } else if (!target.checked && wrapper.childNodes[0].classList.contains('train-card') && statisticObject.hardWordsArray.length === 0) {
+      dataHandler.categoryCards(cards[this.choosenCategoryIndex]);
+    } else if (target.checked && wrapper.childNodes[0].classList.contains('train-card') && statisticObject.hardWordsArray.length !== 0) {
+      dataHandler.categoryCards(statisticObject.hardWordsArray);
     }
   },
   shuffle(a) {
