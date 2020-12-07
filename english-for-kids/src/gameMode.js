@@ -6,14 +6,18 @@ const gameRules = {
   isGameBegin: false,
   mistakesCount: 0,
   answers: [],
+  randomArrayAudio: new Set(),
   j: 0,
   gameInit() {
     if (document.querySelector('#checkbox').checked) {
       const startButton = document.querySelector('.start-button');
       if (!startButton) return;
-      startButton.addEventListener('click', () => {
-        this.playGameWords();
-        this.changeGameButton();
+
+      startButton.addEventListener('click', (e) => {
+        if (e.target.closest('.start-button')) {
+          this.playGameWords();
+          this.changeGameButton();
+        }
       });
     }
   },
@@ -23,6 +27,8 @@ const gameRules = {
     startButton.textContent = '';
     img.classList.add('reload-img');
     img.setAttribute('src', './img/repeat.svg');
+    img.setAttribute('width', '60');
+    img.setAttribute('height', '60');
     startButton.appendChild(img);
     startButton.classList.add('reload-audio');
     startButton.addEventListener('click', this.playGameWords);
@@ -32,11 +38,16 @@ const gameRules = {
     if (statisticObject.hardWordsArray.length !== 0) {
       arrayAudio = statisticObject.hardWordsArray;
     }
+    while (gameRules.randomArrayAudio.size < arrayAudio.length) {
+      gameRules.randomArrayAudio.add(Math.floor(Math.random() * arrayAudio.length));
+    }
+    const randomAudioArray = Array.from(gameRules.randomArrayAudio);
+
     const wordAudio = document.createElement('audio');
     if (!arrayAudio[gameRules.j]) {
       return;
     }
-    wordAudio.setAttribute('src', `${arrayAudio[gameRules.j].audioSrc}`);
+    wordAudio.setAttribute('src', `${arrayAudio[randomAudioArray[gameRules.j]].audioSrc}`);
     wordAudio.currentTime = 0;
     wordAudio.play();
     wordAudio.innerHTML = '';
@@ -46,8 +57,9 @@ const gameRules = {
     if (statisticObject.hardWordsArray.length !== 0) {
       arrayAudio = statisticObject.hardWordsArray;
     }
-    if (!e.target.closest('img') || e.target.closest('.reload-img')) return;
-    const currentAudio = arrayAudio[gameRules.j].audioSrc;
+    const randomAudioArray = Array.from(gameRules.randomArrayAudio);
+    if (!e.target.closest('img') || e.target.closest('.reload-img') || randomAudioArray.length === 0) return;
+    const currentAudio = arrayAudio[randomAudioArray[gameRules.j]].audioSrc;
     const wrapper = document.querySelector('.wrapper');
     if (wrapper.childNodes[0].classList.contains('game-mode') && !wrapper.childNodes[0].classList.contains('main-card') && this.isGameBegin) {
       const guess = e.target.closest('img');
@@ -57,18 +69,20 @@ const gameRules = {
   },
   checkGuess(currentAudio, guess, guessItem) {
     const answers = document.querySelector('.answer');
+    const answerWrapper = document.createElement('div');
+    answerWrapper.classList.add('answer__wrapper');
     const localElem = currentAudio.split('/')[1].slice(0, -4);
     const localObject = JSON.parse(localStorage.getItem(`${localElem}`));
     if (currentAudio.includes(guessItem)) {
       const correctAnswer = document.createElement('img');
       localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
-      correctAnswer.setAttribute('src', './img/success.jpg');
-      correctAnswer.setAttribute('width', 50);
-      correctAnswer.setAttribute('height', 50);
-      correctAnswer.style.height = `${5}rem`;
+      correctAnswer.setAttribute('src', './img/star-win.svg');
+      correctAnswer.setAttribute('width', 55);
+      correctAnswer.setAttribute('height', 55);
+      // correctAnswer.style.height = `${5}rem`;
       gameRules.answers.push(correctAnswer);
-      guess.classList.add('correct-answer');
+      guess.parentNode.parentNode.classList.add('correct-answer');
       gameRules.j++;
       this.addCorrectAnswerAudio();
       setTimeout(this.playGameWords, 1000);
@@ -77,7 +91,9 @@ const gameRules = {
       const wrongAnswer = document.createElement('img');
       wrongAnswer.classList.add('wrong-img');
       this.mistakesCount++;
-      wrongAnswer.setAttribute('src', './img/failure.jpg');
+      wrongAnswer.setAttribute('src', './img/star-wrong.svg');
+      wrongAnswer.setAttribute('width', 55);
+      wrongAnswer.setAttribute('height', 55);
       wrongAnswer.style.height = `${5}rem`;
       gameRules.answers.push(wrongAnswer);
       this.addWrongAnswerAudio();
@@ -103,7 +119,9 @@ const gameRules = {
     wrong.play();
   },
   checkAnswerNumber() {
-    if (this.answers.length > 24) {
+    const correctAnswerWidth = 55;
+    const screenWidthMultiplayer = Math.floor(screen.width / correctAnswerWidth);
+    if (this.answers.length > screenWidthMultiplayer) {
       this.answers.splice(0, 1);
     }
   },
@@ -114,13 +132,12 @@ const gameRules = {
     const loseImg = document.createElement('img');
     document.body.style.pointerEvents = 'none';
     loseImg.classList.add('lose-img');
-    loseImg.setAttribute('src', './img/lose.jpg');
+    loseImg.setAttribute('src', './img/lose.png');
     const loseText = document.createElement('span');
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
     loseGameAudio.setAttribute('src', './audio/loseGame.mp3');
-
     loseWrapper.classList.add('lose-wrapper');
     loseText.classList.add('lose-text');
     loseText.textContent = ` You have ${gameRules.mistakesCount} mistakes.Keep trying. Next time will be better =)`;

@@ -463,8 +463,7 @@ var dataHandler = {
 
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
-    } // if (!this.choosenCategoryIndex) return;
-
+    }
 
     blocks.forEach(function (item) {
       var div = document.createElement('div');
@@ -536,6 +535,8 @@ var dataHandler = {
     });
 
     if (document.querySelector('#checkbox').checked) {
+      var startButtonWrapper = document.createElement('div');
+      startButtonWrapper.classList.add('start-button-wrapper');
       var startGame = document.createElement('button');
       var answer = document.createElement('div');
       answer.classList.add('answer');
@@ -553,12 +554,13 @@ var dataHandler = {
         _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.isGameBegin = false;
       }
 
-      mainWrapper.appendChild(startGame);
+      startButtonWrapper.appendChild(startGame);
+      mainWrapper.appendChild(startButtonWrapper);
       mainWrapper.appendChild(answer);
     }
 
     mainWrapper.childNodes.forEach(function (item) {
-      if (item.classList.contains('start-button')) {
+      if (item.classList.contains('start-button-wrapper')) {
         _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.gameInit();
       }
     });
@@ -638,6 +640,7 @@ var dataHandler = {
     _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.answers = [];
     _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.j = 0;
     _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.mistakesCount = 0;
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.randomArrayAudio = new Set();
     var target = e.target.closest('.logo-text');
     var mainPage = e.target.closest("[data-index='10']");
 
@@ -688,9 +691,12 @@ var dataHandler = {
     }
   },
   mainPageHandler: function mainPageHandler() {
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.isGameBegin = false;
+    _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.randomArrayAudio = new Set();
     _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.answers = [];
     _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.j = 0;
     _gameMode__WEBPACK_IMPORTED_MODULE_1__.default.mistakesCount = 0;
+    _statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray = [];
     var mainWrapper = document.querySelector('.wrapper');
 
     while (mainWrapper.firstChild) {
@@ -724,6 +730,8 @@ var dataHandler = {
     } else if (!target.checked && wrapper.childNodes[0].classList.contains('train-card') && _statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray.length === 0) {
       dataHandler.categoryCards(_dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[this.choosenCategoryIndex]);
     } else if (target.checked && wrapper.childNodes[0].classList.contains('train-card') && _statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray.length !== 0) {
+      dataHandler.categoryCards(_statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray);
+    } else if (!target.checked && wrapper.childNodes[0].classList.contains('train-card') && _statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray.length !== 0) {
       dataHandler.categoryCards(_statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray);
     }
   },
@@ -770,6 +778,7 @@ var gameRules = {
   isGameBegin: false,
   mistakesCount: 0,
   answers: [],
+  randomArrayAudio: new Set(),
   j: 0,
   gameInit: function gameInit() {
     var _this = this;
@@ -777,10 +786,12 @@ var gameRules = {
     if (document.querySelector('#checkbox').checked) {
       var startButton = document.querySelector('.start-button');
       if (!startButton) return;
-      startButton.addEventListener('click', function () {
-        _this.playGameWords();
+      startButton.addEventListener('click', function (e) {
+        if (e.target.closest('.start-button')) {
+          _this.playGameWords();
 
-        _this.changeGameButton();
+          _this.changeGameButton();
+        }
       });
     }
   },
@@ -790,6 +801,8 @@ var gameRules = {
     startButton.textContent = '';
     img.classList.add('reload-img');
     img.setAttribute('src', './img/repeat.svg');
+    img.setAttribute('width', '60');
+    img.setAttribute('height', '60');
     startButton.appendChild(img);
     startButton.classList.add('reload-audio');
     startButton.addEventListener('click', this.playGameWords);
@@ -801,13 +814,18 @@ var gameRules = {
       arrayAudio = _statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray;
     }
 
+    while (gameRules.randomArrayAudio.size < arrayAudio.length) {
+      gameRules.randomArrayAudio.add(Math.floor(Math.random() * arrayAudio.length));
+    }
+
+    var randomAudioArray = Array.from(gameRules.randomArrayAudio);
     var wordAudio = document.createElement('audio');
 
     if (!arrayAudio[gameRules.j]) {
       return;
     }
 
-    wordAudio.setAttribute('src', "".concat(arrayAudio[gameRules.j].audioSrc));
+    wordAudio.setAttribute('src', "".concat(arrayAudio[randomAudioArray[gameRules.j]].audioSrc));
     wordAudio.currentTime = 0;
     wordAudio.play();
     wordAudio.innerHTML = '';
@@ -819,8 +837,9 @@ var gameRules = {
       arrayAudio = _statistic__WEBPACK_IMPORTED_MODULE_2__.default.hardWordsArray;
     }
 
-    if (!e.target.closest('img') || e.target.closest('.reload-img')) return;
-    var currentAudio = arrayAudio[gameRules.j].audioSrc;
+    var randomAudioArray = Array.from(gameRules.randomArrayAudio);
+    if (!e.target.closest('img') || e.target.closest('.reload-img') || randomAudioArray.length === 0) return;
+    var currentAudio = arrayAudio[randomAudioArray[gameRules.j]].audioSrc;
     var wrapper = document.querySelector('.wrapper');
 
     if (wrapper.childNodes[0].classList.contains('game-mode') && !wrapper.childNodes[0].classList.contains('main-card') && this.isGameBegin) {
@@ -831,6 +850,8 @@ var gameRules = {
   },
   checkGuess: function checkGuess(currentAudio, guess, guessItem) {
     var answers = document.querySelector('.answer');
+    var answerWrapper = document.createElement('div');
+    answerWrapper.classList.add('answer__wrapper');
     var localElem = currentAudio.split('/')[1].slice(0, -4);
     var localObject = JSON.parse(localStorage.getItem("".concat(localElem)));
 
@@ -838,12 +859,12 @@ var gameRules = {
       var correctAnswer = document.createElement('img');
       localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
-      correctAnswer.setAttribute('src', './img/success.jpg');
-      correctAnswer.setAttribute('width', 50);
-      correctAnswer.setAttribute('height', 50);
-      correctAnswer.style.height = "".concat(5, "rem");
+      correctAnswer.setAttribute('src', './img/star-win.svg');
+      correctAnswer.setAttribute('width', 55);
+      correctAnswer.setAttribute('height', 55); // correctAnswer.style.height = `${5}rem`;
+
       gameRules.answers.push(correctAnswer);
-      guess.classList.add('correct-answer');
+      guess.parentNode.parentNode.classList.add('correct-answer');
       gameRules.j++;
       this.addCorrectAnswerAudio();
       setTimeout(this.playGameWords, 1000);
@@ -852,7 +873,9 @@ var gameRules = {
       var wrongAnswer = document.createElement('img');
       wrongAnswer.classList.add('wrong-img');
       this.mistakesCount++;
-      wrongAnswer.setAttribute('src', './img/failure.jpg');
+      wrongAnswer.setAttribute('src', './img/star-wrong.svg');
+      wrongAnswer.setAttribute('width', 55);
+      wrongAnswer.setAttribute('height', 55);
       wrongAnswer.style.height = "".concat(5, "rem");
       gameRules.answers.push(wrongAnswer);
       this.addWrongAnswerAudio();
@@ -879,7 +902,10 @@ var gameRules = {
     wrong.play();
   },
   checkAnswerNumber: function checkAnswerNumber() {
-    if (this.answers.length > 24) {
+    var correctAnswerWidth = 55;
+    var screenWidthMultiplayer = Math.floor(screen.width / correctAnswerWidth);
+
+    if (this.answers.length > screenWidthMultiplayer) {
       this.answers.splice(0, 1);
     }
   },
@@ -890,7 +916,7 @@ var gameRules = {
     var loseImg = document.createElement('img');
     document.body.style.pointerEvents = 'none';
     loseImg.classList.add('lose-img');
-    loseImg.setAttribute('src', './img/lose.jpg');
+    loseImg.setAttribute('src', './img/lose.png');
     var loseText = document.createElement('span');
 
     while (mainWrapper.firstChild) {
@@ -1195,19 +1221,23 @@ var statisticObject = {
     var thead = document.createElement('thead');
     var trHead = document.createElement('tr');
     var tBody = document.createElement('tbody');
+    var emptyTrainWords = document.createElement('span');
+    emptyTrainWords.classList.add('empty-hard-words');
+    emptyTrainWords.classList.add('hide');
+    emptyTrainWords.textContent = "You didn't make a single mistake. Good job!.";
     var trainHardWords = document.createElement('button');
     var resetStatistic = document.createElement('button');
     resetStatistic.classList.add('reset-statistic-button');
     wrapperInner.classList.add('wrapper__inner');
     buttonWrapper.classList.add('wrapper__inner__buttons');
     trainHardWords.classList.add('hard-words-button');
-    trainHardWords.textContent = 'Train hard words';
-    resetStatistic.textContent = 'Reset statistics';
-    trainHardWords.addEventListener('click', statisticObject.setHardWords); // addListener for reset
-
+    trainHardWords.textContent = 'Repeat difficult words';
+    resetStatistic.textContent = 'Reset';
+    trainHardWords.addEventListener('click', statisticObject.setHardWords);
     resetStatistic.addEventListener('click', statisticObject.resetStatisticHandler);
     buttonWrapper.appendChild(trainHardWords);
     buttonWrapper.appendChild(resetStatistic);
+    buttonWrapper.appendChild(emptyTrainWords);
     statisticObject.setLocalStorageItems();
 
     if (statisticObject.localStorageArray.length === 0) {
@@ -1289,7 +1319,13 @@ var statisticObject = {
       } else {}
     });
 
-    if (statisticObject.hardWordsArray.length === 0) {} else {
+    if (statisticObject.hardWordsArray.length === 0) {
+      var emptyHardWords = document.querySelector('.empty-hard-words');
+      emptyHardWords.classList.toggle('hide');
+      setTimeout(function () {
+        emptyHardWords.classList.toggle('hide');
+      }, 2000);
+    } else {
       _dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.categoryCards(statisticObject.hardWordsArray);
     }
   },
