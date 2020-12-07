@@ -77,19 +77,23 @@ const statisticObject = {
     const thead = document.createElement('thead');
     const trHead = document.createElement('tr');
     const tBody = document.createElement('tbody');
+    const emptyTrainWords = document.createElement('span');
+    emptyTrainWords.classList.add('empty-hard-words');
+    emptyTrainWords.classList.add('hide');
+    emptyTrainWords.textContent = "You didn't make a single mistake. Good job!.";
     const trainHardWords = document.createElement('button');
     const resetStatistic = document.createElement('button');
     resetStatistic.classList.add('reset-statistic-button');
     wrapperInner.classList.add('wrapper__inner');
     buttonWrapper.classList.add('wrapper__inner__buttons');
     trainHardWords.classList.add('hard-words-button');
-    trainHardWords.textContent = 'Train hard words';
-    resetStatistic.textContent = 'Reset statistics';
+    trainHardWords.textContent = 'Repeat difficult words';
+    resetStatistic.textContent = 'Reset';
     trainHardWords.addEventListener('click', statisticObject.setHardWords);
-    // addListener for reset
     resetStatistic.addEventListener('click', statisticObject.resetStatisticHandler);
     buttonWrapper.appendChild(trainHardWords);
     buttonWrapper.appendChild(resetStatistic);
+    buttonWrapper.appendChild(emptyTrainWords);
     statisticObject.setLocalStorageItems();
     if (statisticObject.localStorageArray.length === 0) {
       statisticObject.setLocalArray(statisticObject.filterVariable);
@@ -157,7 +161,11 @@ const statisticObject = {
       }
     });
     if (statisticObject.hardWordsArray.length === 0) {
-
+      const emptyHardWords = document.querySelector('.empty-hard-words');
+      emptyHardWords.classList.toggle('hide');
+      setTimeout(() => {
+        emptyHardWords.classList.toggle('hide');
+      }, 2000);
     } else {
       dataHandler.categoryCards(statisticObject.hardWordsArray);
     }

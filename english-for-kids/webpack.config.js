@@ -82,6 +82,10 @@ module.exports = (env, options) => {
                       }
                     }
                     ]
+                  },
+                  {
+                    test: /\.(png|jpg)$/,
+                    loader: 'url-loader'
                   }              
             ]
         },

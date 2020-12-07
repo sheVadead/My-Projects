@@ -102,8 +102,6 @@ const dataHandler = {
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
     }
-
-    // if (!this.choosenCategoryIndex) return;
     blocks.forEach((item) => {
       const div = document.createElement('div');
       const divContainer = document.createElement('div');
@@ -171,6 +169,8 @@ const dataHandler = {
     });
 
     if (document.querySelector('#checkbox').checked) {
+      const startButtonWrapper = document.createElement('div');
+      startButtonWrapper.classList.add('start-button-wrapper');
       const startGame = document.createElement('button');
       const answer = document.createElement('div');
       answer.classList.add('answer');
@@ -180,18 +180,19 @@ const dataHandler = {
         gameRules.answers = [];
         gameRules.mistakesCount = 0;
         gameRules.j = 0;
+
         startGame.addEventListener('click', () => {
           gameRules.isGameBegin = true;
         });
       } else {
         gameRules.isGameBegin = false;
       }
-
-      mainWrapper.appendChild(startGame);
+      startButtonWrapper.appendChild(startGame);
+      mainWrapper.appendChild(startButtonWrapper);
       mainWrapper.appendChild(answer);
     }
     mainWrapper.childNodes.forEach((item) => {
-      if (item.classList.contains('start-button')) {
+      if (item.classList.contains('start-button-wrapper')) {
         gameRules.gameInit();
       }
     });
@@ -266,6 +267,7 @@ const dataHandler = {
     gameRules.answers = [];
     gameRules.j = 0;
     gameRules.mistakesCount = 0;
+    gameRules.randomArrayAudio = new Set();
     const target = e.target.closest('.logo-text');
     const mainPage = e.target.closest("[data-index='10']");
     if (target || mainPage) {
@@ -310,9 +312,13 @@ const dataHandler = {
     }
   },
   mainPageHandler() {
+    gameRules.isGameBegin = false;
+    gameRules.randomArrayAudio = new Set();
     gameRules.answers = [];
     gameRules.j = 0;
     gameRules.mistakesCount = 0;
+    statisticObject.hardWordsArray = [];
+
     const mainWrapper = document.querySelector('.wrapper');
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);
@@ -344,10 +350,14 @@ const dataHandler = {
       dataHandler.categoryCards(cards[this.choosenCategoryIndex]);
     } else if (target.checked && wrapper.childNodes[0].classList.contains('train-card') && statisticObject.hardWordsArray.length !== 0) {
       dataHandler.categoryCards(statisticObject.hardWordsArray);
+    } else if (!target.checked && wrapper.childNodes[0].classList.contains('train-card') && statisticObject.hardWordsArray.length !== 0) {
+      dataHandler.categoryCards(statisticObject.hardWordsArray);
     }
   },
   shuffle(a) {
-    let j; let x; let
+    let j;
+    let x;
+    let
       i;
     for (i = a.length - 1; i > 0; i -= 1) {
       j = Math.floor(Math.random() * (i + 1));
