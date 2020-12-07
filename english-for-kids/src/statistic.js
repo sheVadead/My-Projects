@@ -52,7 +52,7 @@ const statisticObject = {
     const arrayFromLocal = Object.entries(localStorage).sort((a, b) => {
       const firstItem = JSON.parse(a[1])[`${filterVariable}`];
       const second = JSON.parse(b[1])[`${filterVariable}`];
-      if (firstItem < second) {
+      if (second < firstItem) {
         return -1;
       }
     });

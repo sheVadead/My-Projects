@@ -399,13 +399,15 @@ var dataHandler = {
     var navigationInner = document.createElement('div');
     var menuList = document.createElement('ul');
     var mainPage = document.createElement('li');
+    var spanLogo = document.createElement('span');
+    spanLogo.classList.add('logo-text__navigation');
+    spanLogo.textContent = 'English for Kids';
     navigation.classList.add('navigation');
     menuList.classList.add('navigation__inner__list');
     navigationInner.classList.add('navigation__inner');
     mainPage.classList.add('navigation__inner__list-item');
-    mainPage.textContent = 'Main';
-    mainPage.setAttribute('data-index', "".concat(10)); // mainPage.addEventListener('click', dataHandler.toMainPage)
-
+    mainPage.appendChild(spanLogo);
+    mainPage.setAttribute('data-index', "".concat(10));
     menuList.appendChild(mainPage);
     _dataForCards__WEBPACK_IMPORTED_MODULE_0__.default[0].forEach(function (item, index) {
       var li = document.createElement('li');
@@ -855,14 +857,13 @@ var gameRules = {
     var localElem = currentAudio.split('/')[1].slice(0, -4);
     var localObject = JSON.parse(localStorage.getItem("".concat(localElem)));
 
-    if (currentAudio.includes(guessItem)) {
+    if (guessItem == currentAudio.slice(6, -4)) {
       var correctAnswer = document.createElement('img');
       localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
-      correctAnswer.setAttribute('src', './img/star-win.svg');
+      correctAnswer.setAttribute('src', './img/star-win.png');
       correctAnswer.setAttribute('width', 55);
-      correctAnswer.setAttribute('height', 55); // correctAnswer.style.height = `${5}rem`;
-
+      correctAnswer.setAttribute('height', 48);
       gameRules.answers.push(correctAnswer);
       guess.parentNode.parentNode.classList.add('correct-answer');
       gameRules.j++;
@@ -903,7 +904,7 @@ var gameRules = {
   },
   checkAnswerNumber: function checkAnswerNumber() {
     var correctAnswerWidth = 55;
-    var screenWidthMultiplayer = Math.floor(screen.width / correctAnswerWidth);
+    var screenWidthMultiplayer = Math.floor(screen.width / correctAnswerWidth) - 1;
 
     if (this.answers.length > screenWidthMultiplayer) {
       this.answers.splice(0, 1);
@@ -1191,7 +1192,7 @@ var statisticObject = {
       var firstItem = JSON.parse(a[1])["".concat(filterVariable)];
       var second = JSON.parse(b[1])["".concat(filterVariable)];
 
-      if (firstItem < second) {
+      if (second < firstItem) {
         return -1;
       }
     });

@@ -38,13 +38,15 @@ const dataHandler = {
     const navigationInner = document.createElement('div');
     const menuList = document.createElement('ul');
     const mainPage = document.createElement('li');
+    const spanLogo = document.createElement('span');
+    spanLogo.classList.add('logo-text__navigation');
+    spanLogo.textContent = 'English for Kids';
     navigation.classList.add('navigation');
     menuList.classList.add('navigation__inner__list');
     navigationInner.classList.add('navigation__inner');
     mainPage.classList.add('navigation__inner__list-item');
-    mainPage.textContent = 'Main';
+    mainPage.appendChild(spanLogo);
     mainPage.setAttribute('data-index', `${10}`);
-    // mainPage.addEventListener('click', dataHandler.toMainPage)
     menuList.appendChild(mainPage);
     cards[0].forEach((item, index) => {
       const li = document.createElement('li');
@@ -318,7 +320,6 @@ const dataHandler = {
     gameRules.j = 0;
     gameRules.mistakesCount = 0;
     statisticObject.hardWordsArray = [];
-
     const mainWrapper = document.querySelector('.wrapper');
     while (mainWrapper.firstChild) {
       mainWrapper.removeChild(mainWrapper.firstChild);

@@ -73,14 +73,13 @@ const gameRules = {
     answerWrapper.classList.add('answer__wrapper');
     const localElem = currentAudio.split('/')[1].slice(0, -4);
     const localObject = JSON.parse(localStorage.getItem(`${localElem}`));
-    if (currentAudio.includes(guessItem)) {
+    if (guessItem == currentAudio.slice(6, -4)) {
       const correctAnswer = document.createElement('img');
       localObject.correct += 1;
       correctAnswer.classList.add('correct-img');
-      correctAnswer.setAttribute('src', './img/star-win.svg');
+      correctAnswer.setAttribute('src', './img/star-win.png');
       correctAnswer.setAttribute('width', 55);
-      correctAnswer.setAttribute('height', 55);
-      // correctAnswer.style.height = `${5}rem`;
+      correctAnswer.setAttribute('height', 48);
       gameRules.answers.push(correctAnswer);
       guess.parentNode.parentNode.classList.add('correct-answer');
       gameRules.j++;
@@ -120,7 +119,7 @@ const gameRules = {
   },
   checkAnswerNumber() {
     const correctAnswerWidth = 55;
-    const screenWidthMultiplayer = Math.floor(screen.width / correctAnswerWidth);
+    const screenWidthMultiplayer = Math.floor(screen.width / correctAnswerWidth) - 1;
     if (this.answers.length > screenWidthMultiplayer) {
       this.answers.splice(0, 1);
     }

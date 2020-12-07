@@ -144,7 +144,7 @@ body {
 .header__inner .navigation__inner__list li {
   display: flex;
   align-items: center;
-  width: 15rem;
+  width: 18rem;
   height: 4rem;
   margin-left: 1rem;
   padding-left: 1rem;
@@ -160,6 +160,13 @@ body {
   transition: left 2s;
   transform: scale(1.2);
   background-size: 100% 100%;
+}
+.header__inner .navigation__inner__list .logo-text__navigation {
+  width: auto;
+  color: #A5663D;
+  text-shadow: #cad5e2 1px 1px 0, #cad5e2 2px 2px 0, #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, #cad5e2 5px 5px 0;
+  font: normal normal 2.5rem/120% "Nerko One", sans-serif;
+  text-transform: none;
 }
 
 main {
@@ -219,6 +226,8 @@ main .wrapper__inner__buttons .hard-words-button:hover {
   cursor: pointer;
   transform: scale(1.1);
   transition: 0.3s;
+  color: white;
+  text-shadow: black 0 0 2px;
 }
 main .wrapper__inner__buttons .empty-hard-words {
   width: 100%;
@@ -240,6 +249,8 @@ main .wrapper__inner__buttons .reset-statistic-button:hover {
   cursor: pointer;
   transform: scale(1.1);
   transition: 0.3s;
+  color: white;
+  text-shadow: black 0 0 2px;
 }
 main .wrapper__inner .table {
   width: 90%;
@@ -259,6 +270,7 @@ main .wrapper__inner .table thead tr th:hover {
   transition: 0.4s;
   transform: scale(1.1);
   color: white;
+  text-shadow: black 0 0 2px;
 }
 main .wrapper__inner .table tbody {
   text-align: center;
@@ -308,16 +320,13 @@ main .wrapper .answer {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 4rem;
-  margin-top: 1rem;
+  height: 5rem;
+  margin-top: 2rem;
 }
 main .wrapper .answer__wrapper {
   display: flex;
   align-items: center;
   background-image: linear-gradient(to right, #fb9c6f, #fb9c6f, #fb9c6f, #fa9674, #f8907a, #ef968d, #e29c9c, #d3a4a8, #c2abaf, #bde2f4, #bde2f4, #bde2f4);
-}
-main .wrapper .answer .correct-img {
-  background: none;
 }
 main .wrapper .start-button-wrapper {
   display: flex;
