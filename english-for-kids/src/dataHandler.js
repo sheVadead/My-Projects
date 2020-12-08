@@ -65,6 +65,34 @@ const dataHandler = {
     navigation.appendChild(navigationInner);
     return navigation;
   },
+  setFooter() {
+    const footerWrapper = document.createElement('div');
+
+    const rsLink = document.createElement('a');
+    const rsLogo = document.createElement('img');
+    const creationYear = document.createElement('span');
+    const gitHubLink = document.createElement('a');
+    gitHubLink.classList.add('github-link');
+    gitHubLink.setAttribute('href', 'https://github.com/sheVadead');
+    gitHubLink.setAttribute('target', '_blank');
+    gitHubLink.textContent = 'Dmitry Shevchenok';
+    creationYear.classList.add('creation-year');
+    creationYear.textContent = 'English for Kids 2020';
+    footerWrapper.classList.add('footer__inner');
+    rsLink.classList.add('rs-link');
+    rsLink.setAttribute('href', 'https://rs.school/');
+    rsLink.setAttribute('target', '_blank');
+    rsLogo.classList.add('rs-logo');
+    rsLogo.setAttribute('src', './img/rs-logo.svg');
+    rsLogo.setAttribute('alt', 'rs-logo');
+    rsLogo.setAttribute('width', '100');
+    rsLogo.setAttribute('height', '37');
+    rsLink.appendChild(rsLogo);
+    footerWrapper.appendChild(gitHubLink);
+    footerWrapper.appendChild(rsLink);
+    footerWrapper.appendChild(creationYear);
+    return footerWrapper;
+  },
   setHeader() {
     const headerWrapp = document.createElement('div');
     const burgerWrap = document.createElement('div');

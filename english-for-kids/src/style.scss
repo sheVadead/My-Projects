@@ -9,11 +9,47 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90rem;
     background-color:#ffeeca24;
     transition: 0.3s;
     background-image:  url('./img/background-body.jpg');
     background-position: center;
     background-size: cover;
+    .footer { 
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 14rem;
+        &__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 40%;
+            height: 86%;
+            max-width: 40rem;
+            min-width: 30rem;
+            .github-link {
+                font: normal normal 1.5rem/120% 'Nerko One', sans-serif;
+                text-decoration: none;
+                color: black;
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+            .rs-link {
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.2);
+                }
+            }
+            .creation-year {
+                font: normal normal 1.5rem/120% 'Nerko One', sans-serif;
+            }
+        }
+    }
 }
 .header {
     display: flex;
@@ -30,6 +66,9 @@ body {
         width: 100%;
         .burger-menu {
             z-index: 12;
+            &:hover {
+                cursor: pointer;
+            }
             .burger-img {
                 transition: 0.5s;
             }
@@ -243,7 +282,7 @@ main {
                 .empty-hard-words {
                     width: 100%;
                     text-align: center;
-                    font:normal normal 2.5rem/120% 'Nerko One', sans-serif;
+                    font:normal normal 1.9rem/120% 'Nerko One', sans-serif;
                     color: black;
                 }
                 .reset-statistic-button {
@@ -600,7 +639,12 @@ main {
         }
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 850px) {
+        .footer {
+            &__inner {
+                flex-direction: column !important;
+            }
+        }
        .win-wrapper {
            flex-direction: column;
            .win-img {

@@ -7,6 +7,7 @@ const render = {
     header: document.createElement('header'),
     main: document.createElement('main'),
     wrapper: document.createElement('div'),
+    footer: document.createElement('footer'),
     overlay: document.createElement('div'),
   },
   listenersHandler() {
@@ -66,15 +67,17 @@ const render = {
     this.classes.wrapper.classList.add('wrapper');
     this.classes.header.classList.add('header');
     this.classes.main.classList.add('main');
-
+    this.classes.footer.classList.add('footer');
     dataHandler.categoryBlocks.forEach((item) => {
       this.classes.wrapper.appendChild(item);
     });
     this.classes.main.appendChild(this.classes.overlay);
     this.classes.main.appendChild(this.classes.wrapper);
     this.classes.header.appendChild(dataHandler.setHeader());
+    this.classes.footer.appendChild(dataHandler.setFooter());
     document.body.appendChild(this.classes.header);
     document.body.appendChild(this.classes.main);
+    document.body.appendChild(this.classes.footer);
   },
 
   init() {
