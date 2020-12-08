@@ -426,6 +426,33 @@ var dataHandler = {
     navigation.appendChild(navigationInner);
     return navigation;
   },
+  setFooter: function setFooter() {
+    var footerWrapper = document.createElement('div');
+    var rsLink = document.createElement('a');
+    var rsLogo = document.createElement('img');
+    var creationYear = document.createElement('span');
+    var gitHubLink = document.createElement('a');
+    gitHubLink.classList.add('github-link');
+    gitHubLink.setAttribute('href', 'https://github.com/sheVadead');
+    gitHubLink.setAttribute('target', '_blank');
+    gitHubLink.textContent = 'Dmitry Shevchenok';
+    creationYear.classList.add('creation-year');
+    creationYear.textContent = 'English for Kids 2020';
+    footerWrapper.classList.add('footer__inner');
+    rsLink.classList.add('rs-link');
+    rsLink.setAttribute('href', 'https://rs.school/');
+    rsLink.setAttribute('target', '_blank');
+    rsLogo.classList.add('rs-logo');
+    rsLogo.setAttribute('src', './img/rs-logo.svg');
+    rsLogo.setAttribute('alt', 'rs-logo');
+    rsLogo.setAttribute('width', '100');
+    rsLogo.setAttribute('height', '37');
+    rsLink.appendChild(rsLogo);
+    footerWrapper.appendChild(gitHubLink);
+    footerWrapper.appendChild(rsLink);
+    footerWrapper.appendChild(creationYear);
+    return footerWrapper;
+  },
   setHeader: function setHeader() {
     var headerWrapp = document.createElement('div');
     var burgerWrap = document.createElement('div');
@@ -1033,6 +1060,7 @@ var render = {
     header: document.createElement('header'),
     main: document.createElement('main'),
     wrapper: document.createElement('div'),
+    footer: document.createElement('footer'),
     overlay: document.createElement('div')
   },
   listenersHandler: function listenersHandler() {
@@ -1101,14 +1129,17 @@ var render = {
     this.classes.wrapper.classList.add('wrapper');
     this.classes.header.classList.add('header');
     this.classes.main.classList.add('main');
+    this.classes.footer.classList.add('footer');
     _dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.categoryBlocks.forEach(function (item) {
       _this2.classes.wrapper.appendChild(item);
     });
     this.classes.main.appendChild(this.classes.overlay);
     this.classes.main.appendChild(this.classes.wrapper);
     this.classes.header.appendChild(_dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.setHeader());
+    this.classes.footer.appendChild(_dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.setFooter());
     document.body.appendChild(this.classes.header);
     document.body.appendChild(this.classes.main);
+    document.body.appendChild(this.classes.footer);
   },
   init: function init() {
     _dataHandler__WEBPACK_IMPORTED_MODULE_1__.default.setBlocksCategory();
