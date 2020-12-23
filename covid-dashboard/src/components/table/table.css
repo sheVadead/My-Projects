@@ -1,0 +1,122 @@
+.table-box {
+  width: 340px;
+  overflow-y: scroll;
+  height: 26rem;
+  border: 1px solid #363636;
+}
+
+.table-component {
+  width: 340px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.table-box::-webkit-scrollbar {
+  background-color: #404040;
+  width: 8px;
+}
+
+.table-box::-webkit-scrollbar-thumb {
+  background-color: #5c5c5c;
+}
+
+.table-box::-webkit-scrollbar-thumb:hover {
+  background: #201f20;
+}
+
+.covid-table {
+  width: 330px;
+  height: 100%;
+  color: #fff;
+  border: 1px solid #363636;
+  border-collapse: collapse;
+  word-wrap: break-word;
+  background: #222;
+  font-size: 15px;
+}
+
+th, td, th {
+  border: 1px solid #363636;
+  color: #bdbdae;
+  width: 25%;
+  height: 30px;
+  text-align: center;
+}
+
+th {
+  position: sticky;
+  top: -1px;
+  color: #fff;
+  z-index: 2;
+  background: #000;
+}
+
+#table-select, #table-selectBy {
+  display: none;
+}
+
+[for="table-select"], [for="table-selectBy"] {
+  position: relative;
+  width: 68px;
+  height: 30px;
+  margin-top: 3px;
+  font-family: sans-serif;
+  font-weight: bold;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 6px;
+  font-size: 11px;
+  border-radius: 5px;
+  line-height: 10px;
+  color: white;
+  display: flex;
+  background: #363636;
+  cursor: pointer;
+  box-shadow: inset 0px -1px 1px rgba(255, 255, 255, 0.28), inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+[for="table-select"]:before, [for="table-selectBy"]:before {
+  content: "1 day";
+  position: absolute;
+  right: 0px;
+  padding-right: 4px;
+}
+
+[for="table-selectBy"]:before {
+  content: 'abs';
+}
+
+[for="table-select"]:after, [for="table-selectBy"]:after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  display: block;
+  width: 29px;
+  height: 23px;
+  border-radius: 5px;
+  background: #EBECFB;
+  transition: .5s;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.38);
+}
+
+#table-select:checked~[for="table-select"]:after, #table-selectBy:checked~[for="table-selectBy"]:after {
+  left: 35px;
+}
+
+#table-select:checked~[for="table-select"], #table-selectBy:checked~[for="table-selectBy"] {
+  background-color: #404040;
+}
+@media screen and (min-width:320px) and (max-width:899px) {
+  .covid-table {
+    font-size: 10px;
+    width: 290px;
+  }
+  .table-box{
+    width: 300px;
+  }
+  .table-component{
+    width: 300px;
+  }
+}
