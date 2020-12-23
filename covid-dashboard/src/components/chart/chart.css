@@ -1,0 +1,123 @@
+ #chart-selectBy {
+   display: none;
+ }
+
+ [for="chart-selectBy"] {
+   position: relative;
+   width: 68px;
+   height: 30px;
+   margin-top: 3px;
+   font-family: sans-serif;
+   font-weight: bold;
+   align-items: center;
+   justify-content: space-between;
+   padding-left: 6px;
+   font-size: 11px;
+   border-radius: 5px;
+   line-height: 10px;
+   color: white;
+   display: flex;
+   background: #363636;
+   cursor: pointer;
+   box-shadow: inset 0px -1px 1px rgba(255, 255, 255, 0.28), inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+ }
+
+ [for="chart-selectBy"]:before {
+   content: "NEW";
+   position: absolute;
+   right: 0px;
+   padding-right: 4px;
+ }
+
+ [for="chart-selectBy"]:before {
+   content: 'ALL';
+ }
+
+ [for="chart-selectBy"]:after {
+   content: "";
+   position: absolute;
+   left: 4px;
+   top: 3px;
+   display: block;
+   width: 29px;
+   height: 23px;
+   border-radius: 5px;
+   background: #EBECFB;
+   transition: .5s;
+   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.38);
+ }
+
+ #chart-selectBy:checked~[for="chart-selectBy"]:after {
+   left: 35px;
+ }
+
+ #chart-selectBy:checked~[for="chart-selectBy"] {
+   background-color: #404040;
+ }
+
+ .chart-container {
+   height: 24rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   background-color: #222;
+   border: 1px solid #363636;
+ }
+
+ .chart-container-wrapper {
+   width: 100%;
+ }
+
+ .chart-header-wrapper {
+   display: flex;
+   justify-content: center;
+   width: 100%;
+ }
+
+ .chart-header {
+   display: flex;
+   justify-content: space-around;
+   width: 100%;
+ }
+
+ .chart-header-controls {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 30%;
+ }
+
+ .chart-header-text {
+   text-transform: uppercase;
+   font-family: sans-serif;
+ }
+
+ .chart-header-text {
+   color: white;
+ }
+
+ #chart {
+   width: 100%;
+ }
+
+ .prev-arrow-chart, .next-arrow-chart {
+   filter: invert(75%);
+ }
+
+ .prev-arrow-chart:hover, .next-arrow-chart:hover {
+   filter: invert(55%);
+ }
+
+ @media screen and (min-width:900px) and (max-width:1349px) {
+   .chart-container {
+     height: 35rem;
+     margin-top: 5rem;
+   }
+ }
+
+ @media screen and (min-width:320px) and (max-width:899px) {
+   .chart-container {
+     height: 40rem;
+   }
+ }
