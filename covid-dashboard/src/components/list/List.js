@@ -23,23 +23,19 @@ export default class List {
       .createGlobalStatisticBlock();
     const switchButton = allCasesBlock.childNodes[0].childNodes[0].childNodes[2];
     switchButton.addEventListener('click', () => {
-      // this.flags.isPopulationData = !this.flags.isPopulationData;
-      // this.setPopulCoefStatistics();
+      this.flags.isPopulationData = !this.flags.isPopulationData;
+      this.setPopulCoefStatistics();
       this.onNumberFormatsClicked(!this.flags.isPopulationData);
     });
     const container = document.createElement('section');
     container.appendChild(allCasesBlock);
     container.classList.add('list-container');
     const listHeader = await this.createListHeader();
-
     container.appendChild(listHeader);
-
     const listWrapper = document.createElement('div');
     listWrapper.classList.add('list-wrapper');
     container.appendChild(listWrapper);
-
     const list = document.createElement('ul');
-
     list.classList.add('main-list');
     listWrapper.appendChild(list);
     listItems.forEach((item) => list.appendChild(item));

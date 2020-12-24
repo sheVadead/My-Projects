@@ -35,6 +35,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  height: 100rem;
 }
 
 .container-column {
@@ -43,20 +44,21 @@ body {
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 55rem;
+  height: 60%;
   justify-content: space-between;
 }
 
-/* .list-main-container {
+.list-main-container {
   width: 20%;
-} */
-
+  background-position: top;
+}
 .map-container {
   width: 50%;
 }
 
 .chart-main-container {
   width: 100%;
+  height: 48%;
 }
 
 @media screen and (min-width:900px) and (max-width:1349px) {

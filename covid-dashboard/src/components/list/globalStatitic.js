@@ -16,9 +16,10 @@ export default class GlobalStatistics {
     const populButton = document.createElement('button');
     const allCasesInner = document.createElement('div');
     const emptyDiv = document.createElement('div');
-    emptyDiv.style.width = `${1}rem`;
+    emptyDiv.style.width = `${5}rem`;
     allCasesInner.classList.add('all-cases-wrapper-inner');
     populButton.classList.add('population-switch');
+    populButton.textContent = 'rel';
     caseSearchWrap.classList.add('case-search-wrapper');
     searchImg.classList.add('search-img');
     searchImg.setAttribute('src', './assets/List/img/search.svg');

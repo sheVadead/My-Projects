@@ -185,7 +185,9 @@ export default class Chart {
       const targetLi = e.target.closest('.country');
       const targetArrow = e.target.closest('.next-arrow');
       const targetprevArrow = e.target.closest('.prev-arrow');
-      const daySwitch = e.target.closest('.header-text');
+      const daySwitch = e.target.closest('#table-select');
+      const dayList = e.target.closest('.header-text');
+      const button = document.querySelector('#chart-selectBy');
       if (targetLi) {
         this.isCountryChosen = true;
         // eslint-disable-next-line prefer-destructuring
@@ -197,9 +199,10 @@ export default class Chart {
       } else if (targetprevArrow) {
         this.prevChart();
       } else if (daySwitch) {
-        const button = document.querySelector('#chart-selectBy');
-        button.checked = !button.checked;
+        button.checked = daySwitch.checked;
         this.switchHandler();
+      } else if (dayList) {
+        button.click();
       }
     });
   }
