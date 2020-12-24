@@ -36,15 +36,18 @@ export default class Main {
     title.className = 'title';
     title.textContent = 'Covid-19 Dashboard for RSS-2020Q3';
     const containerColumn = document.createElement('div');
+    containerColumn.style.background = "url('./assets/List/img/loader.gif') no-repeat center"
     container.append(containerColumn);
     containerColumn.className = 'container-column';
     const mapContainer = document.createElement('div');
     container.append(mapContainer);
     mapContainer.className = 'map-container';
     const tableContainer = document.createElement('div');
+    tableContainer.style.background = "url('./assets/List/img/loader.gif') no-repeat"
     containerColumn.append(tableContainer);
     tableContainer.className = 'table-container';
     const listContainer = document.createElement('div');
+    listContainer.style.background = "url('./assets/List/img/loader.gif') no-repeat"
     container.append(listContainer);
     listContainer.className = 'list-main-container';
     const chartContainer = document.createElement('div');
@@ -69,8 +72,20 @@ export default class Main {
         this.state.isLatestDay,
         this.state.currentCountry,
       )]);
+      const container = document.querySelector('.container-column');
+      const title = document.querySelector('.title');
+      title.addEventListener('click', this.dischargeData)
+      container.style.background = ''
   }
-
+  dischargeData = async () => {
+const chartCont = document.querySelector('.chart-main-container')
+    this.state.isAbsoluteValues = true;
+    this.state.isLatestDay = false;
+    this.state.currentCountry = null;
+    await this.render();
+    chartCont.innerHTML = '';
+    await this.chart.initChart();
+  }
   onMapCountryClicked = async (countryName) => {
     this.setState({
       currentCountry: countryName,
