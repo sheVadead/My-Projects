@@ -18,6 +18,7 @@ export default class List {
   }
 
   async createList(listItems) {
+    console.log('asdasd')
     const allCasesBlock = await new GlobalStatistics(this.listServices.allCases)
       .createGlobalStatisticBlock();
     const switchButton = allCasesBlock.childNodes[0].childNodes[0].childNodes[2];
