@@ -16,6 +16,7 @@ export default class CovidMap {
 
   createMap = () => {
     const mapContainer = document.querySelector('.map-container');
+    mapContainer.appendChild(this.createFullScreenIcon(mapContainer))
     const mapDiv = document.createElement('div');
     mapDiv.id = 'covidMap';
     mapContainer.append(mapDiv);
@@ -34,7 +35,18 @@ export default class CovidMap {
     covidMap.addLayer(layer);
     return covidMap;
   }
-
+  createFullScreenIcon(parent) {
+    const fullScreen = document.createElement('img');
+    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
+    fullScreen.setAttribute('alt','fullscreen' );
+    fullScreen.setAttribute('width','24' );
+    fullScreen.setAttribute('height','24' );
+    fullScreen.classList.add('full-screen-map');
+    fullScreen.addEventListener('click', ()=>{
+      parent.classList.toggle('popup-map')
+    })
+    return fullScreen;
+  }
   update = async (isAbsoluteValues, isLatestDay, currentCountry) => {
     if (this.covidMap.hasLayer(this.layer)) {
       this.covidMap.removeLayer(this.layer);
@@ -53,8 +65,8 @@ export default class CovidMap {
     // eslint-disable-next-line new-cap
     this.layer = new L.layerGroup(circleArray);
     this.layer.addTo(this.covidMap);
-    for (let i = 0; i < tableData.length; i += 1) {
-
+    for (let i = 0; i < 5; i += 1) {
+      // tableData.length
       // eslint-disable-next-line no-await-in-loop
       const covidMapData = await this.covidMapService.getCovidMapData(tableData[i]);
       if (covidMapData) {

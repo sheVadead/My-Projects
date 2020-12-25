@@ -175,8 +175,34 @@
 .prev-arrow:hover, .next-arrow:hover {
   filter: invert(55%);
 }
+.full-screen-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+}
 @media screen and (min-width:320px) and (max-width:899px) {
   .list-container{
     height: 25rem;
   }
+}
+
+.popup{
+  position: absolute !important;
+  width: 100vw !important;
+  height: 100vh;
+  z-index: 100001
+}
+.popup > * {
+  width: 100vw !important;
+  height: 100vh;
+
+}
+.full-screen-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  width: 24px !important;
+  height: 24px !important;
 }

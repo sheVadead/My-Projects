@@ -36,18 +36,18 @@ export default class Main {
     title.className = 'title';
     title.textContent = 'Covid-19 Dashboard for RSS-2020Q3';
     const containerColumn = document.createElement('div');
-    containerColumn.style.background = "url('./assets/List/img/loader.gif') no-repeat center"
+    containerColumn.style.background = "url('./assets/List/img/loader.gif') no-repeat center";
     container.append(containerColumn);
     containerColumn.className = 'container-column';
     const mapContainer = document.createElement('div');
     container.append(mapContainer);
     mapContainer.className = 'map-container';
     const tableContainer = document.createElement('div');
-    tableContainer.style.background = "url('./assets/List/img/loader.gif') no-repeat"
+    tableContainer.style.background = "url('./assets/List/img/loader.gif') no-repeat";
     containerColumn.append(tableContainer);
     tableContainer.className = 'table-container';
     const listContainer = document.createElement('div');
-    listContainer.style.background = "url('./assets/List/img/loader.gif') no-repeat"
+    listContainer.style.background = "url('./assets/List/img/loader.gif') no-repeat";
     container.append(listContainer);
     listContainer.className = 'list-main-container';
     const chartContainer = document.createElement('div');

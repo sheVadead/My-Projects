@@ -307,10 +307,22 @@ export default class List {
     const b = await a;
     return b.classList[1];
   }
-
+  createFullScreenIcon(parent) {
+    const fullScreen = document.createElement('img');
+    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
+    fullScreen.setAttribute('alt','fullscreen' );
+    fullScreen.setAttribute('width','24' );
+    fullScreen.setAttribute('height','24' );
+    fullScreen.classList.add('full-screen-list');
+    fullScreen.addEventListener('click', ()=>{
+      parent.classList.toggle('popup')
+    })
+    return fullScreen;
+  }
   async initList(isAbsoluteValues, isLatestDay, country = null) {
     const container = document.querySelector('.list-main-container');
     container.innerHTML = '';
+    container.appendChild(this.createFullScreenIcon(container));
     // await this.listServices.getTotalCases();
     // await this.listServices.getOneDayCases();
     // await this.listServices.getPopulationData();

@@ -171,12 +171,24 @@ export default class Chart {
     chartContainer.appendChild(chartWrapper);
     return chartContainer;
   }
-
+  createFullScreenIcon(parent) {
+    const fullScreen = document.createElement('img');
+    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
+    fullScreen.setAttribute('alt','fullscreen' );
+    fullScreen.setAttribute('width','24' );
+    fullScreen.setAttribute('height','24' );
+    fullScreen.classList.add('full-screen-chart');
+    fullScreen.addEventListener('click', ()=>{
+      parent.classList.toggle('popup-chart')
+    })
+    return fullScreen;
+  }
   async initChart() {
     this.chartService.getNewCases();
     await this.chartService.getGlobalCases();
     const container = document.querySelector('.container');
     const chartContainer = document.querySelector('.chart-main-container');
+    chartContainer.appendChild(this.createFullScreenIcon(chartContainer))
     chartContainer.appendChild(this.createChart());
     this.data = this.chartService.globalData;
     this.chart = new ChartModel(this.data.cases);
