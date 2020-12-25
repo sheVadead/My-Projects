@@ -65,8 +65,8 @@ export default class CovidMap {
     // eslint-disable-next-line new-cap
     this.layer = new L.layerGroup(circleArray);
     this.layer.addTo(this.covidMap);
-    for (let i = 0; i < 5; i += 1) {
-      // tableData.length
+    for (let i = 0; i < tableData.length; i += 1) {
+
       // eslint-disable-next-line no-await-in-loop
       const covidMapData = await this.covidMapService.getCovidMapData(tableData[i]);
       if (covidMapData) {
