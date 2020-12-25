@@ -19,7 +19,7 @@ export default class GlobalStatistics {
     emptyDiv.style.width = `${5}rem`;
     allCasesInner.classList.add('all-cases-wrapper-inner');
     populButton.classList.add('population-switch');
-    populButton.textContent = 'rel';
+    populButton.textContent = '✚';
     caseSearchWrap.classList.add('case-search-wrapper');
     searchImg.classList.add('search-img');
     searchImg.setAttribute('src', './assets/List/img/search.svg');

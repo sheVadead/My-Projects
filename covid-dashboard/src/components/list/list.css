@@ -23,6 +23,7 @@
 .population-switch {
   width: 20%;
   height: 2rem;
+  max-width: 5rem;
 }
 .all-cases {
   display: flex;

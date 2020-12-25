@@ -19,8 +19,24 @@ export default class Main {
 
   async init() {
     this.initRender();
-    await this.render();
-    await this.chart.initChart();
+    await Promise.all([
+      this.table.update(
+        this.state.isAbsoluteValues,
+        this.state.isLatestDay,
+        this.state.currentCountry,
+      ),
+      this.list.initList(
+        this.state.isAbsoluteValues,
+        this.state.isLatestDay,
+        this.state.currentCountry,
+      ),
+      this.covidMap.render(
+        this.state.isAbsoluteValues,
+        this.state.isLatestDay,
+        this.state.currentCountry,
+      ), await this.chart.initChart()]);
+    const containerCol = document.querySelector('.container-column');
+    containerCol.style.background = '';
   }
 
   setState = (newState) => {
@@ -53,6 +69,9 @@ export default class Main {
     const chartContainer = document.createElement('div');
     containerColumn.append(chartContainer);
     chartContainer.className = 'chart-main-container';
+
+    const titleMain = document.querySelector('.title');
+    titleMain.addEventListener('click', this.dischargeData);
   }
 
   render = async () => {
@@ -72,13 +91,10 @@ export default class Main {
         this.state.isLatestDay,
         this.state.currentCountry,
       )]);
-      const container = document.querySelector('.container-column');
-      const title = document.querySelector('.title');
-      title.addEventListener('click', this.dischargeData)
-      container.style.background = ''
   }
+
   dischargeData = async () => {
-const chartCont = document.querySelector('.chart-main-container')
+    const chartCont = document.querySelector('.chart-main-container');
     this.state.isAbsoluteValues = true;
     this.state.isLatestDay = false;
     this.state.currentCountry = null;
@@ -86,6 +102,7 @@ const chartCont = document.querySelector('.chart-main-container')
     chartCont.innerHTML = '';
     await this.chart.initChart();
   }
+
   onMapCountryClicked = async (countryName) => {
     this.setState({
       currentCountry: countryName,

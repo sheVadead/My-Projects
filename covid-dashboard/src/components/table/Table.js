@@ -26,6 +26,8 @@ export default class Table {
     this.render(tableData);
     const checkbox = document.querySelector('#table-select');
     const secondCheckbox = document.querySelector('#table-selectBy');
+    const containerCol = document.querySelector('.container-column');
+    containerCol.style.background = '';
     checkbox.checked = this.state.isLatestDay;
     secondCheckbox.checked = this.state.isAbsoluteValues;
   }
@@ -72,21 +74,22 @@ export default class Table {
     this.onNumberFormatsClicked(this.state.isAbsoluteValues);
   }
 
-  createFullScreenIcon(parent) {
+  createFullScreenIcon = (parent) => {
     const fullScreen = document.createElement('img');
-    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
-    fullScreen.setAttribute('alt','fullscreen' );
-    fullScreen.setAttribute('width','15' );
-    fullScreen.setAttribute('height','15' );
+    fullScreen.setAttribute('src', './assets/List/img/full-screen.svg');
+    fullScreen.setAttribute('alt', 'fullscreen');
+    fullScreen.setAttribute('width', '15');
+    fullScreen.setAttribute('height', '15');
     fullScreen.classList.add('full-screen-table');
-    fullScreen.addEventListener('click', ()=>{
-      parent.classList.toggle('popup-table')
-    })
+    fullScreen.addEventListener('click', () => {
+      parent.classList.toggle('popup-table');
+    });
     return fullScreen;
   }
+
   render = (tableData) => {
     const tableContainer = document.querySelector('.table-container');
-    tableContainer.appendChild(this.createFullScreenIcon(tableContainer))
+    tableContainer.appendChild(this.createFullScreenIcon(tableContainer));
     let tableComponent = document.querySelector('.table-component');
     if (!tableComponent) {
       tableComponent = document.createElement('div');

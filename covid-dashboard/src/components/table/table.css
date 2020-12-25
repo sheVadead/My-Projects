@@ -124,20 +124,21 @@ th {
 }
 .popup-table{
   position: absolute !important;
-  top: 0;
-  right: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   z-index: 100001
 }
-.popup-table > * {
+.popup-table > *,
+.popup-table .table-box,
+.popup-table .covid-table {
   width: 100vw !important;
-  height: 100vh;
+  height: 100vh !important;
 }
 .full-screen-table {
   position: absolute;
   top: 0;
-  left: 0;
+  right:  0;
   z-index: 100000;
   width: 24px !important;
   height: 24px !important;
