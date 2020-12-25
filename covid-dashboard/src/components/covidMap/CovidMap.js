@@ -16,6 +16,7 @@ export default class CovidMap {
 
   createMap = () => {
     const mapContainer = document.querySelector('.map-container');
+    mapContainer.appendChild(this.createFullScreenIcon(mapContainer))
     const mapDiv = document.createElement('div');
     mapDiv.id = 'covidMap';
     mapContainer.append(mapDiv);
@@ -34,7 +35,18 @@ export default class CovidMap {
     covidMap.addLayer(layer);
     return covidMap;
   }
-
+  createFullScreenIcon(parent) {
+    const fullScreen = document.createElement('img');
+    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
+    fullScreen.setAttribute('alt','fullscreen' );
+    fullScreen.setAttribute('width','24' );
+    fullScreen.setAttribute('height','24' );
+    fullScreen.classList.add('full-screen-map');
+    fullScreen.addEventListener('click', ()=>{
+      parent.classList.toggle('popup-map')
+    })
+    return fullScreen;
+  }
   update = async (isAbsoluteValues, isLatestDay, currentCountry) => {
     if (this.covidMap.hasLayer(this.layer)) {
       this.covidMap.removeLayer(this.layer);

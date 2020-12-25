@@ -72,8 +72,21 @@ export default class Table {
     this.onNumberFormatsClicked(this.state.isAbsoluteValues);
   }
 
+  createFullScreenIcon(parent) {
+    const fullScreen = document.createElement('img');
+    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
+    fullScreen.setAttribute('alt','fullscreen' );
+    fullScreen.setAttribute('width','15' );
+    fullScreen.setAttribute('height','15' );
+    fullScreen.classList.add('full-screen-table');
+    fullScreen.addEventListener('click', ()=>{
+      parent.classList.toggle('popup-table')
+    })
+    return fullScreen;
+  }
   render = (tableData) => {
     const tableContainer = document.querySelector('.table-container');
+    tableContainer.appendChild(this.createFullScreenIcon(tableContainer))
     let tableComponent = document.querySelector('.table-component');
     if (!tableComponent) {
       tableComponent = document.createElement('div');
