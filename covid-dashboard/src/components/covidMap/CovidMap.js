@@ -1,7 +1,6 @@
 import * as L from 'leaflet';
 import CovidMapService from '../../services/CovidMapService';
 import TableService from '../../services/TableService';
-// import 'leaflet/dist/leaflet.css';
 
 export default class CovidMap {
   constructor(onMapCountryClicked) {
@@ -16,7 +15,7 @@ export default class CovidMap {
 
   createMap = () => {
     const mapContainer = document.querySelector('.map-container');
-    mapContainer.appendChild(this.createFullScreenIcon(mapContainer))
+    mapContainer.appendChild(this.createFullScreenIcon(mapContainer));
     const mapDiv = document.createElement('div');
     mapDiv.id = 'covidMap';
     mapContainer.append(mapDiv);
@@ -29,24 +28,25 @@ export default class CovidMap {
       maxBoundsViscosity: 1.0,
       maxBounds: bounds,
     };
-    // eslint-disable-next-line new-cap
     const covidMap = new L.map('covidMap', mapOptions);
-    const layer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png');
+    const layer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=064157cb-ed9d-4660-8144-1770979f20ef');
     covidMap.addLayer(layer);
     return covidMap;
   }
-  createFullScreenIcon(parent) {
+
+  createFullScreenIcon = (parent) => {
     const fullScreen = document.createElement('img');
-    fullScreen.setAttribute('src','./assets/List/img/full-screen.svg' );
-    fullScreen.setAttribute('alt','fullscreen' );
-    fullScreen.setAttribute('width','24' );
-    fullScreen.setAttribute('height','24' );
+    fullScreen.setAttribute('src', './assets/List/img/full-screen.svg');
+    fullScreen.setAttribute('alt', 'fullscreen');
+    fullScreen.setAttribute('width', '24');
+    fullScreen.setAttribute('height', '24');
     fullScreen.classList.add('full-screen-map');
-    fullScreen.addEventListener('click', ()=>{
-      parent.classList.toggle('popup-map')
-    })
+    fullScreen.addEventListener('click', () => {
+      parent.classList.toggle('popup-map');
+    });
     return fullScreen;
   }
+
   update = async (isAbsoluteValues, isLatestDay, currentCountry) => {
     if (this.covidMap.hasLayer(this.layer)) {
       this.covidMap.removeLayer(this.layer);
@@ -62,12 +62,9 @@ export default class CovidMap {
     }
     const tableData = await this.tableService.get(isAbsoluteValues, isLatestDay, currentCountry);
     const circleArray = [];
-    // eslint-disable-next-line new-cap
     this.layer = new L.layerGroup(circleArray);
     this.layer.addTo(this.covidMap);
     for (let i = 0; i < tableData.length; i += 1) {
-
-      // eslint-disable-next-line no-await-in-loop
       const covidMapData = await this.covidMapService.getCovidMapData(tableData[i]);
       if (covidMapData) {
         const circle = this.createCircle(covidMapData);
