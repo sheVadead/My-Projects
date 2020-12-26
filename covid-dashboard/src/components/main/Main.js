@@ -56,9 +56,7 @@ export default class Main {
     const title = document.createElement('div');
     const titleText = document.createElement('p');
     titleText.textContent = 'Covid-19 Dashboard for RSS-2020Q3';
-    title.appendChild(this.createGitLink('https://github.com/helenakrasnova', '@helenakrasnova'));
     title.appendChild(titleText);
-    title.appendChild(this.createGitLink('https://github.com/sheVadead', '@sheVadead'));
     document.body.prepend(title);
     title.className = 'title';
     const containerColumn = document.createElement('div');
@@ -66,17 +64,15 @@ export default class Main {
     container.append(containerColumn);
     containerColumn.className = 'container-column';
     const mapContainer = document.createElement('div');
-    mapContainer.addEventListener('click', (e)=>{
-     const circle =  e.target.closest('.leaflet-interactive');
-     if(circle) {
-       const country = document.querySelector('.country').classList[1];
-      this.chart.updateChart(country)
-       const popupClose = document.querySelector('.leaflet-popup-close-button');
-       popupClose.addEventListener('click', this.dischargeData);
-     } else {
-       return;
-     }
-    })
+    mapContainer.addEventListener('click', (e) => {
+      const circle = e.target.closest('.leaflet-interactive');
+      if (circle) {
+        const country = document.querySelector('.country').classList[1];
+        this.chart.updateChart(country);
+        const popupClose = document.querySelector('.leaflet-popup-close-button');
+        popupClose.addEventListener('click', this.dischargeData);
+      }
+    });
     container.append(mapContainer);
     mapContainer.className = 'map-container';
     const tableContainer = document.createElement('div');
@@ -92,6 +88,7 @@ export default class Main {
     chartContainer.className = 'chart-main-container';
     const titleMain = document.querySelector('.title');
     titleMain.addEventListener('click', this.dischargeData);
+    document.body.appendChild(this.createFooter());
   }
 
   render = async () => {
@@ -113,6 +110,26 @@ export default class Main {
       )]);
   }
 
+  createFooter = () => {
+    const footer = document.createElement('footer');
+    const rsLogo = document.createElement('img');
+    const rsLink = document.createElement('a');
+    rsLink.classList.add('rs-link');
+    rsLink.setAttribute('href', 'https://rs.school/');
+    rsLink.setAttribute('target', '_blank');
+    rsLogo.classList.add('rs-logo');
+    rsLogo.setAttribute('src', './assets/List/img/rs-logo.svg');
+    rsLogo.setAttribute('alt', 'rs-logo');
+    rsLogo.setAttribute('width', '100');
+    rsLogo.setAttribute('height', '37');
+    rsLink.appendChild(rsLogo);
+    footer.classList.add('footer');
+    footer.appendChild(this.createGitLink('https://github.com/helenakrasnova', '@helenakrasnova'));
+    footer.appendChild(rsLink);
+    footer.appendChild(this.createGitLink('https://github.com/sheVadead', '@sheVadead'));
+    return footer;
+  }
+
   dischargeData = async () => {
     const chartCont = document.querySelector('.chart-main-container');
     this.state.isAbsoluteValues = true;
@@ -121,7 +138,6 @@ export default class Main {
     chartCont.innerHTML = '';
     await this.chart.initChart();
     await this.render();
-
   }
 
   onMapCountryClicked = async (countryName) => {

@@ -7,6 +7,7 @@ export default class ChartService {
     this.singleCounty = [];
     this.singleCountryDayData = [];
     this.baseUrl = 'https://disease.sh/v3/covid-19/historical/all?lastdays=all';
+    this.populationCoefficient = 100000;
   }
 
   async getGlobalCases() {
@@ -32,8 +33,15 @@ export default class ChartService {
     this.newCases.push(Object.fromEntries(newRec));
   }
 
-  async getSingleCountryData(req) {
+  async getSingleCountryData(req, country) {
     const result = await this.sendRequest(req);
+    const request = await fetch('https://restcountries.eu/rest/v2/all');
+    const total = await request.json();
+    const populationAll = total.map((item) => {
+      const arr = [item.alpha2Code, item.population];
+      return arr;
+    });
+    const chosenCountryPopulation = populationAll.find((item) => item.alpha2Code === country)[1];
     const countryArr = [];
     countryArr.push(Object.fromEntries(result.filter((item) => item.Province === '').map((item) => {
       const dayArr = [item.Date.slice(0, -10), item.Confirmed];
@@ -45,6 +53,19 @@ export default class ChartService {
     })));
     countryArr.push(Object.fromEntries(result.filter((item) => item.Province === '').map((item) => {
       const dayArr = [item.Date.slice(0, -10), item.Recovered];
+      return dayArr;
+    })));
+
+    countryArr.push(Object.fromEntries(result.filter((item) => item.Province === '').map((item) => {
+      const dayArr = [item.Date.slice(0, -10), (item.Confirmed * this.populationCoefficient) / chosenCountryPopulation];
+      return dayArr;
+    })));
+    countryArr.push(Object.fromEntries(result.filter((item) => item.Province === '').map((item) => {
+      const dayArr = [item.Date.slice(0, -10), (item.Deaths * this.populationCoefficient) / chosenCountryPopulation];
+      return dayArr;
+    })));
+    countryArr.push(Object.fromEntries(result.filter((item) => item.Province === '').map((item) => {
+      const dayArr = [item.Date.slice(0, -10), (item.Recovered * this.populationCoefficient) / chosenCountryPopulation];
       return dayArr;
     })));
     return countryArr;
