@@ -70,7 +70,9 @@ export default class Main {
         const country = document.querySelector('.country').classList[1];
         this.chart.updateChart(country);
         const popupClose = document.querySelector('.leaflet-popup-close-button');
-        popupClose.addEventListener('click', this.dischargeData);
+        popupClose.addEventListener('click', () => {
+          this.dischargeData();
+        });
       }
     });
     container.append(mapContainer);
