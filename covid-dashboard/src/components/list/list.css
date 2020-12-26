@@ -149,7 +149,10 @@
   color: #bdbdae;
   border-bottom: 1px solid #363636;
 }
-
+.main-list>li:hover {
+  cursor: pointer;
+  background: #79796f;
+}
 .main-list>li>p {
   display: flex;
   justify-content: space-around;
@@ -190,13 +193,14 @@
 
 .popup{
   position: absolute !important;
-  width: 100vw !important;
-  height: 100vh;
+  top: 0;
+  width: 99vw !important;
+  height: 100vh !important;
   z-index: 100001;
   overflow-x: hidden;
 }
 .popup > * {
-  width: 100vw !important;
+  width: 99vw !important;
   height: 100vh;
 
 }
@@ -207,4 +211,9 @@
   z-index: 100000;
   width: 24px !important;
   height: 24px !important;
+}
+.full-screen-list:hover {
+  cursor: pointer;
+  transition: 0.3s;
+  transform: scale(1.1);
 }

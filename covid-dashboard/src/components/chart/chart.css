@@ -113,7 +113,7 @@
  @media screen and (min-width:900px) and (max-width:1349px) {
    .chart-container {
      height: 35rem;
-     margin-top: 5rem;
+     margin-top: 0;
    }
  }
 
@@ -127,9 +127,12 @@
   top: 0;
   right: 0;
   height: 100%;
+  width: 100%;
   z-index: 100001
 }
-
+.popup-chart .chart-container {
+  height: 100%;
+}
 .full-screen-chart {
   position: absolute;
   top: 0;
@@ -137,4 +140,9 @@
   z-index: 100000;
   width: 24px !important;
   height: 24px !important;
+}
+.full-screen-chart:hover {
+  cursor: pointer;
+  transition: 0.3s;
+  transform: scale(1.1);
 }

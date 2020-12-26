@@ -180,6 +180,7 @@ export default class Chart {
     fullScreen.setAttribute('height', '24');
     fullScreen.classList.add('full-screen-chart');
     fullScreen.addEventListener('click', () => {
+      document.body.classList.toggle('body-scroll')
       parent.classList.toggle('popup-chart');
     });
     return fullScreen;

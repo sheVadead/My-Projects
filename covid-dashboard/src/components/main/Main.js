@@ -35,22 +35,34 @@ export default class Main {
         this.state.isLatestDay,
         this.state.currentCountry,
       ), await this.chart.initChart()]);
-    const containerCol = document.querySelector('.container-column');
-    containerCol.style.background = '';
+
   }
 
   setState = (newState) => {
     this.state = { ...this.state, ...newState };
   }
-
+  createGitLink = (url, name) => {
+    const gitLink = document.createElement('a');
+    gitLink.setAttribute('href', url);
+    gitLink.setAttribute('target', '_blank')
+    gitLink.textContent = name;
+    console.log(gitLink)
+    return gitLink;
+  }
   initRender = () => {
     const container = document.createElement('div');
     document.body.prepend(container);
     container.className = 'container';
     const title = document.createElement('div');
+    const titleText = document.createElement('p')
+    titleText.textContent = `Covid-19 Dashboard for RSS-2020Q3`;
+    title.appendChild(this.createGitLink('https://github.com/helenakrasnova','@helenakrasnova'));
+    title.appendChild(titleText)
+    title.appendChild(this.createGitLink('https://github.com/sheVadead','@sheVadead'))
     document.body.prepend(title);
     title.className = 'title';
-    title.textContent = 'Covid-19 Dashboard for RSS-2020Q3';
+
+
     const containerColumn = document.createElement('div');
     containerColumn.style.background = "url('./assets/List/img/loader.gif') no-repeat center";
     container.append(containerColumn);
@@ -69,7 +81,6 @@ export default class Main {
     const chartContainer = document.createElement('div');
     containerColumn.append(chartContainer);
     chartContainer.className = 'chart-main-container';
-
     const titleMain = document.querySelector('.title');
     titleMain.addEventListener('click', this.dischargeData);
   }
