@@ -113,13 +113,13 @@ th {
 @media screen and (min-width:320px) and (max-width:899px) {
   .covid-table {
     font-size: 10px;
-    width: 290px;
+    width: 100%;
   }
   .table-box{
-    width: 300px;
+    width: 100%;
   }
   .table-component{
-    width: 300px;
+    width: 100%;
   }
 }
 .popup-table{
