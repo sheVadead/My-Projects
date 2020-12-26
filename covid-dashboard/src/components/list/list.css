@@ -192,7 +192,8 @@
   position: absolute !important;
   width: 100vw !important;
   height: 100vh;
-  z-index: 100001
+  z-index: 100001;
+  overflow-x: hidden;
 }
 .popup > * {
   width: 100vw !important;
