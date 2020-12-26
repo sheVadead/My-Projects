@@ -89,8 +89,8 @@ export default class CovidMap {
       const circle = L.circle(circleCenter, 50000, circleOptions)
         .bindPopup(`${covidMapData.country} confirmed - ${covidMapData.confirmed}`).openPopup();
       circle.country = covidMapData.country;
-      circle.on('mouseover', this.circleClicked);
-      circle.on('mouseover', ()=>{
+      circle.on('click', this.circleClicked);
+      circle.on('mouseover', () => {
         circle.openPopup();
       });
       return circle;
