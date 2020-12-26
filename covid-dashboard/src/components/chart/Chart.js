@@ -193,6 +193,8 @@ export default class Chart {
   }
 
   async initChart() {
+    this.chosenCountry = undefined;
+    this.isCountryChosen = false;
     this.chartService.getNewCases();
     await this.chartService.getGlobalCases();
     const container = document.querySelector('.container');
