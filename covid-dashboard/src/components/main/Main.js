@@ -133,6 +133,7 @@ export default class Main {
   }
 
   dischargeData = async () => {
+    console.log('qweqwe')
     const chartCont = document.querySelector('.chart-main-container');
     this.state.isAbsoluteValues = true;
     this.state.isLatestDay = false;
