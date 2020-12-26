@@ -24,12 +24,14 @@
 
 .popup-map{
   position: absolute !important;
-  width: 100vw !important;
+  top: 0;
+  width: 99vw !important;
   height: 100vh;
-  z-index: 100001
+  z-index: 100001;
+  margin:0;
 }
 .popup-map > * {
-  width: 100vw !important;
+  width: 99vw !important;
   height: 100vh !important;
 
 }
@@ -40,4 +42,9 @@
   z-index: 100000;
   width: 24px !important;
   height: 24px !important;
+}
+.full-screen-map:hover {
+  cursor: pointer;
+  transition: 0.3s;
+  transform: scale(1.1);
 }

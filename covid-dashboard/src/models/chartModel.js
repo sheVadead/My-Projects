@@ -4,11 +4,12 @@ export default class ChartModel {
   }
 
   createChart() {
+    const header = document.querySelector('.chart-header-text');
     const ctx = document.querySelector('#chart');
     const color = ['rgb(255, 218, 0)', 'rgb(21, 156, 21)', 'rgb(255, 0, 0)'];
     const dataSets = [
       {
-        label: 'Total',
+        label: `${header.textContent}`,
         data: Object.values(this.chartData),
         backgroundColor: color[0],
         borderColor: color[0],

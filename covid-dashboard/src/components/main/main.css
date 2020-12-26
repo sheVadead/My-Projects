@@ -18,13 +18,28 @@ body {
   height: 4.4rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background: #222;
   border: 1px solid #363636;
   align-self: center;
   font-family: sans-serif;
   font-size: 2.5rem;
   margin: 1rem 0rem;
+}
+.title > p:hover {
+  cursor: pointer;
+  transition: 0.4s;
+  transform: scale(1.02);
+}
+.title > a {
+  font: normal normal 1.2rem/130% Arial, sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+.title > a:hover {
+  transition: 0.3s;
+  transform: scale(1.2);
 }
 
 .container {
@@ -71,25 +86,47 @@ body {
     order: 3;
     width: 94%;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     flex-direction: row;
-    height: 38rem;
     margin-bottom: 3rem;
+    margin-top: 2rem;
+  }
+  #covidMap {
+    height: 100% !important;
   }
   .list-main-container {
-    order: 2;
-    width: 22%;
-    height: 55rem;
+    order: 1;
+    width: 35%;
+    height: 33%;
+    margin-left: 1rem;
+    background-position: center !important;
+  }
+  .list-container {
+    height: 100%;
+    width: 100%;
   }
   .map-container {
-    order: 1;
+    order:2;
+    max-width: 500px;
+    height: 33%;
+    margin-right: 5rem;
+  }
+  .table-container {
+    width: 38% !important;
+  }
+  .table-component {
+    width: 100% !important;
+  }
+  .table-box {
+    width: 100% !important;
+    height: 34rem !important;
+  }
+  .covid-table {
+    width: 100% !important;
   }
   .chart-main-container {
     width: 50%;
-  }
-  .table-box {
-    width: 31rem;
   }
 }
 
@@ -99,6 +136,12 @@ body {
     justify-content: space-evenly;
     align-items: center;
     height: 100%;
+  }
+  .title > p {
+    font-size: 1.4rem;
+  }
+  .title > a {
+    font-size: 1rem;
   }
   .container-column {
     order: 3;
@@ -120,7 +163,7 @@ body {
     width: 100%;
   }
   .list-main-container {
-    order: 2;
+    order: 1;
     height: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -133,7 +176,7 @@ body {
     width: 100%;
   }
   .map-container {
-    order: 1;
+    order: 2;
     width: 95%;
     height: 26rem;
   }

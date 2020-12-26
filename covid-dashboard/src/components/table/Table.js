@@ -27,7 +27,9 @@ export default class Table {
     const checkbox = document.querySelector('#table-select');
     const secondCheckbox = document.querySelector('#table-selectBy');
     const containerCol = document.querySelector('.container-column');
-    containerCol.style.background = '';
+    const containerTab = document.querySelector('.table-container');
+    containerTab.style.background = 'none';
+    containerCol.style.background = 'none';
     checkbox.checked = this.state.isLatestDay;
     secondCheckbox.checked = this.state.isAbsoluteValues;
   }
