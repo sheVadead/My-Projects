@@ -32,7 +32,6 @@ export default class Table {
     containerCol.style.background = 'none';
     checkbox.checked = this.state.isLatestDay;
     secondCheckbox.checked = this.state.isAbsoluteValues;
-
   }
 
   createHeadCell = (text, trHeading) => {

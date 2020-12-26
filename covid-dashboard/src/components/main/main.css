@@ -137,6 +137,12 @@ body {
     align-items: center;
     height: 100%;
   }
+  .title > p {
+    font-size: 1.4rem;
+  }
+  .title > a {
+    font-size: 1rem;
+  }
   .container-column {
     order: 3;
     width: 98%;
