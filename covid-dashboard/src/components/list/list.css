@@ -25,6 +25,11 @@
   height: 2rem;
   max-width: 5rem;
 }
+.population-switch:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.3s;
+}
 .all-cases {
   display: flex;
   flex-direction: column;

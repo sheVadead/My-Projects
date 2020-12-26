@@ -135,7 +135,7 @@ th {
   left: 0;
   top: 0;
   height: 100vh;
-  width: 99vw;
+  width: 99vw !important;
   z-index: 100001
 }
 .popup-table > *,
