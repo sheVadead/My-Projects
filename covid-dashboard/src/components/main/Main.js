@@ -61,12 +61,22 @@ export default class Main {
     title.appendChild(this.createGitLink('https://github.com/sheVadead', '@sheVadead'));
     document.body.prepend(title);
     title.className = 'title';
-
     const containerColumn = document.createElement('div');
     containerColumn.style.background = "url('./assets/List/img/loader.gif') no-repeat center";
     container.append(containerColumn);
     containerColumn.className = 'container-column';
     const mapContainer = document.createElement('div');
+    mapContainer.addEventListener('click', (e)=>{
+     const circle =  e.target.closest('.leaflet-interactive');
+     if(circle) {
+       const country = document.querySelector('.country').classList[1];
+      this.chart.updateChart(country)
+       const popupClose = document.querySelector('.leaflet-popup-close-button');
+       popupClose.addEventListener('click', this.dischargeData);
+     } else {
+       return;
+     }
+    })
     container.append(mapContainer);
     mapContainer.className = 'map-container';
     const tableContainer = document.createElement('div');
@@ -108,9 +118,10 @@ export default class Main {
     this.state.isAbsoluteValues = true;
     this.state.isLatestDay = false;
     this.state.currentCountry = null;
-    await this.render();
     chartCont.innerHTML = '';
     await this.chart.initChart();
+    await this.render();
+
   }
 
   onMapCountryClicked = async (countryName) => {

@@ -32,7 +32,7 @@ body {
   transform: scale(1.02);
 }
 .title > a {
-  font: normal normal 1.2rem/130% Arial, sans-serif;
+  font: normal normal 1.4rem/130% Arial, sans-serif;
   text-decoration: none;
   color: white;
 }
