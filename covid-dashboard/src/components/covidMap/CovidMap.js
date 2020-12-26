@@ -74,9 +74,7 @@ export default class CovidMap {
           circle.addTo(this.layer);
         }
       }
-
     }
-
   }
 
   createCircle = (covidMapData) => {

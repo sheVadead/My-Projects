@@ -16,7 +16,7 @@ export default class Chart {
   }
 
   async updateChart(mapCountry) {
-    if(mapCountry) {
+    if (mapCountry) {
       this.isCountryChosen = true;
       this.chosenCountry = mapCountry;
     }
@@ -45,7 +45,7 @@ export default class Chart {
       this.chart = new ChartModel(this.data[this.type]);
       this.chart.createChart();
     } else if (!button.checked && this.isCountryChosen) {
-      this.chartTypes = ['cases', 'deaths', 'recovered'];
+      this.chartTypes = ['cases', 'deaths', 'recovered', 'rel. conf.', 'rel. deaths', 'rel.recov'];
       await this.singleDayData();
       this.data = await this.chartService.getSingleCountryData(`${this.covid19API}${this.chosenCountry}?from=2020-01-01T00:00:00Z&to=${this.getToday()}`);
       listHeaderText.textContent = this.chartTypes[this.type];
@@ -81,6 +81,12 @@ export default class Chart {
     button.setAttribute('id', 'chart-selectBy');
     labelforButton.setAttribute('for', 'chart-selectBy');
     button.addEventListener('click', () => {
+      this.type = 0;
+      if (button.checked) {
+        labelforButton.innerText = 'DAY';
+      } else {
+        labelforButton.innerText = '';
+      }
       this.switchHandler();
     });
     switchWrapper.classList.add('switch-wrapper');
@@ -117,7 +123,7 @@ export default class Chart {
   }
 
   async singleDayData() {
-    const data = await this.chartService.getSingleCountryDayData(`${this.diseaseAPI}${this.chosenCountry}?lastdays=all`);
+    const data = await this.chartService.getSingleCountryDayData(`${this.diseaseAPI}${this.chosenCountry}?lastdays=all`, this.chosenCountry);
     return data;
   }
 
@@ -125,9 +131,15 @@ export default class Chart {
     const switchButton = document.querySelector('#chart-selectBy');
     const listHeaderText = document.querySelector('.chart-header-text');
     this.type -= 1;
-    if (this.type < 0) {
+
+    if (this.type < 0 && this.isCountryChosen === false) {
       this.type = 2;
+    } else if (this.type < 0 && this.isCountryChosen !== false && switchButton.checked) {
+      this.type = 2;
+    } else if (this.type < 0 && this.isCountryChosen !== false && !switchButton.checked) {
+      this.type = 5;
     }
+
     listHeaderText.textContent = this.chartTypes[this.type];
     this.addCanvas();
     if (switchButton.checked || this.chosenCountry !== undefined) {
@@ -142,7 +154,12 @@ export default class Chart {
     const listHeaderText = document.querySelector('.chart-header-text');
     const switchButton = document.querySelector('#chart-selectBy');
     this.type += 1;
-    if (this.type > 2) {
+
+    if (this.type > 2 && this.isCountryChosen === false) {
+      this.type = 0;
+    } else if (this.type > 2 && this.isCountryChosen !== false && switchButton.checked) {
+      this.type = 0;
+    } else if (this.type > 5 && this.isCountryChosen !== false && !switchButton.checked) {
       this.type = 0;
     }
     listHeaderText.textContent = this.chartTypes[this.type];
