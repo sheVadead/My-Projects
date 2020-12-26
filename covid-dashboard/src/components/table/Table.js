@@ -84,6 +84,8 @@ export default class Table {
     fullScreen.setAttribute('height', '15');
     fullScreen.classList.add('full-screen-table');
     fullScreen.addEventListener('click', () => {
+      window.scroll(0, -100);
+      document.body.classList.toggle('body-scroll');
       parent.classList.toggle('popup-table');
     });
     return fullScreen;

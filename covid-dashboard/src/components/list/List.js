@@ -276,6 +276,8 @@ export default class List {
     fullScreen.setAttribute('height', '24');
     fullScreen.classList.add('full-screen-list');
     fullScreen.addEventListener('click', () => {
+      window.scroll(0, -100);
+      document.body.classList.toggle('body-scroll');
       parent.classList.toggle('popup');
     });
     return fullScreen;

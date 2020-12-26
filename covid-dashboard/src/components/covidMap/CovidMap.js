@@ -42,6 +42,8 @@ export default class CovidMap {
     fullScreen.setAttribute('height', '24');
     fullScreen.classList.add('full-screen-map');
     fullScreen.addEventListener('click', () => {
+      window.scroll(0, -100);
+      document.body.classList.toggle('body-scroll');
       parent.classList.toggle('popup-map');
     });
     return fullScreen;
