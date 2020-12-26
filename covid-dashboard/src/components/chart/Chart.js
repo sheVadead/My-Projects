@@ -15,10 +15,15 @@ export default class Chart {
     this.covid19API = 'https://api.covid19api.com/country/';
   }
 
-  async updateChart() {
+  async updateChart(mapCountry) {
+    if(mapCountry) {
+      this.isCountryChosen = true;
+      this.chosenCountry = mapCountry;
+    }
     if (!this.chosenCountry) {
       return;
     }
+
     this.data = await this.chartService.getSingleCountryData(`${this.covid19API}${this.chosenCountry}?from=2020-01-01T00:00:00Z&to=${this.getToday()}`);
     await this.switchHandler();
   }
