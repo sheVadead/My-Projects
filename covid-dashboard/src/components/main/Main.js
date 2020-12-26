@@ -66,15 +66,14 @@ export default class Main {
     const mapContainer = document.createElement('div');
     mapContainer.addEventListener('click', (e) => {
       const circle = e.target.closest('.leaflet-interactive');
-      if (!circle) return;
-      const country = document.querySelector('.country').classList[1];
-      this.chart.updateChart(country);
-      const close = document.querySelector('.leaflet-popup-close-button');
-      console.log(close)
-      close.addEventListener('click', () => {
-        this.dischargeData();
+      if (circle) {
+        const country = document.querySelector('.country').classList[1];
+        this.chart.updateChart(country);
+        const popupClose = document.querySelector('.leaflet-popup-close-button');
+        popupClose.addEventListener('click', () => {
+          this.dischargeData();
+        });
       }
-    );
     });
     container.append(mapContainer);
     mapContainer.className = 'map-container';
