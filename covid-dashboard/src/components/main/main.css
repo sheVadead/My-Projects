@@ -65,7 +65,10 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  height: 100rem;
+  height: 72rem;
+}
+.map-container {
+  height: 82%;
 }
 
 .container-column {
@@ -74,7 +77,7 @@ body {
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 60%;
+  height: 82%;
   justify-content: space-between;
 }
 
@@ -95,6 +98,7 @@ body {
 
 @media screen and (min-width:900px) and (max-width:1349px) {
   .container {
+    height: 61rem;
     justify-content: space-evenly;
   }
   .container-column {
