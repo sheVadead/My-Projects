@@ -101,6 +101,9 @@ body {
     height: 61rem;
     justify-content: space-evenly;
   }
+  .footer {
+    height: 4rem;
+  }
   .container-column {
     order: 3;
     width: 94%;
@@ -110,6 +113,7 @@ body {
     flex-direction: row;
     margin-bottom: 3rem;
     margin-top: 2rem;
+    height: 61%;
   }
   #covidMap {
     height: 100% !important;
