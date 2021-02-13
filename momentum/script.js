@@ -58,38 +58,7 @@ let momentumObject = {
             day: 'numeric'
         });
     },
-    // changeBackground() {
 
-    //     if (6 <= hours && hours <= 12) {
-    //         momentumObject.classes.timePeriod = 'morning'
-    //         momentumObject.classes.greeting.textContent = 'Good morning,   ';
-    //         document.body.style.backgroundImage = 'url("assets/images/02.jpg")';
-    //         momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-
-    //     } else if (12 < hours && hours <= 18) {
-    //         momentumObject.classes.timePeriod = 'day'
-    //         momentumObject.classes.greeting.innerText = 'Good afternoon, ';
-    //         document.body.style.backgroundImage = 'url("assets/images/afternoon.jpg")';
-
-
-    //         momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-    //     } else if (18 < hours) {
-    //         momentumObject.classes.timePeriod = 'evening'
-    //         momentumObject.classes.greeting.textContent = 'Good evening, ';
-    //         momentumObject.classes.searchBox.style.backgroundColor = ' #84787863'
-
-    //     } else if (hours < 6 && 0 <= hours) {
-    //         momentumObject.classes.timePeriod = 'Night'
-    //         momentumObject.classes.greeting.textContent = 'Good night, '
-    //         document.body.style.backgroundImage = 'url("assets/images/night.jpg")';
-    //         momentumObject.classes.searchBox.style.backgroundColor = 'grey'
-
-    //     }
-
-    // },
-    getGeolocation() {
-
-    },
     getWeatherData(city) {
         let promise = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=ru&appid=0e4043b05d572b6ae940f8ae8e46eac8&units=metric`);
         promise.then(response => response.json()).then(weatherData => {
